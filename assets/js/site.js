@@ -23,7 +23,7 @@
     var play = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var v = entry.target;
-        if (entry.isIntersecting && !reduced.matches) {
+        if (entry.isIntersecting && !reduced.matches && !v.hasAttribute("data-user-paused")) {
           if (v.preload === "none") v.preload = "auto";
           var p = v.play();
           if (p && p.catch) p.catch(function () {});
@@ -32,8 +32,32 @@
         }
       });
     }, { threshold: 0.2 });
-    document.querySelectorAll("video[data-autoplay]").forEach(function (v) { play.observe(v); });
+    document.querySelectorAll("video[data-autoplay]").forEach(function (v) {
+      play.observe(v);
+      // Every ambient loop gets a visible pause control (WCAG 2.2.2)
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "video-toggle";
+      btn.textContent = reduced.matches ? "Play" : "Pause";
+      btn.setAttribute("aria-label", (reduced.matches ? "Play" : "Pause") + " video: " + (v.getAttribute("aria-label") || "loop"));
+      btn.addEventListener("click", function () {
+        var paused = v.paused;
+        if (paused) { v.removeAttribute("data-user-paused"); v.play().catch(function () {}); }
+        else { v.setAttribute("data-user-paused", ""); v.pause(); }
+        btn.textContent = paused ? "Pause" : "Play";
+        btn.setAttribute("aria-label", btn.textContent + " video: " + (v.getAttribute("aria-label") || "loop"));
+      });
+      v.insertAdjacentElement("afterend", btn);
+    });
   }
+
+  /* ---- Horizontally scrollable regions are reachable by keyboard ---- */
+  document.querySelectorAll(".lanes, .eq, .ifig__foot, .sysmap, .sequence").forEach(function (el) {
+    if (el.scrollWidth > el.clientWidth + 2 && !el.hasAttribute("tabindex")) {
+      el.setAttribute("tabindex", "0");
+      if (!el.hasAttribute("aria-label") && !el.hasAttribute("role")) { el.setAttribute("role", "region"); el.setAttribute("aria-label", "Scrollable figure"); }
+    }
+  });
 
   /* ---- Mobile navigation ---- */
   var toggle = document.querySelector(".nav__toggle");
@@ -43,6 +67,11 @@
       var open = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.textContent = open ? "Close" : "Menu";
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); toggle.textContent = "Menu"; toggle.focus();
+      }
     });
     nav.addEventListener("click", function (e) {
       if (e.target.tagName === "A") { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); toggle.textContent = "Menu"; }

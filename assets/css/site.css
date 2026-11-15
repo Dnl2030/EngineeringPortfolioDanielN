@@ -1250,3 +1250,78 @@ html.on-dark, html.on-dark body { background: var(--ink); color: var(--paper); }
 .hero__portrait .hero__drawing-cap { align-items: center; }
 .hero__lead-first { color: var(--ink); font-weight: 500; }
 @media (max-width: 999px) { .hero__portrait { max-width: 420px; } }
+
+/* ==========================================================================
+   QA refinements
+   ========================================================================== */
+.title-block { display: block; }
+.title-block .tb { display: grid; grid-template-columns: max-content 1fr; margin: 0; }
+.sym { text-transform: none; letter-spacing: 0; }
+@media (max-width: 699px) { .hide-sm { display: none; } }
+
+/* FSAE implementation grid never wider than the page */
+.impl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.impl-grid .fig { min-width: 0; }
+@media (min-width: 900px) { .impl-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* Plot lettering stays legible when figures shrink on phones */
+@media (max-width: 600px) {
+  .ifig .plot-text { font-size: 17px; }
+  [data-fig="spdc"] .plot-text, [data-fig="motion-laws"] .plot-text { font-size: 15px; }
+  .converge__diagram { display: none; }
+  .ifig__side .readout .big { font-size: 28px; }
+}
+
+/* Reaction lanes: fit the column on tablets and up; scroll with a cue on phones */
+.scroll-cue { display: none; margin-bottom: 8px; color: var(--graphite-lt); }
+@media (min-width: 700px) { .lanes svg { min-width: 0; } }
+@media (max-width: 699px) { .scroll-cue { display: block; } }
+
+/* Equations on phones */
+@media (max-width: 600px) {
+  .eq { grid-template-columns: 1fr; gap: 6px; font-size: 16px; }
+  .eq__no { justify-self: end; }
+}
+
+/* Phone heroes: keep labels off the busy part of the photo */
+@media (max-width: 999px) {
+  .p-hero-fsae__content { margin-top: -28px; }
+  .kart-hero__content, .about-hero__content { margin-top: -20px; }
+  .feature-fsae-split__content { margin-top: -24px; }
+}
+
+/* Footer email: break only at the @ on phones */
+.footer__big a { overflow-wrap: normal; }
+@media (max-width: 600px) { .footer__big { font-size: 24px; } }
+
+/* Motion-law toggles: inactive state by color, not opacity (contrast) */
+.law-btn[aria-pressed="false"] { opacity: 1; color: var(--graphite); border-style: dashed; }
+
+/* Spec strip: 2 × 2 on tablets */
+@media (min-width: 600px) and (max-width: 1099px) {
+  .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spec:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .spec:nth-child(n + 3) { border-top: var(--lw-thin) solid var(--rule); }
+}
+
+/* Workshop: three steps side by side from small tablets up */
+@media (min-width: 640px) { .workshop__steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Hero side: compact column on desktop, side-by-side on tablets */
+@media (min-width: 1000px) { .hero__side { max-width: 420px; width: 100%; margin-left: auto; } }
+@media (min-width: 640px) and (max-width: 999px) {
+  .hero__side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--gutter); align-items: start; }
+  .hero__portrait { max-width: none; }
+}
+.hero { padding-top: clamp(32px, 4.5vw, 72px); }
+
+/* Pause control for ambient video loops */
+.fig__media, .h2-hero__media { position: relative; }
+.video-toggle {
+  position: absolute; right: 10px; bottom: 10px; z-index: 3;
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--paper); background: rgba(17, 18, 20, 0.72); border: 1px solid rgba(245, 243, 238, 0.35);
+  padding: 6px 9px; cursor: pointer;
+}
+.video-toggle:hover { background: var(--ink); }
+.bleed__media .video-toggle { bottom: 18px; }

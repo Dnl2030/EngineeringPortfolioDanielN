@@ -13,7 +13,7 @@
 <meta property="og:title" content="Nonlinear optics in lithium niobate and 2D materials — Daniel Nelson">
 <meta property="og:description" content="Undergraduate research at the UC Irvine Materials Research Institute: SPDC phase-matching models for lithium niobate, walk-off and internal path deflection maps, and lab work on SHG and interferometry.">
 <meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/quantum-optics-research.html">
-<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/quantum-optics-research/03-spdc-phase-matching-interactive-heatmap.webp">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/og/quantum-optics-research--03-spdc-phase-matching-interactive-heatmap.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
@@ -44,14 +44,13 @@
         <h1 id="title">Nonlinear optics in lithium niobate and 2D materials</h1>
         <p class="lead p-head__dek">Undergraduate research on two-dimensional van der Waals materials and the nonlinear optical processes used to create and probe entangled photons. My part was mathematical modeling, literature review and lab support for the doctoral students.</p>
       </div>
-      <dl class="title-block p-head__tb">
-        <div class="title-block__head"><span>UC Irvine Materials Research Institute</span><span>S-03</span></div>
+      <div class="title-block p-head__tb"><div class="title-block__head"><span>UC Irvine Materials Research Institute</span><span>S-03</span></div><dl class="tb">
         <dt>Role</dt><dd>Undergraduate materials researcher</dd>
         <dt>Since</dt><dd>November 2025 · ongoing</dd>
         <dt>Topics</dt><dd>TMDs · 2D van der Waals materials · SPDC · SHG · SFWM</dd>
         <dt>Tools</dt><dd>Python · Ansys Lumerical · Ansys Mechanical · interferometers · SHG setups</dd>
         <dt>Reading</dt><dd>~75 research papers reviewed</dd>
-      </dl>
+      </dl></div>
     </div>
   </header>
 
@@ -81,11 +80,15 @@
           <math display="block"><mfrac><mn>1</mn><msub><mi>λ</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>λ</mi><mi>s</mi></msub></mfrac><mo>+</mo><mfrac><mn>1</mn><msub><mi>λ</mi><mi>i</mi></msub></mfrac></math>
           <span class="eq__no">(1) energy</span>
         </div>
-        <div class="eq" role="group" aria-label="Equation 2, momentum conservation">
-          <math display="block"><mi>Δ</mi><mi>k</mi><mo>=</mo><msub><mi>k</mi><mi>p</mi></msub><mo>−</mo><msub><mi>k</mi><mi>s</mi></msub><mo>−</mo><msub><mi>k</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mspace width="1em"/><mo>⇔</mo><mspace width="1em"/><mfrac><msub><mi>n</mi><mi>p</mi></msub><msub><mi>λ</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>n</mi><mi>s</mi></msub><msub><mi>λ</mi><mi>s</mi></msub></mfrac><mo>+</mo><mfrac><msub><mi>n</mi><mi>i</mi></msub><msub><mi>λ</mi><mi>i</mi></msub></mfrac></math>
-          <span class="eq__no">(2) collinear phase matching</span>
+        <div class="eq" role="group" aria-label="Equation 2a, momentum conservation">
+          <math display="block"><mi>Δ</mi><mi>k</mi><mo>=</mo><msub><mi>k</mi><mi>p</mi></msub><mo>−</mo><msub><mi>k</mi><mi>s</mi></msub><mo>−</mo><msub><mi>k</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></math>
+          <span class="eq__no">(2a) momentum</span>
         </div>
-        <p>Normal dispersion makes (2) impossible with a single polarization. A birefringent crystal fixes this: polarize the pump as the extraordinary wave, and its index depends on the angle θ to the optic axis.</p>
+        <div class="eq" role="group" aria-label="Equation 2b, collinear phase matching">
+          <math display="block"><mfrac><msub><mi>n</mi><mi>p</mi></msub><msub><mi>λ</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>n</mi><mi>s</mi></msub><msub><mi>λ</mi><mi>s</mi></msub></mfrac><mo>+</mo><mfrac><msub><mi>n</mi><mi>i</mi></msub><msub><mi>λ</mi><mi>i</mi></msub></mfrac></math>
+          <span class="eq__no">(2b) collinear</span>
+        </div>
+        <p>Normal dispersion makes (2b) impossible with a single polarization. A birefringent crystal fixes this: polarize the pump as the extraordinary wave, and its index depends on the angle θ to the optic axis.</p>
         <div class="eq" role="group" aria-label="Equation 3, extraordinary index at angle theta">
           <math display="block"><mfrac><mn>1</mn><mrow><msup><msub><mi>n</mi><mi>e</mi></msub><mn>2</mn></msup><mo>(</mo><mi>θ</mi><mo>)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><msup><mi>cos</mi><mn>2</mn></msup><mi>θ</mi></mrow><msubsup><mi>n</mi><mi>o</mi><mn>2</mn></msubsup></mfrac><mo>+</mo><mfrac><mrow><msup><mi>sin</mi><mn>2</mn></msup><mi>θ</mi></mrow><msubsup><mi>n</mi><mi>e</mi><mn>2</mn></msubsup></mfrac></math>
           <span class="eq__no">(3) index ellipsoid</span>
@@ -102,11 +105,11 @@
   <div class="wrap report-plates">
     <figure class="fig fig--contain plate-wide">
       <div class="sheet-img"><img src="../assets/img/quantum-optics-research/01-beam-separation-heatmap.webp" srcset="../assets/img/quantum-optics-research/01-beam-separation-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/01-beam-separation-heatmap.webp 1155w" sizes="(min-width: 1000px) 60vw, 100vw" width="1155" height="841" alt="Heatmap of angular beam separation between ordinary and extraordinary waves versus wavelength from 0.4 to 1.4 micrometres and incident angle up to 90 degrees" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/01-beam-separation-heatmap.webp"></div>
-      <figcaption><span class="fig__no">Fig. 03.1</span>Angular separation between ordinary and extraordinary waves vs. wavelength and incident angle in LiNbO<sub>3</sub>. <span class="ev ev--modeled">Modeled</span></figcaption>
+      <figcaption><span class="fig__no">Fig. 03.1</span> Angular separation between ordinary and extraordinary waves vs. wavelength and incident angle in LiNbO<sub>3</sub>. <span class="ev ev--modeled">Modeled</span></figcaption>
     </figure>
     <div class="plate-pair">
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp" srcset="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3-sm.webp 960w, ../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp 1286w" sizes="(min-width: 1000px) 40vw, 100vw" width="1286" height="810" alt="Ray diagram of extraordinary rays refracting from air into a lithium niobate crystal and out again at 600 nm" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp"></div><figcaption><span class="fig__no">Fig. 03.2</span>Extraordinary rays through LiNbO<sub>3</sub> at 600&nbsp;nm. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/07-extraordinary-ray-3d-optic-axis.webp" width="869" height="797" alt="3D plot of extraordinary ray paths through the crystal with the optic axis rotated 57 degrees out of plane" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/07-extraordinary-ray-3d-optic-axis.webp"></div><figcaption><span class="fig__no">Fig. 03.3</span>The same rays in 3D, with the optic axis rotated 57° out of plane.</figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp" srcset="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3-sm.webp 960w, ../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp 1286w" sizes="(min-width: 1000px) 40vw, 100vw" width="1286" height="810" alt="Ray diagram of extraordinary rays refracting from air into a lithium niobate crystal and out again at 600 nm" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp"></div><figcaption><span class="fig__no">Fig. 03.2</span> Extraordinary rays through LiNbO<sub>3</sub> at 600&nbsp;nm. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/07-extraordinary-ray-3d-optic-axis.webp" width="869" height="797" alt="3D plot of extraordinary ray paths through the crystal with the optic axis rotated 57 degrees out of plane" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/07-extraordinary-ray-3d-optic-axis.webp"></div><figcaption><span class="fig__no">Fig. 03.3</span> The same rays in 3D, with the optic axis rotated 57° out of plane.</figcaption></figure>
     </div>
   </div>
 
@@ -117,7 +120,7 @@
         <h2 id="h3" class="h3"><span class="sec-no">3</span>Internal path deflection</h2>
         <p>As the incident angle and the angle from the optic axis change, the beam’s internal path deviates from the expected direction. Refraction and spatial walk-off combine. I mapped the full evolution of that deflection and used it to guide phase matching and experimental setup parameters.</p>
         <div class="eq" role="group" aria-label="Equation 4, walk-off angle">
-          <math display="block"><mi>tan</mi><mi>ρ</mi><mo>=</mo><mfrac><mrow><msup><msub><mi>n</mi><mi>e</mi></msub><mn>2</mn></msup><mo>(</mo><mi>θ</mi><mo>)</mo></mrow><mn>2</mn></mfrac><mrow><mo>(</mo><mfrac><mn>1</mn><msubsup><mi>n</mi><mi>e</mi><mn>2</mn></msubsup></mfrac><mo>−</mo><mfrac><mn>1</mn><msubsup><mi>n</mi><mi>o</mi><mn>2</mn></msubsup></mfrac><mo>)</mo></mrow><mi>sin</mi><mn>2</mn><mi>θ</mi></math>
+          <math display="block"><mi>tan</mi><mo>&#x2061;</mo><mi>ρ</mi><mo>=</mo><mfrac><mrow><msup><msub><mi>n</mi><mi>e</mi></msub><mn>2</mn></msup><mo>(</mo><mi>θ</mi><mo>)</mo></mrow><mn>2</mn></mfrac><mrow><mo>(</mo><mfrac><mn>1</mn><msubsup><mi>n</mi><mi>e</mi><mn>2</mn></msubsup></mfrac><mo>−</mo><mfrac><mn>1</mn><msubsup><mi>n</mi><mi>o</mi><mn>2</mn></msubsup></mfrac><mo>)</mo></mrow><mi>sin</mi><mo>&#x2061;</mo><mn>2</mn><mi>θ</mi></math>
           <span class="eq__no">(4) walk-off</span>
         </div>
       </section>
@@ -126,8 +129,8 @@
 
   <div class="wrap report-plates">
     <div class="plate-pair plate-pair--wide-left">
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp" srcset="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp 1280w" sizes="(min-width: 1000px) 50vw, 100vw" width="1280" height="852" alt="Heatmap of internal path deflection versus incident angle and optic-axis rotation with contour lines" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp"></div><figcaption><span class="fig__no">Fig. 03.4</span>Internal path deflection: combined refraction and walk-off vs. incident angle and optic-axis rotation. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp" srcset="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp 1129w" sizes="(min-width: 1000px) 30vw, 100vw" width="1129" height="760" alt="Heatmap of Type II SPDC bandwidth for a 1064 nm pump at a 45 degree phase-matching angle" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp"></div><figcaption><span class="fig__no">Fig. 03.5</span>Type II SPDC bandwidth, 1064&nbsp;nm pump, θ<sub>pm</sub> = 45.0°. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp" srcset="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp 1280w" sizes="(min-width: 1000px) 50vw, 100vw" width="1280" height="852" alt="Heatmap of internal path deflection versus incident angle and optic-axis rotation with contour lines" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp"></div><figcaption><span class="fig__no">Fig. 03.4</span> Internal path deflection: combined refraction and walk-off vs. incident angle and optic-axis rotation. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp" srcset="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp 1129w" sizes="(min-width: 1000px) 30vw, 100vw" width="1129" height="760" alt="Heatmap of Type II SPDC bandwidth for a 1064 nm pump at a 45 degree phase-matching angle" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp"></div><figcaption><span class="fig__no">Fig. 03.5</span> Type II SPDC bandwidth, 1064&nbsp;nm pump, θ<sub>pm</sub> = 45.0°. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
     </div>
   </div>
 
@@ -158,14 +161,14 @@
   <section class="wrap" style="padding-block:72px" aria-labelledby="calc-title">
     <figure class="ifig" data-fig="spdc">
       <div class="ifig__head">
-        <span class="label" id="calc-title" style="color:var(--fg)">Try it · Simplified companion calculator, collinear LiNbO<sub>3</sub></span>
+        <span class="label" id="calc-title" style="color:var(--fg)">Try it · Simplified companion calculator, collinear <span class="sym">LiNbO<sub>3</sub></span></span>
         <div class="seg" role="group" aria-label="Interaction type"><button type="button" data-type="I" aria-pressed="true">Type I</button><button type="button" data-type="II" aria-pressed="false">Type II</button></div>
       </div>
       <div class="ifig__body">
         <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Phase-matching angle versus signal wavelength for the selected pump wavelength"></svg></div>
         <div class="ifig__side">
-          <div class="ctrl"><label for="pump">Pump λp <output data-out="pump"></output></label><input id="pump" name="pump" type="range" min="540" max="1600" step="1" value="1064"></div>
-          <div class="ctrl"><label for="signal">Signal λs <output data-out="signal"></output></label><input id="signal" name="signal" type="range" min="1100" max="5000" step="1" value="1550"></div>
+          <div class="ctrl"><label for="pump">Pump <span class="sym">λp</span> <output data-out="pump"></output></label><input id="pump" name="pump" type="range" min="540" max="1600" step="1" value="1064"></div>
+          <div class="ctrl"><label for="signal">Signal <span class="sym">λs</span> <output data-out="signal"></output></label><input id="signal" name="signal" type="range" min="1100" max="5000" step="1" value="1550"></div>
           <dl class="readout">
             <dt>Polarizations</dt><dd data-out="convention">e → o + o</dd>
             <dt>Idler λi</dt><dd data-out="idler"></dd>
@@ -182,7 +185,7 @@
   <div class="wrap report-body">
     <div class="report-aside" aria-hidden="true"></div>
     <article class="report-main">
-      <figure class="fig fig--contain" style="margin-bottom:48px"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/08-phase-matching-equations.webp" srcset="../assets/img/quantum-optics-research/08-phase-matching-equations-sm.webp 960w, ../assets/img/quantum-optics-research/08-phase-matching-equations.webp 973w" sizes="(min-width: 1000px) 50vw, 100vw" width="973" height="642" alt="Slide of phase-matching equations: delta k equals k pump minus k idler minus k signal equals zero, and the Type II case reduced to a quartic in tan theta" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/08-phase-matching-equations.webp"></div><figcaption><span class="fig__no">Fig. 03.7</span>Phase-matching relations from the analyzed paper, including the Type II quartic in tan θ. <span class="ev ev--literature">Literature</span></figcaption></figure>
+      <figure class="fig fig--contain" style="margin-bottom:48px"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/08-phase-matching-equations.webp" srcset="../assets/img/quantum-optics-research/08-phase-matching-equations-sm.webp 960w, ../assets/img/quantum-optics-research/08-phase-matching-equations.webp 973w" sizes="(min-width: 1000px) 50vw, 100vw" width="973" height="642" alt="Slide of phase-matching equations: delta k equals k pump minus k idler minus k signal equals zero, and the Type II case reduced to a quartic in tan theta" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/08-phase-matching-equations.webp"></div><figcaption><span class="fig__no">Fig. 03.7</span> Phase-matching relations from the analyzed paper, including the Type II quartic in tan θ. <span class="ev ev--literature">Literature</span></figcaption></figure>
 
       <section id="s5" class="report-sec" aria-labelledby="h5">
         <h2 id="h5" class="h3"><span class="sec-no">5</span>In the lab</h2>
@@ -194,7 +197,7 @@
   <div class="wrap report-plates">
     <figure class="fig plate-wide">
       <div class="fig__media frame-21x9"><img src="../assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp" srcset="../assets/img/quantum-optics-research/02-optics-lab-experimental-setup-sm.webp 960w, ../assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp 1280w" sizes="100vw" width="1280" height="1003" alt="Optical table with mirrors, mounts, a flexible duct, cabling and measurement electronics" loading="lazy" decoding="async" style="--fy:42%" data-zoom="../assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp"></div>
-      <figcaption><span class="fig__no">Fig. 03.8</span>Shared experimental setup in the lab.</figcaption>
+      <figcaption><span class="fig__no">Fig. 03.8</span> Shared experimental setup in the lab.</figcaption>
     </figure>
   </div>
 

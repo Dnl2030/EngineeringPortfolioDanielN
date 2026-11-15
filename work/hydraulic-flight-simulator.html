@@ -13,7 +13,7 @@
 <meta property="og:title" content="Two-axis hydraulic flight simulator — Daniel Nelson">
 <meta property="og:description" content="A two-axis motion platform designed and built by a team of two: hand-derived inverse kinematics, Python control over UDP from X-Plane, solenoid driver electronics and CNC-machined aluminum ball joints.">
 <meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/hydraulic-flight-simulator.html">
-<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/og/hydraulic-flight-simulator--07-ball-joint-mounted-on-piston.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
@@ -44,14 +44,13 @@
         <h1 id="title">Two-axis hydraulic flight simulator</h1>
         <p class="lead p-head__dek">Two of us set out to put a cockpit on a platform that pitches and rolls with the aircraft on screen. We built every link in the chain, from simulator telemetry to machined aluminum, and proved it on a quarter-scale pneumatic prototype.</p>
       </div>
-      <dl class="title-block p-head__tb">
-        <div class="title-block__head"><span>TJHSST Engineering Research Lab</span><span>S-02</span></div>
+      <div class="title-block p-head__tb"><div class="title-block__head"><span>TJHSST Engineering Research Lab</span><span>S-02</span></div><dl class="tb">
         <dt>Team</dt><dd>Two students</dd>
-        <dt>My role</dt><dd>Kinematics, control code, electronics, CAD/CAM, CNC machining, assembly</dd>
+        <dt>Scope</dt><dd>Kinematics, control code, electronics, CAD/CAM, CNC machining and assembly, shared across the team of two</dd>
         <dt>Output</dt><dd>¼-scale pneumatic prototype · 31-page research paper · symposium presentation</dd>
         <dt>Tools</dt><dd>Python · X-Plane · TinkerCAD · CAD/CAM · CNC mill + lathe · FEA</dd>
         <dt>Status</dt><dd>Prototype built and demonstrated · hydraulic platform not completed</dd>
-      </dl>
+      </dl></div>
     </div>
   </header>
 
@@ -59,7 +58,7 @@
   <section class="wrap" aria-labelledby="map-title">
     <h2 id="map-title" class="visually-hidden">System map</h2>
     <div class="sysmap">
-      <svg viewBox="0 0 1110 290" role="img" aria-labelledby="sys-t" data-draw>
+      <svg viewBox="0 0 1110 290" role="group" aria-labelledby="sys-t" data-draw>
         <title id="sys-t">System map: flight simulator telemetry travels over UDP to the Python inverse-kinematics code, then to the solenoid driver circuit, the valves and the actuators, which move the platform through machined ball joints</title>
         <g fill="none">
           <path class="draw wire wire--data" pathLength="1" style="--i:1" d="M218 110H288"/>
@@ -94,7 +93,7 @@
       </div>
       <figure class="fig c-6-12">
         <div class="fig__media frame-16x9"><img src="../assets/img/hydraulic-flight-simulator/10-full-scale-flight-simulator-rig.webp" srcset="../assets/img/hydraulic-flight-simulator/10-full-scale-flight-simulator-rig-sm.webp 842w, ../assets/img/hydraulic-flight-simulator/10-full-scale-flight-simulator-rig.webp 1206w" sizes="(min-width: 1000px) 55vw, 100vw" width="1206" height="1375" alt="Existing full-size flight simulator cockpit with seat, controls and screens in a lab" loading="lazy" decoding="async" class="fade-edges" style="--fy:60%"></div>
-        <figcaption><span class="fig__no">Fig. 02.1</span>The simulator the motion platform was designed to sit beneath.</figcaption>
+        <figcaption><span class="fig__no">Fig. 02.1</span> The simulator the motion platform was designed to sit beneath.</figcaption>
       </figure>
     </div>
   </section>
@@ -109,7 +108,7 @@
     <div class="grid">
       <figure class="fig fig--contain c-1-5">
         <div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp" srcset="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp 1119w" sizes="(min-width: 1000px) 38vw, 100vw" width="1119" height="627" alt="Collage of handwritten inverse-kinematics derivations relating platform pitch and roll to piston positions" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp"></div>
-        <figcaption><span class="fig__no">Fig. 02.2</span>Hand derivation: piston positions from a required pitch and roll.</figcaption>
+        <figcaption><span class="fig__no">Fig. 02.2</span> Hand derivation: piston positions from a required pitch and roll.</figcaption>
       </figure>
       <figure class="ifig c-6-12" data-fig="ik">
         <div class="ifig__head"><span class="label" style="color:var(--fg)">Fig. 02.3 — Interactive · The project’s IK routine</span><span class="ev ev--built">Ported from project code</span></div>
@@ -117,9 +116,9 @@
         <div class="ifig__side" style="border-left:0;border-top:var(--lw-thin) solid var(--rule)">
           <div class="ik-ctrls">
             <div class="ctrl"><label for="pitch">Simulator pitch input <output data-out="pitch"></output></label><input id="pitch" name="pitch" type="range" min="0" max="180" step="1" value="45"></div>
-            <div class="ctrl"><label for="alpha">Platform roll α <output data-out="alpha"></output></label><input id="alpha" name="alpha" type="range" min="0" max="6" step="0.1" value="2"></div>
+            <div class="ctrl"><label for="alpha">Platform roll <span class="sym">α</span> <output data-out="alpha"></output></label><input id="alpha" name="alpha" type="range" min="0" max="6" step="0.1" value="2"></div>
           </div>
-          <dl class="readout"><dt>Platform pitch β = pitch / 8.7746</dt><dd data-out="beta"></dd><dt>Mean extension (held at neutral)</dt><dd data-out="mean"></dd></dl>
+          <dl class="readout"><dt>Platform pitch <span class="sym">β = pitch / 8.7746</span></dt><dd data-out="beta"></dd><dt>Mean extension (held at neutral)</dt><dd data-out="mean"></dd></dl>
         </div>
         <figcaption class="ifig__foot">Ported directly from the Python in Fig. 02.4, the turning-left, turning-up branch: x = 9.5, y = 20.5·tan α, z = 52.5·tan β, then every target is shifted so the four pistons average 9.5. That keeps the platform centred while it tilts. Aircraft pitch is scaled down by 8.77, so 90° in the simulator becomes about 10.3° on the platform. Lengths are in the code’s units.</figcaption>
       </figure>
@@ -137,7 +136,7 @@
       </div>
       <figure class="fig fig--contain c-5-12">
         <div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code.webp" srcset="../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code.webp 1114w" sizes="(min-width: 1000px) 60vw, 100vw" width="1114" height="629" alt="Python code: a UDP listener receiving X-Plane data on port 49000 and the derived algorithm converting pitch and roll to four piston targets" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code.webp"></div>
-        <figcaption><span class="fig__no">Fig. 02.4</span>Left: UDP listener for X-Plane packets. Right: the derived algorithm that turns attitude into piston targets.</figcaption>
+        <figcaption><span class="fig__no">Fig. 02.4</span> Left: UDP listener for X-Plane packets. Right: the derived algorithm that turns attitude into piston targets.</figcaption>
       </figure>
     </div>
   </section>
@@ -150,9 +149,9 @@
       <p class="lead">We laid out the circuit in TinkerCAD, built it on the bench, and then moved it to a custom PCB that connects the controller to one solenoid valve per actuator through MOSFET switching channels.</p>
     </div>
     <div class="elec-grid">
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp" srcset="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp 1200w" sizes="(min-width: 1000px) 40vw, 100vw" width="1200" height="660" alt="TinkerCAD layout of the solenoid driver circuit: microcontroller, MOSFET channels on a breadboard, valves and a battery" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp"></div><figcaption><span class="fig__no">Fig. 02.5</span>TinkerCAD layout of the driver circuit.</figcaption></figure>
-      <figure class="fig"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp" srcset="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp 1500w" sizes="(min-width: 1000px) 28vw, 100vw" width="1500" height="2000" alt="Assembled solenoid driver circuit with MOSFET channels and wiring" loading="lazy" decoding="async" style="--fy:55%" data-zoom="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp"></div><figcaption><span class="fig__no">Fig. 02.6</span>Assembled driver circuit.</figcaption></figure>
-      <figure class="fig"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp" srcset="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp 1500w" sizes="(min-width: 1000px) 28vw, 100vw" width="1500" height="2000" alt="Driver circuit connected to four solenoid valves" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp"></div><figcaption><span class="fig__no">Fig. 02.7</span>Circuit wired to the solenoid valves that drive the pistons.</figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp" srcset="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp 1200w" sizes="(min-width: 1000px) 40vw, 100vw" width="1200" height="660" alt="TinkerCAD layout of the solenoid driver circuit: microcontroller, MOSFET channels on a breadboard, valves and a battery" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp"></div><figcaption><span class="fig__no">Fig. 02.5</span> TinkerCAD layout of the driver circuit.</figcaption></figure>
+      <figure class="fig"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp" srcset="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp 1500w" sizes="(min-width: 1000px) 28vw, 100vw" width="1500" height="2000" alt="Assembled solenoid driver circuit with MOSFET channels and wiring" loading="lazy" decoding="async" style="--fy:55%" data-zoom="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp"></div><figcaption><span class="fig__no">Fig. 02.6</span> Assembled driver circuit.</figcaption></figure>
+      <figure class="fig"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp" srcset="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp 1500w" sizes="(min-width: 1000px) 28vw, 100vw" width="1500" height="2000" alt="Driver circuit connected to four solenoid valves" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp"></div><figcaption><span class="fig__no">Fig. 02.7</span> Circuit wired to the solenoid valves that drive the pistons.</figcaption></figure>
     </div>
   </section>
 
@@ -168,18 +167,18 @@
       </div>
       <div class="cam-videos">
         <figure class="fig">
-          <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--cam-mill.jpg" width="912" height="852" aria-label="CAM simulation of the mill toolpaths for the ball-joint socket"><source src="../assets/video/hydraulic-flight-simulator--cam-mill.mp4" type="video/mp4"></video></div>
-          <figcaption><span class="fig__no">Fig. 02.8</span>Mill: 2D pocket, deep drilling, contour, adaptive clearing and a scallop finish in the spherical socket.</figcaption>
+          <div class="fig__media"><video src="../assets/video/hydraulic-flight-simulator--cam-mill.mp4" poster="../assets/video/hydraulic-flight-simulator--cam-mill.jpg" width="912" height="852" muted loop playsinline preload="none" data-autoplay aria-label="CAM simulation of the mill toolpaths for the ball-joint socket"></video></div>
+          <figcaption><span class="fig__no">Fig. 02.8</span> Mill: 2D pocket, deep drilling, contour, adaptive clearing and a scallop finish in the spherical socket.</figcaption>
         </figure>
         <figure class="fig">
-          <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--cam-lathe.jpg" width="1314" height="900" aria-label="CAM simulation of the lathe toolpaths for the ball stud"><source src="../assets/video/hydraulic-flight-simulator--cam-lathe.mp4" type="video/mp4"></video></div>
-          <figcaption><span class="fig__no">Fig. 02.9</span>Lathe: profile roughing and finishing of the ball, stem roughing, a groove and the part-off.</figcaption>
+          <div class="fig__media"><video src="../assets/video/hydraulic-flight-simulator--cam-lathe.mp4" poster="../assets/video/hydraulic-flight-simulator--cam-lathe.jpg" width="1314" height="900" muted loop playsinline preload="none" data-autoplay aria-label="CAM simulation of the lathe toolpaths for the ball stud"></video></div>
+          <figcaption><span class="fig__no">Fig. 02.9</span> Lathe: profile roughing and finishing of the ball, stem roughing, a groove and the part-off.</figcaption>
         </figure>
       </div>
       <div class="bj-grid">
         <figure class="fig bj-video">
           <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--ball-joint-walkaround.jpg" width="720" height="1280" aria-label="Walkaround of the finished ball joint being tilted and rotated by hand, then the bin of machined parts"><source src="../assets/video/hydraulic-flight-simulator--ball-joint-walkaround.mp4" type="video/mp4"></video></div>
-          <figcaption><span class="fig__no">Fig. 02.10</span>The finished joint, tilted and rotated by hand to show smooth articulation and correct tolerancing. <span class="ev ev--built">Built · tested</span></figcaption>
+          <figcaption><span class="fig__no">Fig. 02.10</span> The finished joint, tilted and rotated by hand to show smooth articulation and correct tolerancing. <span class="ev ev--built">Built · tested</span></figcaption>
         </figure>
         <figure class="fig bj-a"><div class="fig__media frame-3x4"><img src="../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball.webp" srcset="../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball.webp 1500w" sizes="(min-width: 1000px) 22vw, 50vw" width="1500" height="2000" alt="Hand holding a CNC-turned aluminum ball stud" loading="lazy" decoding="async" style="--fy:45%" data-zoom="../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball.webp"></div><figcaption>CNC-turned ball stud.</figcaption></figure>
         <figure class="fig bj-b"><div class="fig__media frame-3x4"><img src="../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp" srcset="../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp 1500w" sizes="(min-width: 1000px) 22vw, 50vw" width="1500" height="2000" alt="Machined ball stud threaded onto the end of a piston rod" loading="lazy" decoding="async" style="--fy:35%" data-zoom="../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp"></div><figcaption>Threaded onto the piston rod (GD&amp;T, DFM).</figcaption></figure>
@@ -193,7 +192,7 @@
     <div class="grid" style="align-items:center">
       <figure class="fig c-1-5 test-video">
         <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--prototype-test.jpg" width="606" height="1080" aria-label="Quarter-scale pneumatic prototype: four cylinders extending and retracting independently while the controls are operated"><source src="../assets/video/hydraulic-flight-simulator--prototype-test.mp4" type="video/mp4"></video></div>
-        <figcaption><span class="fig__no">Fig. 02.11</span>Quarter-scale prototype, assembled and tested. <span class="ev ev--built">Built · tested</span></figcaption>
+        <figcaption><span class="fig__no">Fig. 02.11</span> Quarter-scale prototype, assembled and tested. <span class="ev ev--built">Built · tested</span></figcaption>
       </figure>
       <div class="c-6-12">
         <p class="label">06 — Assembly and test</p>
@@ -201,7 +200,7 @@
         <p style="margin-top:18px">Electronics, pneumatics and machined parts came together on one plywood base. Four cylinders extend and retract independently on command. We demonstrated the prototype to the laboratory director to secure funding for the hydraulic system.</p>
         <figure class="fig" style="margin-top:28px">
           <div class="fig__media frame-16x9"><img src="../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly.webp" srcset="../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly.webp 1500w" sizes="(min-width: 1000px) 50vw, 100vw" width="1500" height="2000" alt="Workbench with pneumatic cylinders, blue tubing, a pressure regulator and electronics partially assembled" loading="lazy" decoding="async" style="--fy:60%" data-zoom="../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly.webp"></div>
-          <figcaption><span class="fig__no">Fig. 02.12</span>Partially assembled electronic, pneumatic and machined components.</figcaption>
+          <figcaption><span class="fig__no">Fig. 02.12</span> Partially assembled electronic, pneumatic and machined components.</figcaption>
         </figure>
       </div>
     </div>
