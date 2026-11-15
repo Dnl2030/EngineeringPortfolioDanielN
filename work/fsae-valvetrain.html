@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valvetrain redesign for a restricted Yamaha R6 — Daniel Nelson</title>
+<meta name="description" content="Anteater Formula Racing: measuring, modeling and redesigning the valvetrain of a 2017 Yamaha YZF-R6 for the Formula SAE 20 mm intake restrictor — MATLAB, CFD, FEA and machining.">
+<meta name="author" content="Daniel Nelson">
+<meta name="theme-color" content="#F5F3EE">
+<link rel="canonical" href="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/fsae-valvetrain.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daniel Nelson — Engineering Portfolio">
+<meta property="og:title" content="Valvetrain redesign for a restricted Yamaha R6 — Daniel Nelson">
+<meta property="og:description" content="Anteater Formula Racing: measuring, modeling and redesigning the valvetrain of a 2017 Yamaha YZF-R6 for the Formula SAE 20 mm intake restrictor — MATLAB, CFD, FEA and machining.">
+<meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/fsae-valvetrain.html">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/fsae-valvetrain/09-r6-engine-camshafts-exposed.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html#work" aria-current="page">Work</a>
+      <a href="../index.html#index">Index</a>
+      <a href="../about.html">About</a>
+      <a href="../resume.html">Resume</a>
+      <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="plate bleed bleed--stack p-hero-fsae" aria-labelledby="title">
+    <div class="bleed__media p-hero-fsae__media">
+      <img src="../assets/img/fsae-valvetrain/09-r6-engine-camshafts-exposed.webp" srcset="../assets/img/fsae-valvetrain/09-r6-engine-camshafts-exposed-sm.webp 720w, ../assets/img/fsae-valvetrain/09-r6-engine-camshafts-exposed.webp 1500w" sizes="(min-width: 1000px) 55vw, 100vw" width="1500" height="2000" alt="Yamaha R6 engine on a stand with the cam cover removed and both camshafts exposed, the team&#x27;s car in the background" fetchpriority="high" decoding="async" style="--fx:50%;--fy:55%">
+    </div>
+    <div class="bleed__scrim bleed__scrim--l" aria-hidden="true"></div>
+    <div class="wrap bleed__content p-hero-fsae__content">
+      <div class="p-hero-fsae__text">
+        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">Index</a><span class="label" style="color:var(--blue)">Sheet 01 · Powertrain · 2026</span></p>
+        <h1 id="title" class="h1">Valvetrain redesign for a restricted Yamaha R6</h1>
+        <p class="lead" style="margin-top:24px;color:var(--graphite-lt);max-width:46ch">Formula SAE forces every cylinder of a 16,000&nbsp;rpm engine to breathe through one 20&nbsp;mm hole. Over ten weeks I measured the stock valvetrain, rebuilt it as a MATLAB model, and redesigned the cam and valve seat around the air the restrictor actually allows.</p>
+        <dl class="title-block" style="margin-top:36px;max-width:520px">
+          <div class="title-block__head"><span>Anteater Formula Racing · UC Irvine</span><span>S-01</span></div>
+          <dt>Role</dt><dd>Powertrain engineer: valvetrain analysis, cam and valve redesign</dd>
+          <dt>Engine</dt><dd>2017 Yamaha YZF-R6 · 599&nbsp;cc inline-four · DOHC</dd>
+          <dt>Duration</dt><dd>~10 weeks remote engineering, then shop work, teardown and assembly</dd>
+          <dt>Tools</dt><dd>MATLAB (model + custom app) · Ansys Fluent · Ansys Mechanical · CAD · manual mill</dd>
+          <dt>Status</dt><dd>Designed and partly manufactured · car has not yet raced</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVIDENCE + SPECS ============ -->
+  <section class="wrap" style="padding-block:40px 24px" aria-label="Key results">
+    <div class="ev-banner">
+      <p>Every performance figure on this page is a <strong>model output</strong> unless it is tagged measured or built. None of them is a track or dyno result.</p>
+      <div class="ev-key"><span class="ev ev--modeled">Modeled</span><span class="ev ev--measured">Measured</span><span class="ev ev--built">Built</span><span class="ev ev--documented">Rule</span></div>
+    </div>
+    <div class="specs" style="margin-top:36px">
+      <div class="spec"><span class="spec__num num">20<small>mm</small></span><p class="spec__text"><strong>Intake restrictor</strong>, the governing constraint for all four cylinders.</p><span class="ev ev--documented">FSAE rule</span></div>
+      <div class="spec"><span class="spec__num num">1.2<small>%</small></span><p class="spec__text"><strong>Combustion-chamber model error</strong>, reconstructed from limited OEM data.</p><span class="ev ev--modeled">Modeled</span></div>
+      <div class="spec"><span class="spec__num num">~15<small>%</small></span><p class="spec__text"><strong>Airflow gain</strong> from a 30° back-cut ahead of the 45° seat.</p><span class="ev ev--modeled">Modeled · CFD</span></div>
+      <div class="spec"><span class="spec__num num">1.55</span><p class="spec__text"><strong>FEA safety factor</strong>, 6.5&nbsp;mm harmonic lobe (stock: 1.29).</p><span class="ev ev--modeled">Modeled · FEA</span></div>
+      <div class="spec"><span class="spec__num num">1.9<small>hp</small></span><p class="spec__text"><strong>Less intake valvetrain friction</strong> at 16,000&nbsp;rpm (6.0 → 4.1&nbsp;hp).</p><span class="ev ev--modeled">Modeled · MATLAB</span></div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <div class="wrap process" style="padding-block:72px 40px">
+    <nav class="rail" aria-label="Engineering process" data-rail>
+      <p class="label" style="margin-bottom:18px">Process</p>
+      <ol>
+        <span class="rail__track" aria-hidden="true"></span><span class="rail__fill" aria-hidden="true"></span>
+        <li><a href="#baseline"><span class="rail__n">01</span><span class="rail__t">Baseline</span></a></li>
+        <li><a href="#constraint"><span class="rail__n">02</span><span class="rail__t">Constraint</span></a></li>
+        <li><a href="#redesign"><span class="rail__n">03</span><span class="rail__t">Redesign</span></a></li>
+        <li><a href="#validation"><span class="rail__n">04</span><span class="rail__t">Validation</span></a></li>
+        <li><a href="#manufacturing"><span class="rail__n">05</span><span class="rail__t">Manufacturing</span></a></li>
+        <li><a href="#implementation"><span class="rail__n">06</span><span class="rail__t">Implementation</span></a></li>
+      </ol>
+    </nav>
+
+    <div class="stages">
+
+      <!-- 01 BASELINE -->
+      <section class="stage" id="baseline" aria-labelledby="s1">
+        <div class="stage__head">
+          <p class="label">01 — Baseline analysis</p>
+          <h2 id="s1">Teardown before theory</h2>
+          <p>The stock cam’s true geometry wasn’t published, so I measured it. The engine came apart for cam measurement and clearancing. I measured the lobe point by point, rebuilt it digitally, and weighed every valvetrain component so the model would run on measured inputs instead of guesses.</p>
+        </div>
+        <div class="grid">
+          <figure class="fig c-1-7">
+            <div class="fig__media frame-4x3"><img src="../assets/img/fsae-valvetrain/35-engine-teardown-bench.webp" srcset="../assets/img/fsae-valvetrain/35-engine-teardown-bench-sm.webp 720w, ../assets/img/fsae-valvetrain/35-engine-teardown-bench.webp 1500w" sizes="(min-width: 1100px) 45vw, 100vw" width="1500" height="2000" alt="R6 engine components laid out across a workbench during teardown" loading="lazy" decoding="async" style="--fy:40%" data-zoom="../assets/img/fsae-valvetrain/35-engine-teardown-bench.webp"></div>
+            <figcaption><span class="fig__no">Fig. 01.1</span>Teardown for cam measurement, piston inspection and crack identification. <span class="ev ev--measured">Measured</span></figcaption>
+          </figure>
+          <figure class="fig c-8-12">
+            <div class="fig__media frame-3x4"><img src="../assets/img/fsae-valvetrain/10-cam-lobe-measurement.webp" srcset="../assets/img/fsae-valvetrain/10-cam-lobe-measurement-sm.webp 960w, ../assets/img/fsae-valvetrain/10-cam-lobe-measurement.webp 2000w" sizes="(min-width: 1100px) 28vw, 100vw" width="2000" height="1500" alt="Close-up of a stock cam lobe being measured" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/10-cam-lobe-measurement.webp"></div>
+            <figcaption><span class="fig__no">Fig. 01.2</span>Stock cam lobe set up for measurement.</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="h3 sub-h">Cleaning up a measured profile</h3>
+        <p class="sub-p">Measured points carry noise, and differentiating lift into velocity, acceleration and jerk amplifies it. A 12-harmonic Fourier fit removed the noise. A 4.6&nbsp;mm nose radius from the measured spline geometry capped the profile, and a comparison against a 3-4-5 polynomial quantified the remaining error before the profile became the baseline.</p>
+        <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:28px">
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/11-cam-profile-point-reconstruction.webp" width="506" height="409" alt="Plot of measured cam profile points reconstructed into a lobe outline" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/11-cam-profile-point-reconstruction.webp"></div><figcaption><span class="fig__no">Fig. 01.3</span>Digital reconstruction of the cam profile from measured points. <span class="ev ev--measured">Measured</span></figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/13-measured-profile-derivatives-noise.webp" srcset="../assets/img/fsae-valvetrain/13-measured-profile-derivatives-noise-sm.webp 960w, ../assets/img/fsae-valvetrain/13-measured-profile-derivatives-noise.webp 1165w" sizes="(min-width: 1100px) 35vw, 100vw" width="1165" height="791" alt="Plots of lift, velocity, acceleration and radius of curvature derived from the raw measured profile, showing amplified noise" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/13-measured-profile-derivatives-noise.webp"></div><figcaption><span class="fig__no">Fig. 01.4</span>Derivatives of the raw profile. Differentiation amplifies measurement noise.</figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/14-fourier-filtered-cam-profile.webp" srcset="../assets/img/fsae-valvetrain/14-fourier-filtered-cam-profile-sm.webp 960w, ../assets/img/fsae-valvetrain/14-fourier-filtered-cam-profile.webp 1075w" sizes="(min-width: 1100px) 35vw, 100vw" width="1075" height="813" alt="Fourier-filtered cam profile using 12 harmonics with a 4.60 mm nose-radius floor" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/14-fourier-filtered-cam-profile.webp"></div><figcaption><span class="fig__no">Fig. 01.5</span>12-harmonic Fourier model with a 4.60&nbsp;mm nose-radius floor from the measured spline.</figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/12-measured-vs-345-profile-area-error.webp" srcset="../assets/img/fsae-valvetrain/12-measured-vs-345-profile-area-error-sm.webp 960w, ../assets/img/fsae-valvetrain/12-measured-vs-345-profile-area-error.webp 1102w" sizes="(min-width: 1100px) 35vw, 100vw" width="1102" height="1049" alt="Measured profile overlaid on a 3-4-5 polynomial profile with the area difference shaded" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/12-measured-vs-345-profile-area-error.webp"></div><figcaption><span class="fig__no">Fig. 01.6</span>Measured vs. 3-4-5 polynomial: symmetric-difference area 6.74% of stock, used to revise the design.</figcaption></figure>
+        </div>
+
+        <h3 class="h3 sub-h">Measured inputs</h3>
+        <div class="gallery gallery--4" style="margin-top:24px">
+          <figure class="fig"><div class="fig__media frame-1x1"><img src="../assets/img/fsae-valvetrain/27-valve-mass-measurement.webp" srcset="../assets/img/fsae-valvetrain/27-valve-mass-measurement-sm.webp 720w, ../assets/img/fsae-valvetrain/27-valve-mass-measurement.webp 1500w" sizes="(min-width: 900px) 18vw, 50vw" width="1500" height="2000" alt="Intake valve on a digital scale reading 16 grams" loading="lazy" decoding="async"></div><figcaption>Valve · 16&nbsp;g</figcaption></figure>
+          <figure class="fig"><div class="fig__media frame-1x1"><img src="../assets/img/fsae-valvetrain/28-bucket-mass-measurement.webp" srcset="../assets/img/fsae-valvetrain/28-bucket-mass-measurement-sm.webp 720w, ../assets/img/fsae-valvetrain/28-bucket-mass-measurement.webp 1500w" sizes="(min-width: 900px) 18vw, 50vw" width="1500" height="2000" alt="Valve bucket on a digital scale reading 12 grams" loading="lazy" decoding="async"></div><figcaption>Bucket · 12&nbsp;g</figcaption></figure>
+          <figure class="fig"><div class="fig__media frame-1x1"><img src="../assets/img/fsae-valvetrain/29-retainer-keepers-mass-measurement.webp" srcset="../assets/img/fsae-valvetrain/29-retainer-keepers-mass-measurement-sm.webp 720w, ../assets/img/fsae-valvetrain/29-retainer-keepers-mass-measurement.webp 1500w" sizes="(min-width: 900px) 18vw, 50vw" width="1500" height="2000" alt="Retainer and keepers on a digital scale reading 4 grams" loading="lazy" decoding="async"></div><figcaption>Retainer + keepers · 4&nbsp;g</figcaption></figure>
+          <figure class="fig"><div class="fig__media frame-1x1"><img src="../assets/img/fsae-valvetrain/31-spring-rate-jig.webp" srcset="../assets/img/fsae-valvetrain/31-spring-rate-jig-sm.webp 720w, ../assets/img/fsae-valvetrain/31-spring-rate-jig.webp 1500w" sizes="(min-width: 900px) 18vw, 50vw" width="1500" height="2000" alt="Improvised jig compressing a valve spring on a scale to measure spring rate" loading="lazy" decoding="async"></div><figcaption>Improvised spring-rate jig</figcaption></figure>
+        </div>
+        <p class="sub-cap"><span class="ev ev--measured">Measured</span> Component masses (spring: 30&nbsp;g) were used to validate the MATLAB model.</p>
+
+        <h3 class="h3 sub-h">A digital twin of the stock valvetrain</h3>
+        <p class="sub-p">The MATLAB model reproduces stock cam timing, lift and valve motion and feeds those lift profiles into Ansys for transient CFD with dynamic meshing. The intake air path was modeled to about 2%, and the combustion chamber to about 1.2% error from limited OEM information. The same model gave the stock engine’s dynamic picture: net force on the lobe, spring surge, and friction losses.</p>
+        <div class="grid" style="margin-top:28px">
+          <figure class="fig c-1-7"><div class="fig__media frame-4x3" style="background:#fff"><img src="../assets/img/fsae-valvetrain/01-intake-air-path-cad.webp" width="424" height="685" alt="CAD model of the R6 internal intake air path" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/01-intake-air-path-cad.webp"></div><figcaption><span class="fig__no">Fig. 01.7</span>Internal intake air path, modeled to ~2%. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+          <figure class="fig c-8-12"><div class="fig__media frame-4x3" style="background:#fff"><img src="../assets/img/fsae-valvetrain/05-radial-projection-vs-true-cam-outline.webp" width="627" height="613" alt="Diagram comparing a radial projection of the lift curve with the true cam outline" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/05-radial-projection-vs-true-cam-outline.webp"></div><figcaption><span class="fig__no">Fig. 01.8</span>Lift is not the lobe shape: radial projection of the lift curve vs. the true flat-follower outline.</figcaption></figure>
+        </div>
+        <div class="gallery gallery--3" style="margin-top:20px">
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/07-net-cam-force-vs-crank-angle.webp" srcset="../assets/img/fsae-valvetrain/07-net-cam-force-vs-crank-angle-sm.webp 960w, ../assets/img/fsae-valvetrain/07-net-cam-force-vs-crank-angle.webp 1696w" sizes="(min-width: 900px) 24vw, 100vw" width="1696" height="843" alt="Plot of net force on the cam lobe versus crank angle from inertia and spring force" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/07-net-cam-force-vs-crank-angle.webp"></div><figcaption><span class="fig__no">Fig. 01.9</span>Net force on the lobe at each crank angle (inertia + spring; surge excluded).</figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/06-spring-surge-harmonic-modes.webp" width="470" height="595" alt="Heat map of beehive spring surge across harmonic modes and engine speed with a redline marker" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/06-spring-surge-harmonic-modes.webp"></div><figcaption><span class="fig__no">Fig. 01.10</span>Beehive-spring surge modes at 345, 630, 924 and 1,219&nbsp;Hz. <a href="https://youtu.be/3z1ds3ZKCXI" rel="noopener">Resonance animation</a></figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/08-stock-valvetrain-friction-hp.webp" width="733" height="509" alt="Plot of horsepower lost to valvetrain friction versus engine speed for the stock cam" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/08-stock-valvetrain-friction-hp.webp"></div><figcaption><span class="fig__no">Fig. 01.11</span>Stock valvetrain friction loss across engine speed. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+        </div>
+      </section>
+
+      <!-- 02 CONSTRAINT -->
+      <section class="stage" id="constraint" aria-labelledby="s2">
+        <div class="stage__head">
+          <p class="label">02 — Identifying the constraint</p>
+          <h2 id="s2">One 20&nbsp;mm hole</h2>
+          <p>The R6 is built to make power at very high engine speed with unrestricted air. Above a certain speed, flow through the restrictor chokes: the throat reaches sonic velocity and no amount of valve lift draws more air. Lift and duration the restrictor can’t feed only add spring load, friction and valve-control risk. So the real question was which valvetrain matches the air this engine can actually get.</p>
+        </div>
+
+        <figure class="ifig" data-fig="restrictor">
+          <div class="ifig__head"><span class="label" style="color:var(--fg)">Fig. 02.1 — Interactive · Restrictor ceiling vs. engine air demand</span><span class="ev ev--modeled">First-order model</span></div>
+          <div class="ifig__body">
+            <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Plot of engine air demand rising with engine speed against the flat choked-flow ceiling of the 20 millimetre restrictor"></svg></div>
+            <div class="ifig__side">
+              <div class="ctrl"><label for="ve">Volumetric efficiency <output data-out="ve"></output></label><input id="ve" name="ve" type="range" min="0.7" max="1.1" step="0.01" value="0.95"></div>
+              <div class="ctrl"><label for="cd">Restrictor discharge coeff. <output data-out="cd"></output></label><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.01" value="1"></div>
+              <dl class="readout">
+                <dt>Ceiling</dt><dd data-out="cap"></dd>
+                <dt>Demand meets ceiling</dt><dd data-out="cross"></dd>
+                <dt>Demand at 16,000 rpm</dt><dd data-out="need"></dd>
+                <dt>Air the engine can’t get</dt><dd class="big" data-out="short"></dd>
+              </dl>
+            </div>
+          </div>
+          <figcaption class="ifig__foot">Ideal-gas isentropic choked flow, ṁ* = C<sub>d</sub>·A·p₀·√(γ/RT₀)·(2/(γ+1))<sup>(γ+1)/2(γ−1)</sup>, against four-stroke demand ṁ = VE·ρ₀·V<sub>d</sub>·N/120. Standard air (101.325&nbsp;kPa, 298&nbsp;K) and V<sub>d</sub> = 599&nbsp;cm³. Volumetric efficiency is held constant, so this is an upper bound for intuition, not an engine curve. The MATLAB design tool below uses its own operating assumptions and reports a 68.6&nbsp;g/s ceiling.</figcaption>
+        </figure>
+
+        <div class="grid" style="margin-top:48px">
+          <div class="c-1-4">
+            <h3 class="h3">A tool for comparing cams</h3>
+            <p style="margin-top:12px">I wrote a MATLAB app to compare candidate cam profiles against stock on mass flow. It uses isentropic flow through a converging nozzle (NASA) and the cylinder-filling methods in Gordon P. Blair’s <em>Design and Simulation of Four-Stroke Engines</em>.</p>
+            <p style="margin-top:12px" class="muted">In the screenshot: max lift 6.5&nbsp;mm, 284° duration at 1&nbsp;mm, base radius 12.5&nbsp;mm. Delivered flow is 55.6&nbsp;g/s, 0.98× stock, against the 68.6&nbsp;g/s ceiling.</p>
+          </div>
+          <figure class="fig fig--contain c-5-12"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/15-cam-profile-designer-app.webp" srcset="../assets/img/fsae-valvetrain/15-cam-profile-designer-app-sm.webp 960w, ../assets/img/fsae-valvetrain/15-cam-profile-designer-app.webp 1226w" sizes="(min-width: 1100px) 50vw, 100vw" width="1226" height="867" alt="MATLAB Cam Profile Designer application showing lift curves, restrictor ceiling and delivered mass flow compared to stock" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/15-cam-profile-designer-app.webp"></div><figcaption><span class="fig__no">Fig. 02.2</span>Custom MATLAB app comparing a candidate profile with stock on delivered mass flow. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+        </div>
+        <figure class="fig fig--contain" style="margin-top:28px;max-width:560px"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations.webp" srcset="../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations-sm.webp 960w, ../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations.webp 1020w" sizes="(min-width: 1100px) 50vw, 100vw" width="1020" height="552" alt="Equations for isentropic mass flow through a converging nozzle" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations.webp"></div><figcaption><span class="fig__no">Fig. 02.3</span>Mass-flow relations used in the app. <span class="fig__src">After NASA Glenn, isentropic flow; G. P. Blair, Design and Simulation of Four-Stroke Engines.</span></figcaption></figure>
+      </section>
+
+      <!-- 03 REDESIGN -->
+      <section class="stage" id="redesign" aria-labelledby="s3">
+        <div class="stage__head">
+          <p class="label">03 — Redesign</p>
+          <h2 id="s3">Less lift, the right motion law, softer springs</h2>
+          <p>The redesign brought maximum lift down to 6.5&nbsp;mm to suit restricted airflow and low-to-midrange torque, with softer springs. The motion law sets how the valve gets there. It trades time near full lift and flank steepness against peak acceleration and jerk, which drive spring load and valve control.</p>
+        </div>
+
+        <figure class="ifig" data-fig="motion-laws">
+          <div class="ifig__head">
+            <span class="label" style="color:var(--fg)">Fig. 03.1 — Interactive · Cam motion laws, same lift and duration</span>
+            <div class="seg" role="group" aria-label="Quantity">
+              <button type="button" data-q="0" aria-pressed="true">Lift</button><button type="button" data-q="1" aria-pressed="false">Velocity</button><button type="button" data-q="2" aria-pressed="false">Accel.</button><button type="button" data-q="3" aria-pressed="false">Jerk</button>
+            </div>
+          </div>
+          <div class="ifig__body">
+            <div class="ifig__plot"><svg viewBox="0 0 640 340" role="img" aria-label="Normalized lift, velocity, acceleration or jerk through a valve event for several cam motion laws"></svg><p class="mono muted" style="margin-top:6px">Units: <span data-out="unit"></span></p></div>
+            <div class="ifig__side">
+              <div class="law-list" role="group" aria-label="Motion laws shown">
+                <button type="button" class="law-btn" data-law="harmonic"><i class="dash" style="--c:#5B5E61"></i>Simple harmonic</button>
+                <button type="button" class="law-btn" data-law="p345"><i style="--c:#B66A4A;height:3px"></i>3-4-5 polynomial</button>
+                <button type="button" class="law-btn" data-law="p4567"><i style="--c:#2F5F96"></i>4-5-6-7 polynomial</button>
+                <button type="button" class="law-btn" data-law="p56789"><i class="dash" style="--c:#111214"></i>5-6-7-8-9 polynomial</button>
+              </div>
+              <p style="font-size:13px" class="muted">The 3-4-5 law spends more of the event near full lift than harmonic motion and has steeper flanks. Its jerk stays finite, without the peak velocity and acceleration of the 5-6-7-8-9 law.</p>
+            </div>
+          </div>
+          <div class="ifig__foot" style="overflow-x:auto">
+            <table class="stats-table">
+              <thead><tr><th scope="col">Law</th><th scope="col">Peak velocity</th><th scope="col">Peak accel.</th><th scope="col">Peak jerk</th><th scope="col">Event above 90% lift</th></tr></thead>
+              <tbody data-stats></tbody>
+            </table>
+            <p style="margin-top:10px">Standard motion-law equations evaluated for a symmetric event with no dwell at the nose, normalized to unit lift and unit event duration. This illustrates the trade-off; the MATLAB model and the plots in Fig. 03.2 carry the real profiles.</p>
+          </div>
+        </figure>
+
+        <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:40px">
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/03-motion-law-comparison.webp" srcset="../assets/img/fsae-valvetrain/03-motion-law-comparison-sm.webp 960w, ../assets/img/fsae-valvetrain/03-motion-law-comparison.webp 1077w" sizes="(min-width: 1100px) 35vw, 100vw" width="1077" height="363" alt="Plot comparing several motion laws and their effect on cam lift properties" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/03-motion-law-comparison.webp"></div><figcaption><span class="fig__no">Fig. 03.2</span>Motion laws compared in the MATLAB model. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp" srcset="../assets/img/fsae-valvetrain/04-motion-law-coefficients-sm.webp 960w, ../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp 1518w" sizes="(min-width: 1100px) 35vw, 100vw" width="1518" height="1144" alt="Plot comparing velocity, acceleration and jerk magnitudes for each cam profile" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp"></div><figcaption><span class="fig__no">Fig. 03.3</span>Velocity, acceleration and jerk magnitudes for each profile. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+        </div>
+
+        <div class="grid" style="margin-top:56px;align-items:center">
+          <div class="c-1-5">
+            <h3 class="h3">Two candidate lobes at 6.5&nbsp;mm</h3>
+            <p style="margin-top:12px">A <strong>harmonic</strong> 6.5&nbsp;mm lobe, and a <strong>3-4-5 polynomial</strong> 6.5&nbsp;mm lobe that holds the valve longer near maximum lift with steeper flanks. Both went forward to FEA.</p>
+          </div>
+          <figure class="fig c-6-12">
+            <div class="cam-pair">
+              <div class="fig__media frame-1x1" style="background:#fff"><img src="../assets/img/fsae-valvetrain/20-harmonic-6-5mm-cam-model.webp" width="558" height="658" alt="CAD model of a 6.5 millimetre lift cam lobe with harmonic motion law" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/20-harmonic-6-5mm-cam-model.webp"></div>
+              <div class="fig__media frame-1x1" style="background:#fff"><img src="../assets/img/fsae-valvetrain/23-345-6-5mm-cam-model.webp" width="357" height="409" alt="CAD model of a 6.5 millimetre lift cam lobe with 3-4-5 polynomial motion law" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/23-345-6-5mm-cam-model.webp"></div>
+            </div>
+            <figcaption><span class="fig__no">Fig. 03.4</span>Proposed lobes: harmonic (left) and 3-4-5 polynomial (right), both 6.5&nbsp;mm lift.</figcaption>
+          </figure>
+        </div>
+
+        <div class="grid backcut" style="margin-top:64px;align-items:center">
+          <figure class="fig c-1-7">
+            <div class="backcut__drawing">
+              <svg viewBox="0 0 520 300" role="img" aria-labelledby="bc-t" data-draw>
+                <title id="bc-t">Schematic half-section of an intake valve head showing the 45 degree seat face and a 30 degree back-cut above it, with flow passing over the back-cut</title>
+                <defs><pattern id="seat-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#5B5E61" stroke-width=".8"/></pattern></defs>
+                <path class="draw" pathLength="1" style="--i:0;stroke:var(--graphite);stroke-width:.75" stroke-dasharray="12 3 2 3" d="M200 10V292"/>
+                <path class="draw" pathLength="1" style="--i:1;stroke:var(--ink);stroke-width:1.6" d="M214 14V128C214 168 250 186 300 192L344 214L376 246V258H24V246L56 214L100 192C150 186 186 168 186 128V14"/>
+                <path class="draw-fade" style="--i:8" d="M382 236L470 236L470 280L420 280L382 246Z" fill="url(#seat-hatch)" stroke="var(--graphite)" stroke-width=".75"/>
+                <path class="draw" pathLength="1" style="--i:6;stroke:var(--blue-ink);stroke-width:1.2" d="M330 40C330 120 340 170 360 196C372 212 392 222 420 228"/>
+                <path class="draw" pathLength="1" style="--i:7;stroke:var(--blue-ink);stroke-width:1.2" d="M300 60C300 140 320 186 352 214C368 230 388 250 398 290"/>
+                <g class="draw-fade" style="--i:10">
+                  <path d="M415 225l8 3-7 5" fill="none" stroke="var(--blue-ink)" stroke-width="1.2"/>
+                  <path d="M392 282l6 9 3-10" fill="none" stroke="var(--blue-ink)" stroke-width="1.2"/>
+                  <path d="M322 202L360 120H470" fill="none" stroke="var(--copper)" stroke-width=".9"/>
+                  <circle cx="322" cy="202" r="2.5" fill="var(--copper)"/>
+                  <text x="364" y="114" class="plot-text" style="fill:var(--copper-deep)">30° BACK-CUT</text>
+                  <path d="M362 232L300 286H250" fill="none" stroke="var(--ink)" stroke-width=".9"/>
+                  <circle cx="362" cy="232" r="2.5" fill="var(--ink)"/>
+                  <text x="196" y="282" class="plot-text plot-text--strong" text-anchor="end">45° SEAT FACE</text>
+                  <text x="430" y="226" class="plot-text" style="fill:var(--blue-ink)" text-anchor="end">FLOW</text>
+                  <text x="472" y="262" class="plot-text">SEAT</text>
+                  <text x="24" y="30" class="plot-text">SCHEMATIC · NOT TO SCALE</text>
+                </g>
+              </svg>
+            </div>
+          </figure>
+          <div class="c-8-12">
+            <h3 class="h3">A 30° back-cut ahead of the 45° seat</h3>
+            <p style="margin-top:12px">In Ansys I modeled the intake ports, valves and chamber, then varied the back-cut on the valve head. A 30° back-cut ahead of the 45° seat chamfer smooths the turn the air makes into the cylinder. CFD showed about 15% more airflow under the modeled conditions.</p>
+            <p style="margin-top:12px">I also looked at intake timing and exhaust-gas reversion. With low plenum pressure behind a restrictor, reversion becomes more likely.</p>
+            <p style="margin-top:16px"><span class="ev ev--modeled">Modeled · transient CFD</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 VALIDATION -->
+      <section class="stage" id="validation" aria-labelledby="s4">
+        <div class="stage__head">
+          <p class="label">04 — Computational validation</p>
+          <h2 id="s4">Checked in FEA before any metal was cut</h2>
+          <p>Each profile was meshed and loaded in FEA against the material’s 710&nbsp;MPa yield strength. The harmonic lobe raised the safety factor above stock. The 3-4-5 lobe’s breathing advantage came with a narrow shoulder, so I refined the mesh at that point of highest Hertz contact stress.</p>
+        </div>
+        <div class="fea-compare">
+          <figure class="fea-col">
+            <div class="fig__media frame-4x3" style="background:#fff"><img src="../assets/img/fsae-valvetrain/19-stock-cam-fea-fos-1-29.webp" srcset="../assets/img/fsae-valvetrain/19-stock-cam-fea-fos-1-29-sm.webp 960w, ../assets/img/fsae-valvetrain/19-stock-cam-fea-fos-1-29.webp 1000w" sizes="(min-width: 1100px) 24vw, 100vw" width="1000" height="647" alt="FEA stress result on the stock cam profile, peak 550.5 megapascals, factor of safety 1.29" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/19-stock-cam-fea-fos-1-29.webp"></div>
+            <p class="label">Stock profile</p>
+            <p class="num fea-col__n">1.29</p>
+            <p class="fea-col__t">Full-profile FOS. Peak 550.5&nbsp;MPa.</p>
+          </figure>
+          <figure class="fea-col fea-col--good">
+            <div class="fig__media frame-4x3" style="background:#fff"><img src="../assets/img/fsae-valvetrain/22-345-cam-fea-fos-1-55.webp" width="907" height="640" alt="FEA stress result on the proposed 6.5 millimetre harmonic profile, peak 458.5 megapascals, factor of safety 1.55" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/22-345-cam-fea-fos-1-55.webp"></div>
+            <p class="label">6.5&nbsp;mm harmonic</p>
+            <p class="num fea-col__n">1.55</p>
+            <p class="fea-col__t">Full-profile FOS. Peak 458.5&nbsp;MPa, a clear gain over stock.</p>
+          </figure>
+          <figure class="fea-col fea-col--warn">
+            <div class="fig__media frame-4x3" style="background:#fff"><img src="../assets/img/fsae-valvetrain/25-shoulder-fea-fos-1-03.webp" width="945" height="634" alt="FEA result refined at the smallest-radius shoulder of the 3-4-5 polynomial lobe, peak 686.3 megapascals, factor of safety 1.03" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/25-shoulder-fea-fos-1-03.webp"></div>
+            <p class="label">6.5&nbsp;mm 3-4-5 · shoulder</p>
+            <p class="num fea-col__n">1.03</p>
+            <p class="fea-col__t">Local Hertz check at the smallest radius. Peak 686.3&nbsp;MPa: essentially no margin.</p>
+          </figure>
+        </div>
+        <p class="fea-note"><strong>Reading the 1.03 honestly.</strong> On paper the polynomial lobe breathes better, but its smallest-radius shoulder is the limiting feature, and FEA found it before manufacture. That version needs a larger minimum radius, or a material or surface change, before it can be cut. The 1.29 and 1.55 figures come from full-profile analyses. The 1.03 is a local contact check, so they are not directly comparable. <span class="ev ev--modeled">Modeled · FEA</span></p>
+
+        <div class="grid" style="margin-top:56px;align-items:end">
+          <div class="c-1-4">
+            <h3 class="h3">Friction, before and after</h3>
+            <p style="margin-top:12px">Smaller lift and softer springs cut modeled intake valvetrain friction from 6.0&nbsp;hp to 4.1&nbsp;hp at 16,000&nbsp;rpm, about 2&nbsp;hp. The cam also matches the air coming in, which helps drivability.</p>
+            <p style="margin-top:14px"><span class="ev ev--modeled">Modeled · MATLAB</span></p>
+          </div>
+          <figure class="fig fig--contain c-5-12">
+            <div class="friction-pair">
+              <div class="sheet-img"><img src="../assets/img/fsae-valvetrain/08-stock-valvetrain-friction-hp.webp" width="733" height="509" alt="Stock valvetrain friction power loss versus engine speed" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/08-stock-valvetrain-friction-hp.webp"></div>
+              <div class="sheet-img"><img src="../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp.webp" srcset="../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp-sm.webp 960w, ../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp.webp 1348w" sizes="(min-width: 1100px) 26vw, 50vw" width="1348" height="834" alt="Revised valvetrain friction power loss versus engine speed with smaller lift and softer springs" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp.webp"></div>
+            </div>
+            <figcaption><span class="fig__no">Fig. 04.1</span>Valvetrain friction loss: stock (left) vs. reduced lift with softer springs (right).</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 05 MANUFACTURING -->
+      <section class="stage" id="manufacturing" aria-labelledby="s5">
+        <div class="stage__head">
+          <p class="label">05 — Manufacturing</p>
+          <h2 id="s5">From model to metal</h2>
+        </div>
+        <div class="grid">
+          <ul class="facts c-1-5">
+            <li><span>Manufacturing specification for a custom camshaft, worked through with an outside machine shop</span><span class="ev ev--documented">Spec</span></li>
+            <li><span>Valve back-cuts machined in the university machine shop</span><span class="ev ev--built">Built</span></li>
+            <li><span>Additional custom valve components designed; not all were manufactured</span><span class="ev ev--documented">Design</span></li>
+            <li><span>Plasma-cut tooling made for engine disassembly</span><span class="ev ev--built">Built</span></li>
+          </ul>
+          <div class="c-6-12 mfg-trio">
+            <figure class="fig"><div class="fig__media frame-3x4"><img src="../assets/img/fsae-valvetrain/42-machine-shop-manual-mill.webp" srcset="../assets/img/fsae-valvetrain/42-machine-shop-manual-mill-sm.webp 720w, ../assets/img/fsae-valvetrain/42-machine-shop-manual-mill.webp 1500w" sizes="(min-width: 1100px) 16vw, 33vw" width="1500" height="2000" alt="Manual milling machine in the university machine shop" loading="lazy" decoding="async"></div><figcaption>Manual mill, university shop.</figcaption></figure>
+            <figure class="fig"><div class="fig__media frame-3x4"><img src="../assets/img/fsae-valvetrain/32-cnc-plasma-cutting.webp" srcset="../assets/img/fsae-valvetrain/32-cnc-plasma-cutting-sm.webp 720w, ../assets/img/fsae-valvetrain/32-cnc-plasma-cutting.webp 1500w" sizes="(min-width: 1100px) 16vw, 33vw" width="1500" height="2000" alt="CNC plasma cutter cutting a steel part" loading="lazy" decoding="async"></div><figcaption>Plasma cutting a disassembly tool.</figcaption></figure>
+            <figure class="fig"><div class="fig__media frame-3x4"><img src="../assets/img/fsae-valvetrain/33-plasma-cut-clutch-holding-tool.webp" srcset="../assets/img/fsae-valvetrain/33-plasma-cut-clutch-holding-tool-sm.webp 720w, ../assets/img/fsae-valvetrain/33-plasma-cut-clutch-holding-tool.webp 1500w" sizes="(min-width: 1100px) 16vw, 33vw" width="1500" height="2000" alt="Plasma-cut steel tool holding the clutch basket during engine disassembly" loading="lazy" decoding="async"></div><figcaption>The tool in use on the clutch.</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 IMPLEMENTATION -->
+      <section class="stage" id="implementation" aria-labelledby="s6">
+        <div class="stage__head">
+          <p class="label">06 — Physical implementation</p>
+          <h2 id="s6">Assembly, testing and the rest of the powertrain</h2>
+          <p>I took part in engine assembly and testing. A borescope inspection found a crack in the block, which prompted the full teardown. I examined uneven scoring on a piston for signs of the engine running hot at a previous competition. Beyond the valvetrain, I used CFD on combustion and exhaust flow, contributed to header and plenum decisions, and helped MIG weld, manufacture and assemble the header and gearbox systems.</p>
+        </div>
+        <div class="impl-grid">
+          <figure class="fig impl-a"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp" srcset="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission-sm.webp 720w, ../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp 1500w" sizes="(min-width: 1100px) 30vw, 100vw" width="1500" height="2000" alt="Engine block stripped to the crankshaft and transmission gears" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp"></div><figcaption><span class="fig__no">Fig. 06.1</span>Block stripped to crankshaft and transmission.</figcaption></figure>
+          <figure class="fig impl-b"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/37-borescope-block-crack.webp" srcset="../assets/img/fsae-valvetrain/37-borescope-block-crack-sm.webp 960w, ../assets/img/fsae-valvetrain/37-borescope-block-crack.webp 2000w" sizes="(min-width: 1100px) 22vw, 50vw" width="2000" height="1500" alt="Borescope image showing a crack inside the engine block" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/37-borescope-block-crack.webp"></div><figcaption><span class="fig__no">Fig. 06.2</span>Borescope view of the block crack.</figcaption></figure>
+          <figure class="fig impl-c"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp" srcset="../assets/img/fsae-valvetrain/38-block-crack-after-teardown-sm.webp 720w, ../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp 1500w" sizes="(min-width: 1100px) 22vw, 50vw" width="1500" height="2000" alt="Crack in the engine block visible after teardown" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp"></div><figcaption><span class="fig__no">Fig. 06.3</span>The same crack after teardown. <span class="ev ev--measured">Inspected</span></figcaption></figure>
+          <figure class="fig impl-d"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/34-scored-piston.webp" srcset="../assets/img/fsae-valvetrain/34-scored-piston-sm.webp 720w, ../assets/img/fsae-valvetrain/34-scored-piston.webp 1500w" sizes="(min-width: 1100px) 22vw, 50vw" width="1500" height="2000" alt="Piston skirt with uneven scoring marks" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/34-scored-piston.webp"></div><figcaption><span class="fig__no">Fig. 06.4</span>Uneven piston scoring.</figcaption></figure>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ TEAM PLATE ============ -->
+  <section class="plate bleed team-band" aria-label="Team and previous car">
+    <div class="bleed__media"><img src="../assets/img/fsae-valvetrain/39-dyno-previous-car.webp" srcset="../assets/img/fsae-valvetrain/39-dyno-previous-car-sm.webp 960w, ../assets/img/fsae-valvetrain/39-dyno-previous-car.webp 2000w" sizes="100vw" width="2000" height="1500" alt="Previous year&#x27;s Formula SAE car strapped to a chassis dynamometer with team members working around it" loading="lazy" decoding="async" style="--fy:55%"></div>
+    <div class="bleed__scrim bleed__scrim--b" aria-hidden="true"></div>
+    <div class="wrap bleed__content team-band__content">
+      <p class="label" style="color:var(--blue)">Context</p>
+      <p class="h3" style="margin-top:12px;max-width:38ch">On the dyno: last year’s car, run to evaluate where power was being lost before the redesign began.</p>
+    </div>
+  </section>
+
+  <section class="wrap p-section" aria-labelledby="status">
+    <div class="grid">
+      <div class="c-1-6">
+        <p class="label">Status</p>
+        <h2 id="status" class="h2" style="margin-top:14px">Where this stands</h2>
+      </div>
+      <div class="c-7-12 statusbox">
+        <p>The car has not yet completed a race. Every performance figure on this page is a model output or a component measurement, not a track or dyno result.</p>
+        <p>Taken together, the redesign is projected to add about 4.9&nbsp;hp. That projection comes from the models above. <span class="ev ev--modeled">Projected</span></p>
+        <p>The camshaft specification was developed with an outside machine shop. The valve back-cuts were machined in-house.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:var(--section)" aria-labelledby="related">
+    <p class="label" id="related" style="margin-bottom:16px">Draws on · leads to</p>
+    <div class="xrefs">
+      <a class="xref" href="go-kart.html"><span class="xref__no">S-05</span><span class="xref__title">Gas go-kart<span class="xref__why">First powertrain work: fuel system, clutch and chain drive.</span></span></a>
+      <a class="xref" href="manufacturing.html"><span class="xref__no">S-04</span><span class="xref__title">Manufacturing &amp; fabrication<span class="xref__why">Three years of machining behind the in-house back-cuts.</span></span></a>
+      <a class="xref" href="hydrogen-combustion.html"><span class="xref__no">S-11</span><span class="xref__title">Hydrogen–oxygen ignition model<span class="xref__why">The same questions about chambers and timing, studied through chemical kinetics.</span></span></a>
+    </div>
+    <a class="next-project" href="quantum-optics-research.html" style="margin-top:72px">
+      <span class="label">Next sheet · S-03</span>
+      <span class="next-project__title" style="display:block;margin-top:12px">Nonlinear optics research →</span>
+    </a>
+  </section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="label" style="color:var(--graphite-lt)">Contact</p>
+    <p class="footer__big" style="margin-top:14px">For engineering roles, research positions or a closer look at any of this work: <a href="mailto:daniellewisnelson@gmail.com">daniellewisnelson@gmail.com</a></p>
+    <div class="footer__grid">
+      <div>
+        <span class="label">Daniel Nelson</span>
+        <p class="muted" style="font-size:14px;max-width:40ch;color:var(--graphite-lt)">B.S. Chemical Engineering, University of California, Irvine. Energy &amp; Sustainability Specialization, Minor in Materials Science.</p>
+      </div>
+      <div>
+        <span class="label">Selected work</span>
+        <ul>
+          <li><a href="../work/fsae-valvetrain.html">Formula SAE valvetrain</a></li>
+          <li><a href="../work/hydraulic-flight-simulator.html">Hydraulic flight simulator</a></li>
+          <li><a href="../work/quantum-optics-research.html">Quantum optics research</a></li>
+          <li><a href="../work/hydrogen-combustion.html">Hydrogen combustion model</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Site</span>
+        <ul>
+          <li><a href="../index.html#index">Project index</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Elsewhere</span>
+        <ul>
+          <li><a href="mailto:daniellewisnelson@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/daniellewisnelson" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base label"><span>© 2026 Daniel Nelson</span><span>Set in Geist &amp; Archivo · Hand-built in HTML, CSS and SVG</span></div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/physics.js" defer></script>
+<script src="../assets/js/figures/fsae.js" defer></script>
+</body>
+</html>

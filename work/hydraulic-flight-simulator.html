@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two-axis hydraulic flight simulator — Daniel Nelson</title>
+<meta name="description" content="A two-axis motion platform designed and built by a team of two: hand-derived inverse kinematics, Python control over UDP from X-Plane, solenoid driver electronics and CNC-machined aluminum ball joints.">
+<meta name="author" content="Daniel Nelson">
+<meta name="theme-color" content="#F5F3EE">
+<link rel="canonical" href="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/hydraulic-flight-simulator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daniel Nelson — Engineering Portfolio">
+<meta property="og:title" content="Two-axis hydraulic flight simulator — Daniel Nelson">
+<meta property="og:description" content="A two-axis motion platform designed and built by a team of two: hand-derived inverse kinematics, Python control over UDP from X-Plane, solenoid driver electronics and CNC-machined aluminum ball joints.">
+<meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/hydraulic-flight-simulator.html">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html#work" aria-current="page">Work</a>
+      <a href="../index.html#index">Index</a>
+      <a href="../about.html">About</a>
+      <a href="../resume.html">Resume</a>
+      <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+  <header class="wrap p-head">
+    <div class="p-head__grid">
+      <div class="p-head__main">
+        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">Index</a><span class="label">Sheet 02 · Systems · 2024</span></p>
+        <h1 id="title">Two-axis hydraulic flight simulator</h1>
+        <p class="lead p-head__dek">Two of us set out to put a cockpit on a platform that pitches and rolls with the aircraft on screen. We built every link in the chain, from simulator telemetry to machined aluminum, and proved it on a quarter-scale pneumatic prototype.</p>
+      </div>
+      <dl class="title-block p-head__tb">
+        <div class="title-block__head"><span>TJHSST Engineering Research Lab</span><span>S-02</span></div>
+        <dt>Team</dt><dd>Two students</dd>
+        <dt>My role</dt><dd>Kinematics, control code, electronics, CAD/CAM, CNC machining, assembly</dd>
+        <dt>Output</dt><dd>¼-scale pneumatic prototype · 31-page research paper · symposium presentation</dd>
+        <dt>Tools</dt><dd>Python · X-Plane · TinkerCAD · CAD/CAM · CNC mill + lathe · FEA</dd>
+        <dt>Status</dt><dd>Prototype built and demonstrated · hydraulic platform not completed</dd>
+      </dl>
+    </div>
+  </header>
+
+  <!-- System map: the page's navigation -->
+  <section class="wrap" aria-labelledby="map-title">
+    <h2 id="map-title" class="visually-hidden">System map</h2>
+    <div class="sysmap">
+      <svg viewBox="0 0 1110 290" role="img" aria-labelledby="sys-t" data-draw>
+        <title id="sys-t">System map: flight simulator telemetry travels over UDP to the Python inverse-kinematics code, then to the solenoid driver circuit, the valves and the actuators, which move the platform through machined ball joints</title>
+        <g fill="none">
+          <path class="draw wire wire--data" pathLength="1" style="--i:1" d="M218 110H288"/>
+          <path class="draw wire wire--data" pathLength="1" style="--i:3" d="M488 110H558"/>
+          <path class="draw wire" pathLength="1" style="--i:5" d="M758 110H828"/>
+          <path class="draw wire" pathLength="1" style="--i:7" d="M1028 110H1080V200H1028"/>
+          <path class="draw wire" pathLength="1" style="--i:9" d="M828 200H758"/>
+          <path class="draw wire" pathLength="1" style="--i:11" d="M558 200H488"/>
+        </g>
+        <g class="draw-fade" style="--i:2"><text x="253" y="70" text-anchor="middle" class="wire-label">UDP :49000</text></g>
+        <g class="draw-fade" style="--i:4"><text x="523" y="70" text-anchor="middle" class="wire-label">targets</text></g>
+        <a class="node" href="#brief"><rect x="18" y="80" width="200" height="60"/><text x="34" y="106">Flight simulator</text><text x="34" y="125" class="sub">X-Plane · aircraft attitude</text></a>
+        <a class="node" href="#software"><rect x="288" y="80" width="200" height="60"/><text x="304" y="106">Python control</text><text x="304" y="125" class="sub">parse packets → IK</text></a>
+        <a class="node" href="#electronics"><rect x="558" y="80" width="200" height="60"/><text x="574" y="106">Driver electronics</text><text x="574" y="125" class="sub">custom PCB · MOSFETs</text></a>
+        <a class="node" href="#electronics"><rect x="828" y="80" width="200" height="60"/><text x="844" y="106">Solenoid valves</text><text x="844" y="125" class="sub">one per actuator</text></a>
+        <a class="node" href="#test"><rect x="828" y="170" width="200" height="60"/><text x="844" y="196">Actuators</text><text x="844" y="215" class="sub">pneumatic at ¼ scale</text></a>
+        <a class="node" href="#ball-joint"><rect x="558" y="170" width="200" height="60"/><text x="574" y="196">Ball joints</text><text x="574" y="215" class="sub">CNC 6061 aluminum</text></a>
+        <a class="node" href="#kinematics"><rect x="288" y="170" width="200" height="60"/><text x="304" y="196">Platform</text><text x="304" y="215" class="sub">pitch + roll</text></a>
+        <g class="draw-fade" style="--i:12"><text x="18" y="275" class="plot-text">SYSTEM MAP · SELECT A BLOCK TO JUMP TO IT</text></g>
+      </svg>
+      <div class="sysmap__legend"><span class="label" style="color:var(--blue-ink)">─ data</span><span class="label" style="color:var(--fg)">─ power / mechanical</span></div>
+    </div>
+  </section>
+
+  <!-- 01 brief -->
+  <section class="wrap p-section" id="brief" aria-labelledby="h-brief">
+    <div class="grid" style="align-items:center">
+      <div class="c-1-5">
+        <p class="label">01 — The brief</p>
+        <h2 id="h-brief" class="h2" style="margin-top:14px">A cockpit that moves with the aircraft</h2>
+        <p style="margin-top:18px">A screen can only show motion. We wanted the pilot to feel it, with a platform under an existing simulator cockpit driven by hydraulic cylinders. To prove the kinematics, control, electronics and joints before committing to hydraulics, we first built it at a quarter scale with pneumatic stand-ins.</p>
+      </div>
+      <figure class="fig c-6-12">
+        <div class="fig__media frame-16x9"><img src="../assets/img/hydraulic-flight-simulator/10-full-scale-flight-simulator-rig.webp" srcset="../assets/img/hydraulic-flight-simulator/10-full-scale-flight-simulator-rig-sm.webp 842w, ../assets/img/hydraulic-flight-simulator/10-full-scale-flight-simulator-rig.webp 1206w" sizes="(min-width: 1000px) 55vw, 100vw" width="1206" height="1375" alt="Existing full-size flight simulator cockpit with seat, controls and screens in a lab" loading="lazy" decoding="async" class="fade-edges" style="--fy:60%"></div>
+        <figcaption><span class="fig__no">Fig. 02.1</span>The simulator the motion platform was designed to sit beneath.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 02 kinematics -->
+  <section class="wrap p-section" id="kinematics" aria-labelledby="h-kin">
+    <div class="p-section__head">
+      <p class="label">02 — Kinematics</p>
+      <h2 id="h-kin">From pitch and roll to four piston lengths</h2>
+      <p class="lead">For any target attitude, each actuator has exactly one correct length. We derived the inverse kinematics by hand and then pushed the same model further, to forces, accelerations, jerk and inertia. The resulting load cases became the FEA inputs for the load-bearing joints.</p>
+    </div>
+    <div class="grid">
+      <figure class="fig fig--contain c-1-5">
+        <div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp" srcset="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp 1119w" sizes="(min-width: 1000px) 38vw, 100vw" width="1119" height="627" alt="Collage of handwritten inverse-kinematics derivations relating platform pitch and roll to piston positions" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp"></div>
+        <figcaption><span class="fig__no">Fig. 02.2</span>Hand derivation: piston positions from a required pitch and roll.</figcaption>
+      </figure>
+      <figure class="ifig c-6-12" data-fig="ik">
+        <div class="ifig__head"><span class="label" style="color:var(--fg)">Fig. 02.3 — Interactive · The project’s IK routine</span><span class="ev ev--built">Ported from project code</span></div>
+        <div class="ifig__plot"><svg viewBox="0 0 600 330" role="img" aria-label="Four pistons whose extensions update with simulator pitch and platform roll"></svg></div>
+        <div class="ifig__side" style="border-left:0;border-top:var(--lw-thin) solid var(--rule)">
+          <div class="ik-ctrls">
+            <div class="ctrl"><label for="pitch">Simulator pitch input <output data-out="pitch"></output></label><input id="pitch" name="pitch" type="range" min="0" max="180" step="1" value="45"></div>
+            <div class="ctrl"><label for="alpha">Platform roll α <output data-out="alpha"></output></label><input id="alpha" name="alpha" type="range" min="0" max="6" step="0.1" value="2"></div>
+          </div>
+          <dl class="readout"><dt>Platform pitch β = pitch / 8.7746</dt><dd data-out="beta"></dd><dt>Mean extension (held at neutral)</dt><dd data-out="mean"></dd></dl>
+        </div>
+        <figcaption class="ifig__foot">Ported directly from the Python in Fig. 02.4, the turning-left, turning-up branch: x = 9.5, y = 20.5·tan α, z = 52.5·tan β, then every target is shifted so the four pistons average 9.5. That keeps the platform centred while it tilts. Aircraft pitch is scaled down by 8.77, so 90° in the simulator becomes about 10.3° on the platform. Lengths are in the code’s units.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 03 software -->
+  <section class="wrap p-section" id="software" aria-labelledby="h-sw">
+    <div class="grid" style="align-items:start">
+      <div class="c-1-4">
+        <p class="label">03 — Control software</p>
+        <h2 id="h-sw" class="h2" style="margin-top:14px">Telemetry in, piston targets out</h2>
+        <p style="margin-top:18px">X-Plane streams aircraft attitude over UDP. The Python listener unpacks each DREF and DATA packet, passes pitch and roll through the kinematics routine, compares each piston’s target with its current position, and actuates to close the gap.</p>
+        <p style="margin-top:12px" class="muted">The proportional logic was written for the hydraulic system. The pneumatic prototype ran simpler on/off control.</p>
+      </div>
+      <figure class="fig fig--contain c-5-12">
+        <div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code.webp" srcset="../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code.webp 1114w" sizes="(min-width: 1000px) 60vw, 100vw" width="1114" height="629" alt="Python code: a UDP listener receiving X-Plane data on port 49000 and the derived algorithm converting pitch and roll to four piston targets" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/02-udp-and-piston-position-code.webp"></div>
+        <figcaption><span class="fig__no">Fig. 02.4</span>Left: UDP listener for X-Plane packets. Right: the derived algorithm that turns attitude into piston targets.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 04 electronics -->
+  <section class="wrap p-section" id="electronics" aria-labelledby="h-el">
+    <div class="p-section__head">
+      <p class="label">04 — Electronics</p>
+      <h2 id="h-el">Switching the valves</h2>
+      <p class="lead">We laid out the circuit in TinkerCAD, built it on the bench, and then moved it to a custom PCB that connects the controller to one solenoid valve per actuator through MOSFET switching channels.</p>
+    </div>
+    <div class="elec-grid">
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp" srcset="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp 1200w" sizes="(min-width: 1000px) 40vw, 100vw" width="1200" height="660" alt="TinkerCAD layout of the solenoid driver circuit: microcontroller, MOSFET channels on a breadboard, valves and a battery" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/03-tinkercad-solenoid-circuit-schematic.webp"></div><figcaption><span class="fig__no">Fig. 02.5</span>TinkerCAD layout of the driver circuit.</figcaption></figure>
+      <figure class="fig"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp" srcset="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp 1500w" sizes="(min-width: 1000px) 28vw, 100vw" width="1500" height="2000" alt="Assembled solenoid driver circuit with MOSFET channels and wiring" loading="lazy" decoding="async" style="--fy:55%" data-zoom="../assets/img/hydraulic-flight-simulator/04-solenoid-driver-circuit.webp"></div><figcaption><span class="fig__no">Fig. 02.6</span>Assembled driver circuit.</figcaption></figure>
+      <figure class="fig"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp" srcset="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp 1500w" sizes="(min-width: 1000px) 28vw, 100vw" width="1500" height="2000" alt="Driver circuit connected to four solenoid valves" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/05-circuit-with-solenoid-valves.webp"></div><figcaption><span class="fig__no">Fig. 02.7</span>Circuit wired to the solenoid valves that drive the pistons.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 05 ball joint: visual peak -->
+  <section class="plate p-section" id="ball-joint" aria-labelledby="h-bj">
+    <div class="wrap">
+      <div class="grid" style="align-items:end">
+        <div class="c-1-6">
+          <p class="label" style="color:var(--blue)">05 — The ball joint</p>
+          <h2 id="h-bj" class="h2" style="margin-top:14px">Machined, toleranced, tested by hand</h2>
+        </div>
+        <p class="c-7-12" style="color:var(--graphite-lt)">Each actuator meets the platform at a ball joint that has to articulate freely without slop. An aluminum ball is captured between two machined halves, closed with a threaded rod and nuts. I produced GD&amp;T-toleranced drawings, programmed the toolpaths in CAM, and cut the parts from 6061 aluminum on a CNC mill and lathe.</p>
+      </div>
+      <div class="cam-videos">
+        <figure class="fig">
+          <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--cam-mill.jpg" width="912" height="852" aria-label="CAM simulation of the mill toolpaths for the ball-joint socket"><source src="../assets/video/hydraulic-flight-simulator--cam-mill.mp4" type="video/mp4"></video></div>
+          <figcaption><span class="fig__no">Fig. 02.8</span>Mill: 2D pocket, deep drilling, contour, adaptive clearing and a scallop finish in the spherical socket.</figcaption>
+        </figure>
+        <figure class="fig">
+          <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--cam-lathe.jpg" width="1314" height="900" aria-label="CAM simulation of the lathe toolpaths for the ball stud"><source src="../assets/video/hydraulic-flight-simulator--cam-lathe.mp4" type="video/mp4"></video></div>
+          <figcaption><span class="fig__no">Fig. 02.9</span>Lathe: profile roughing and finishing of the ball, stem roughing, a groove and the part-off.</figcaption>
+        </figure>
+      </div>
+      <div class="bj-grid">
+        <figure class="fig bj-video">
+          <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--ball-joint-walkaround.jpg" width="720" height="1280" aria-label="Walkaround of the finished ball joint being tilted and rotated by hand, then the bin of machined parts"><source src="../assets/video/hydraulic-flight-simulator--ball-joint-walkaround.mp4" type="video/mp4"></video></div>
+          <figcaption><span class="fig__no">Fig. 02.10</span>The finished joint, tilted and rotated by hand to show smooth articulation and correct tolerancing. <span class="ev ev--built">Built · tested</span></figcaption>
+        </figure>
+        <figure class="fig bj-a"><div class="fig__media frame-3x4"><img src="../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball.webp" srcset="../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball.webp 1500w" sizes="(min-width: 1000px) 22vw, 50vw" width="1500" height="2000" alt="Hand holding a CNC-turned aluminum ball stud" loading="lazy" decoding="async" style="--fy:45%" data-zoom="../assets/img/hydraulic-flight-simulator/06-cnc-milled-ball-joint-ball.webp"></div><figcaption>CNC-turned ball stud.</figcaption></figure>
+        <figure class="fig bj-b"><div class="fig__media frame-3x4"><img src="../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp" srcset="../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp 1500w" sizes="(min-width: 1000px) 22vw, 50vw" width="1500" height="2000" alt="Machined ball stud threaded onto the end of a piston rod" loading="lazy" decoding="async" style="--fy:35%" data-zoom="../assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston.webp"></div><figcaption>Threaded onto the piston rod (GD&amp;T, DFM).</figcaption></figure>
+        <figure class="fig bj-c"><div class="fig__media frame-4x3"><img src="../assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin.webp" srcset="../assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin.webp 1500w" sizes="(min-width: 1000px) 30vw, 100vw" width="1500" height="2000" alt="Bin of CNC-machined ball studs and socket halves" loading="lazy" decoding="async" style="--fy:45%" data-zoom="../assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin.webp"></div><figcaption>Every machined joint component (threaded rod and nuts not shown).</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 assembly & test -->
+  <section class="wrap p-section" id="test" aria-labelledby="h-test">
+    <div class="grid" style="align-items:center">
+      <figure class="fig c-1-5 test-video">
+        <div class="fig__media"><video controls muted playsinline preload="none" poster="../assets/video/hydraulic-flight-simulator--prototype-test.jpg" width="606" height="1080" aria-label="Quarter-scale pneumatic prototype: four cylinders extending and retracting independently while the controls are operated"><source src="../assets/video/hydraulic-flight-simulator--prototype-test.mp4" type="video/mp4"></video></div>
+        <figcaption><span class="fig__no">Fig. 02.11</span>Quarter-scale prototype, assembled and tested. <span class="ev ev--built">Built · tested</span></figcaption>
+      </figure>
+      <div class="c-6-12">
+        <p class="label">06 — Assembly and test</p>
+        <h2 id="h-test" class="h2" style="margin-top:14px">A working quarter-scale prototype</h2>
+        <p style="margin-top:18px">Electronics, pneumatics and machined parts came together on one plywood base. Four cylinders extend and retract independently on command. We demonstrated the prototype to the laboratory director to secure funding for the hydraulic system.</p>
+        <figure class="fig" style="margin-top:28px">
+          <div class="fig__media frame-16x9"><img src="../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly.webp" srcset="../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly-sm.webp 720w, ../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly.webp 1500w" sizes="(min-width: 1000px) 50vw, 100vw" width="1500" height="2000" alt="Workbench with pneumatic cylinders, blue tubing, a pressure regulator and electronics partially assembled" loading="lazy" decoding="async" style="--fy:60%" data-zoom="../assets/img/hydraulic-flight-simulator/09-partial-prototype-assembly.webp"></div>
+          <figcaption><span class="fig__no">Fig. 02.12</span>Partially assembled electronic, pneumatic and machined components.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap p-section" aria-labelledby="status">
+    <div class="grid">
+      <div class="c-1-6"><p class="label">Status</p><h2 id="status" class="h2" style="margin-top:14px">Documented, demonstrated, unfinished</h2></div>
+      <div class="c-7-12 statusbox">
+        <p>We documented the design, analysis and build in a 31-page research paper and presented it at a final symposium. Weekly milestones were tracked in a project journal.</p>
+        <p>The full hydraulic platform was not completed, and some final CAD files were lost after the project ended. What survives is shown here: the prototype, circuitry, code and machined parts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:var(--section)" aria-labelledby="related">
+    <p class="label" id="related" style="margin-bottom:16px">Draws on · leads to</p>
+    <div class="xrefs">
+      <a class="xref" href="manufacturing.html"><span class="xref__no">S-04</span><span class="xref__title">Manufacturing &amp; fabrication<span class="xref__why">The machining program behind the ball joints.</span></span></a>
+      <a class="xref" href="gamesense.html"><span class="xref__no">S-07</span><span class="xref__title">GameSense<span class="xref__why">Sensors to UDP to software again, this time in a soccer cleat.</span></span></a>
+      <a class="xref" href="fsae-valvetrain.html"><span class="xref__no">S-01</span><span class="xref__title">Formula SAE valvetrain<span class="xref__why">Kinematics and dynamics again, at 16,000 rpm.</span></span></a>
+    </div>
+    <a class="next-project" href="fsae-valvetrain.html" style="margin-top:72px">
+      <span class="label">Next sheet · S-01</span>
+      <span class="next-project__title" style="display:block;margin-top:12px">Valvetrain redesign →</span>
+    </a>
+  </section>
+
+</main>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="label" style="color:var(--graphite-lt)">Contact</p>
+    <p class="footer__big" style="margin-top:14px">For engineering roles, research positions or a closer look at any of this work: <a href="mailto:daniellewisnelson@gmail.com">daniellewisnelson@gmail.com</a></p>
+    <div class="footer__grid">
+      <div>
+        <span class="label">Daniel Nelson</span>
+        <p class="muted" style="font-size:14px;max-width:40ch;color:var(--graphite-lt)">B.S. Chemical Engineering, University of California, Irvine. Energy &amp; Sustainability Specialization, Minor in Materials Science.</p>
+      </div>
+      <div>
+        <span class="label">Selected work</span>
+        <ul>
+          <li><a href="../work/fsae-valvetrain.html">Formula SAE valvetrain</a></li>
+          <li><a href="../work/hydraulic-flight-simulator.html">Hydraulic flight simulator</a></li>
+          <li><a href="../work/quantum-optics-research.html">Quantum optics research</a></li>
+          <li><a href="../work/hydrogen-combustion.html">Hydrogen combustion model</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Site</span>
+        <ul>
+          <li><a href="../index.html#index">Project index</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Elsewhere</span>
+        <ul>
+          <li><a href="mailto:daniellewisnelson@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/daniellewisnelson" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base label"><span>© 2026 Daniel Nelson</span><span>Set in Geist &amp; Archivo · Hand-built in HTML, CSS and SVG</span></div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/figures/sim.js" defer></script>
+</body>
+</html>
