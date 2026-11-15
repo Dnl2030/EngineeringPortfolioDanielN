@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nonlinear optics in lithium niobate and 2D materials — Daniel Nelson</title>
+<meta name="description" content="Undergraduate research at the UC Irvine Materials Research Institute: SPDC phase-matching models for lithium niobate, walk-off and internal path deflection maps, and lab work on SHG and interferometry.">
+<meta name="author" content="Daniel Nelson">
+<meta name="theme-color" content="#F5F3EE">
+<link rel="canonical" href="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/quantum-optics-research.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daniel Nelson — Engineering Portfolio">
+<meta property="og:title" content="Nonlinear optics in lithium niobate and 2D materials — Daniel Nelson">
+<meta property="og:description" content="Undergraduate research at the UC Irvine Materials Research Institute: SPDC phase-matching models for lithium niobate, walk-off and internal path deflection maps, and lab work on SHG and interferometry.">
+<meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/quantum-optics-research.html">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/quantum-optics-research/03-spdc-phase-matching-interactive-heatmap.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html#work" aria-current="page">Work</a>
+      <a href="../index.html#index">Index</a>
+      <a href="../about.html">About</a>
+      <a href="../resume.html">Resume</a>
+      <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="report">
+
+  <header class="wrap p-head">
+    <div class="p-head__grid">
+      <div class="p-head__main">
+        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">Index</a><span class="label" style="color:var(--blue-ink)">Sheet 03 · Research · 2025</span></p>
+        <h1 id="title">Nonlinear optics in lithium niobate and 2D materials</h1>
+        <p class="lead p-head__dek">Undergraduate research on two-dimensional van der Waals materials and the nonlinear optical processes used to create and probe entangled photons. My part was mathematical modeling, literature review and lab support for the doctoral students.</p>
+      </div>
+      <dl class="title-block p-head__tb">
+        <div class="title-block__head"><span>UC Irvine Materials Research Institute</span><span>S-03</span></div>
+        <dt>Role</dt><dd>Undergraduate materials researcher</dd>
+        <dt>Since</dt><dd>November 2025 · ongoing</dd>
+        <dt>Topics</dt><dd>TMDs · 2D van der Waals materials · SPDC · SHG · SFWM</dd>
+        <dt>Tools</dt><dd>Python · Ansys Lumerical · Ansys Mechanical · interferometers · SHG setups</dd>
+        <dt>Reading</dt><dd>~75 research papers reviewed</dd>
+      </dl>
+    </div>
+  </header>
+
+  <div class="wrap report-body">
+    <aside class="report-aside" aria-label="Contents">
+      <p class="label" style="margin-bottom:12px">Contents</p>
+      <ol class="toc">
+        <li><a href="#s1">1 · The phase-matching problem</a></li>
+        <li><a href="#s2">2 · Ordinary and extraordinary rays</a></li>
+        <li><a href="#s3">3 · Internal path deflection</a></li>
+        <li><a href="#s4">4 · The phase-matching model</a></li>
+        <li><a href="#s5">5 · In the lab</a></li>
+        <li><a href="#s6">6 · Proposals</a></li>
+      </ol>
+    </aside>
+
+    <article class="report-main">
+      <div class="abstract">
+        <span class="label">Abstract</span>
+        <p>In spontaneous parametric down-conversion (SPDC), one pump photon splits into a signal and an idler photon inside a nonlinear crystal. This only happens efficiently when energy and momentum both balance, a condition called phase matching. In a birefringent crystal such as lithium niobate (LiNbO<sub>3</sub>), that balance depends on wavelength, polarization and the propagation angle relative to the optic axis. I built Python models that map ray separation and internal walk-off and solve for the discrete phase-matching conditions. One of them is an interactive tool that locks any one wavelength and returns the experimental geometry for the rest.</p>
+      </div>
+
+      <section id="s1" class="report-sec" aria-labelledby="h1">
+        <h2 id="h1" class="h3"><span class="sec-no">1</span>The phase-matching problem</h2>
+        <p>Finding the discrete set of conditions that produce entangled photon pairs is one of the main hurdles in setting up an SPDC experiment. Two relations must hold at once:</p>
+        <div class="eq" role="group" aria-label="Equation 1, energy conservation">
+          <math display="block"><mfrac><mn>1</mn><msub><mi>λ</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>λ</mi><mi>s</mi></msub></mfrac><mo>+</mo><mfrac><mn>1</mn><msub><mi>λ</mi><mi>i</mi></msub></mfrac></math>
+          <span class="eq__no">(1) energy</span>
+        </div>
+        <div class="eq" role="group" aria-label="Equation 2, momentum conservation">
+          <math display="block"><mi>Δ</mi><mi>k</mi><mo>=</mo><msub><mi>k</mi><mi>p</mi></msub><mo>−</mo><msub><mi>k</mi><mi>s</mi></msub><mo>−</mo><msub><mi>k</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mspace width="1em"/><mo>⇔</mo><mspace width="1em"/><mfrac><msub><mi>n</mi><mi>p</mi></msub><msub><mi>λ</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>n</mi><mi>s</mi></msub><msub><mi>λ</mi><mi>s</mi></msub></mfrac><mo>+</mo><mfrac><msub><mi>n</mi><mi>i</mi></msub><msub><mi>λ</mi><mi>i</mi></msub></mfrac></math>
+          <span class="eq__no">(2) collinear phase matching</span>
+        </div>
+        <p>Normal dispersion makes (2) impossible with a single polarization. A birefringent crystal fixes this: polarize the pump as the extraordinary wave, and its index depends on the angle θ to the optic axis.</p>
+        <div class="eq" role="group" aria-label="Equation 3, extraordinary index at angle theta">
+          <math display="block"><mfrac><mn>1</mn><mrow><msup><msub><mi>n</mi><mi>e</mi></msub><mn>2</mn></msup><mo>(</mo><mi>θ</mi><mo>)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><msup><mi>cos</mi><mn>2</mn></msup><mi>θ</mi></mrow><msubsup><mi>n</mi><mi>o</mi><mn>2</mn></msubsup></mfrac><mo>+</mo><mfrac><mrow><msup><mi>sin</mi><mn>2</mn></msup><mi>θ</mi></mrow><msubsup><mi>n</mi><mi>e</mi><mn>2</mn></msubsup></mfrac></math>
+          <span class="eq__no">(3) index ellipsoid</span>
+        </div>
+      </section>
+
+      <section id="s2" class="report-sec" aria-labelledby="h2">
+        <h2 id="h2" class="h3"><span class="sec-no">2</span>Ordinary and extraordinary rays</h2>
+        <p>Ordinary and extraordinary waves see different indices along different axes, so they separate inside the crystal. I started with the simplest case: a 2D map of that angular separation for LiNbO<sub>3</sub> across wavelength and incident angle, built from published equations and experimental data. Everything else rests on it.</p>
+      </section>
+    </article>
+  </div>
+
+  <div class="wrap report-plates">
+    <figure class="fig fig--contain plate-wide">
+      <div class="sheet-img"><img src="../assets/img/quantum-optics-research/01-beam-separation-heatmap.webp" srcset="../assets/img/quantum-optics-research/01-beam-separation-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/01-beam-separation-heatmap.webp 1155w" sizes="(min-width: 1000px) 60vw, 100vw" width="1155" height="841" alt="Heatmap of angular beam separation between ordinary and extraordinary waves versus wavelength from 0.4 to 1.4 micrometres and incident angle up to 90 degrees" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/01-beam-separation-heatmap.webp"></div>
+      <figcaption><span class="fig__no">Fig. 03.1</span>Angular separation between ordinary and extraordinary waves vs. wavelength and incident angle in LiNbO<sub>3</sub>. <span class="ev ev--modeled">Modeled</span></figcaption>
+    </figure>
+    <div class="plate-pair">
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp" srcset="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3-sm.webp 960w, ../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp 1286w" sizes="(min-width: 1000px) 40vw, 100vw" width="1286" height="810" alt="Ray diagram of extraordinary rays refracting from air into a lithium niobate crystal and out again at 600 nm" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/06-extraordinary-ray-propagation-linbo3.webp"></div><figcaption><span class="fig__no">Fig. 03.2</span>Extraordinary rays through LiNbO<sub>3</sub> at 600&nbsp;nm. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/07-extraordinary-ray-3d-optic-axis.webp" width="869" height="797" alt="3D plot of extraordinary ray paths through the crystal with the optic axis rotated 57 degrees out of plane" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/07-extraordinary-ray-3d-optic-axis.webp"></div><figcaption><span class="fig__no">Fig. 03.3</span>The same rays in 3D, with the optic axis rotated 57° out of plane.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="wrap report-body">
+    <div class="report-aside" aria-hidden="true"></div>
+    <article class="report-main">
+      <section id="s3" class="report-sec" aria-labelledby="h3">
+        <h2 id="h3" class="h3"><span class="sec-no">3</span>Internal path deflection</h2>
+        <p>As the incident angle and the angle from the optic axis change, the beam’s internal path deviates from the expected direction. Refraction and spatial walk-off combine. I mapped the full evolution of that deflection and used it to guide phase matching and experimental setup parameters.</p>
+        <div class="eq" role="group" aria-label="Equation 4, walk-off angle">
+          <math display="block"><mi>tan</mi><mi>ρ</mi><mo>=</mo><mfrac><mrow><msup><msub><mi>n</mi><mi>e</mi></msub><mn>2</mn></msup><mo>(</mo><mi>θ</mi><mo>)</mo></mrow><mn>2</mn></mfrac><mrow><mo>(</mo><mfrac><mn>1</mn><msubsup><mi>n</mi><mi>e</mi><mn>2</mn></msubsup></mfrac><mo>−</mo><mfrac><mn>1</mn><msubsup><mi>n</mi><mi>o</mi><mn>2</mn></msubsup></mfrac><mo>)</mo></mrow><mi>sin</mi><mn>2</mn><mi>θ</mi></math>
+          <span class="eq__no">(4) walk-off</span>
+        </div>
+      </section>
+    </article>
+  </div>
+
+  <div class="wrap report-plates">
+    <div class="plate-pair plate-pair--wide-left">
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp" srcset="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp 1280w" sizes="(min-width: 1000px) 50vw, 100vw" width="1280" height="852" alt="Heatmap of internal path deflection versus incident angle and optic-axis rotation with contour lines" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/05-internal-path-deflection-heatmap.webp"></div><figcaption><span class="fig__no">Fig. 03.4</span>Internal path deflection: combined refraction and walk-off vs. incident angle and optic-axis rotation. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp" srcset="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap-sm.webp 960w, ../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp 1129w" sizes="(min-width: 1000px) 30vw, 100vw" width="1129" height="760" alt="Heatmap of Type II SPDC bandwidth for a 1064 nm pump at a 45 degree phase-matching angle" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/04-type-ii-spdc-bandwidth-heatmap.webp"></div><figcaption><span class="fig__no">Fig. 03.5</span>Type II SPDC bandwidth, 1064&nbsp;nm pump, θ<sub>pm</sub> = 45.0°. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+    </div>
+  </div>
+
+  <div class="wrap report-body">
+    <div class="report-aside" aria-hidden="true"></div>
+    <article class="report-main">
+      <section id="s4" class="report-sec" aria-labelledby="h4">
+        <h2 id="h4" class="h3"><span class="sec-no">4</span>The phase-matching model</h2>
+        <p>Heatmaps only show part of the picture. I wrote a Python program, based on several graduate-level analyses of discrete solutions, that solves for the phase-matching conditions directly. On top of it sits an interactive heatmap: lock the pump, signal or idler wavelength, and it shows the crystal angle that produces entangled photons and the wavelengths they will appear at. It is built for LiNbO<sub>3</sub>’s material properties, and the material parameters can be swapped for other crystals.</p>
+        <p class="margin-note">For Type II the solution reduces to a quartic in tan θ (Fig. 03.7), which the model solves for each wavelength set.</p>
+      </section>
+    </article>
+  </div>
+
+  <section class="plate instrument" aria-labelledby="inst-title">
+    <div class="wrap">
+      <div class="grid" style="align-items:end;margin-bottom:32px">
+        <div class="c-1-6"><p class="label" style="color:var(--blue)">Fig. 03.6 — Recording</p><h2 id="inst-title" class="h3" style="margin-top:10px">The model in use: locking each wavelength in turn</h2></div>
+        <p class="c-7-12" style="color:var(--graphite-lt);font-size:15px">The pump is locked at 1.055&nbsp;µm while the signal is dragged. Then the signal is locked and the pump swept, then the idler, and finally a pump at 805.6&nbsp;nm is swept through degeneracy. The ring is where phase-matching efficiency (sinc²) peaks.</p>
+      </div>
+      <figure class="fig">
+        <div class="fig__media instrument__video"><video controls muted playsinline preload="none" poster="../assets/video/quantum-optics-research--spdc-phase-matching.jpg" width="1278" height="924" aria-label="Screen recording of the interactive Type II SPDC phase-matching model: wavelength sliders with lock controls and a heatmap of phase-matching efficiency versus pump angle and signal emission angle"><source src="../assets/video/quantum-optics-research--spdc-phase-matching.mp4" type="video/mp4"></video></div>
+        <figcaption>Screen recording of the interactive SPDC phase-matching heatmap. Axes: pump phase-matching angle θ<sub>pm</sub> and internal signal emission angle α<sub>s</sub>. <span class="ev ev--modeled">Modeled</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-block:72px" aria-labelledby="calc-title">
+    <figure class="ifig" data-fig="spdc">
+      <div class="ifig__head">
+        <span class="label" id="calc-title" style="color:var(--fg)">Try it · Simplified companion calculator, collinear LiNbO<sub>3</sub></span>
+        <div class="seg" role="group" aria-label="Interaction type"><button type="button" data-type="I" aria-pressed="true">Type I</button><button type="button" data-type="II" aria-pressed="false">Type II</button></div>
+      </div>
+      <div class="ifig__body">
+        <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Phase-matching angle versus signal wavelength for the selected pump wavelength"></svg></div>
+        <div class="ifig__side">
+          <div class="ctrl"><label for="pump">Pump λp <output data-out="pump"></output></label><input id="pump" name="pump" type="range" min="540" max="1600" step="1" value="1064"></div>
+          <div class="ctrl"><label for="signal">Signal λs <output data-out="signal"></output></label><input id="signal" name="signal" type="range" min="1100" max="5000" step="1" value="1550"></div>
+          <dl class="readout">
+            <dt>Polarizations</dt><dd data-out="convention">e → o + o</dd>
+            <dt>Idler λi</dt><dd data-out="idler"></dd>
+            <dt>Pump n<sub>o</sub> / n<sub>e</sub></dt><dd data-out="np"></dd>
+            <dt>Walk-off ρ</dt><dd data-out="walk"></dd>
+            <dt>Phase-matching θ</dt><dd class="big" data-out="theta"></dd>
+          </dl>
+        </div>
+      </div>
+      <figcaption class="ifig__foot">A simplified browser calculator written for this page, separate from the research model above. It solves equations (1)–(3) for collinear, perfectly phase-matched SPDC in congruent LiNbO<sub>3</sub>, using the room-temperature Sellmeier fit of Zelmon, Small &amp; Jundt (JOSA B 14, 3319, 1997), valid to about 5&nbsp;µm. Gaps in the curve mean no angle-tuned solution exists: dispersion outruns the birefringence. That is why short-wavelength pumps need temperature tuning or periodic poling instead.</figcaption>
+    </figure>
+  </section>
+
+  <div class="wrap report-body">
+    <div class="report-aside" aria-hidden="true"></div>
+    <article class="report-main">
+      <figure class="fig fig--contain" style="margin-bottom:48px"><div class="sheet-img"><img src="../assets/img/quantum-optics-research/08-phase-matching-equations.webp" srcset="../assets/img/quantum-optics-research/08-phase-matching-equations-sm.webp 960w, ../assets/img/quantum-optics-research/08-phase-matching-equations.webp 973w" sizes="(min-width: 1000px) 50vw, 100vw" width="973" height="642" alt="Slide of phase-matching equations: delta k equals k pump minus k idler minus k signal equals zero, and the Type II case reduced to a quartic in tan theta" loading="lazy" decoding="async" data-zoom="../assets/img/quantum-optics-research/08-phase-matching-equations.webp"></div><figcaption><span class="fig__no">Fig. 03.7</span>Phase-matching relations from the analyzed paper, including the Type II quartic in tan θ. <span class="ev ev--literature">Literature</span></figcaption></figure>
+
+      <section id="s5" class="report-sec" aria-labelledby="h5">
+        <h2 id="h5" class="h3"><span class="sec-no">5</span>In the lab</h2>
+        <p>Optical measurements at a doctoral level take quantum and optical theory, plus the electrical engineering and signal analysis to execute them properly. I don’t claim mastery of any of it, but I rose to it. I worked with interferometers, assisted with second-harmonic generation setups, did precision optical alignment, and worked with electromagnetic fields, currents and cooling chambers. The measurements I took supported the doctoral students’ work. In simulation, I used Ansys Lumerical and Mechanical to analyze optical behavior and material stresses from the nanometer to the macro scale.</p>
+      </section>
+    </article>
+  </div>
+
+  <div class="wrap report-plates">
+    <figure class="fig plate-wide">
+      <div class="fig__media frame-21x9"><img src="../assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp" srcset="../assets/img/quantum-optics-research/02-optics-lab-experimental-setup-sm.webp 960w, ../assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp 1280w" sizes="100vw" width="1280" height="1003" alt="Optical table with mirrors, mounts, a flexible duct, cabling and measurement electronics" loading="lazy" decoding="async" style="--fy:42%" data-zoom="../assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp"></div>
+      <figcaption><span class="fig__no">Fig. 03.8</span>Shared experimental setup in the lab.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap report-body">
+    <div class="report-aside" aria-hidden="true"></div>
+    <article class="report-main">
+      <section id="s6" class="report-sec" aria-labelledby="h6">
+        <h2 id="h6" class="h3"><span class="sec-no">6</span>Proposals</h2>
+        <p>Alongside the modeling, I independently proposed material responses for pressure-tunable optical behavior, drawing on how material structure responds to pressure, temperature and electromagnetic fields.</p>
+        <p class="attribution">One of those proposals, a pressure-induced SHG response, was later reported by other researchers. I was not an author of that work and did not validate it experimentally.</p>
+        <p>The research gave me working exposure to transition metal dichalcogenides, 2D van der Waals materials, and the characterization and synthesis methods used to study them.</p>
+      </section>
+    </article>
+  </div>
+
+  <section class="wrap" style="padding-block:72px var(--section)" aria-labelledby="related">
+    <p class="label" id="related" style="margin-bottom:16px">Draws on · leads to</p>
+    <div class="xrefs">
+      <a class="xref" href="fourier-visualizer.html"><span class="xref__no">S-08</span><span class="xref__title">Fourier / Laplace visualizer<span class="xref__why">Building intuition through interactive mathematical tools.</span></span></a>
+      <a class="xref" href="hydrogen-combustion.html"><span class="xref__no">S-11</span><span class="xref__title">Hydrogen–oxygen ignition model<span class="xref__why">Stiff numerical modeling of a different physical system.</span></span></a>
+      <a class="xref" href="chemecar.html"><span class="xref__no">S-06</span><span class="xref__title">ChemE Car battery<span class="xref__why">Materials and chemistry, at the bench.</span></span></a>
+    </div>
+    <a class="next-project" href="chemecar.html" style="margin-top:72px">
+      <span class="label">Next sheet · S-06</span>
+      <span class="next-project__title" style="display:block;margin-top:12px">ChemE Car battery →</span>
+    </a>
+  </section>
+</main>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="label" style="color:var(--graphite-lt)">Contact</p>
+    <p class="footer__big" style="margin-top:14px">For engineering roles, research positions or a closer look at any of this work: <a href="mailto:daniellewisnelson@gmail.com">daniellewisnelson@gmail.com</a></p>
+    <div class="footer__grid">
+      <div>
+        <span class="label">Daniel Nelson</span>
+        <p class="muted" style="font-size:14px;max-width:40ch;color:var(--graphite-lt)">B.S. Chemical Engineering, University of California, Irvine. Energy &amp; Sustainability Specialization, Minor in Materials Science.</p>
+      </div>
+      <div>
+        <span class="label">Selected work</span>
+        <ul>
+          <li><a href="../work/fsae-valvetrain.html">Formula SAE valvetrain</a></li>
+          <li><a href="../work/hydraulic-flight-simulator.html">Hydraulic flight simulator</a></li>
+          <li><a href="../work/quantum-optics-research.html">Quantum optics research</a></li>
+          <li><a href="../work/hydrogen-combustion.html">Hydrogen combustion model</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Site</span>
+        <ul>
+          <li><a href="../index.html#index">Project index</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Elsewhere</span>
+        <ul>
+          <li><a href="mailto:daniellewisnelson@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/daniellewisnelson" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base label"><span>© 2026 Daniel Nelson</span><span>Set in Geist &amp; Archivo · Hand-built in HTML, CSS and SVG</span></div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/physics.js" defer></script>
+<script src="../assets/js/figures/optics.js" defer></script>
+</body>
+</html>

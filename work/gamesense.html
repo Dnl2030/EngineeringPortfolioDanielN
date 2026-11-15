@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSense: an impact-sensing soccer cleat — Daniel Nelson</title>
+<meta name="description" content="VTHacks 14: a sensor grid mapped onto a soccer cleat through UV space, simulated reference kicks, an ESP32 prototype and a phone app. Winner, Best Hack to Promote Diversity, Equity &amp; Inclusion.">
+<meta name="author" content="Daniel Nelson">
+<meta name="theme-color" content="#F5F3EE">
+<link rel="canonical" href="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/gamesense.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daniel Nelson — Engineering Portfolio">
+<meta property="og:title" content="GameSense: an impact-sensing soccer cleat — Daniel Nelson">
+<meta property="og:description" content="VTHacks 14: a sensor grid mapped onto a soccer cleat through UV space, simulated reference kicks, an ESP32 prototype and a phone app. Winner, Best Hack to Promote Diversity, Equity &amp; Inclusion.">
+<meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/gamesense.html">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/gamesense/02-piezo-grid-intersection-map.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html#work" aria-current="page">Work</a>
+      <a href="../index.html#index">Index</a>
+      <a href="../about.html">About</a>
+      <a href="../resume.html">Resume</a>
+      <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+  <header class="wrap p-head">
+    <div class="p-head__grid">
+      <div class="p-head__main">
+        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">Index</a><span class="label">Sheet 07 · Sensing &amp; software · 2026</span></p>
+        <h1 id="title">GameSense: a cleat that measures the kick</h1>
+        <p class="lead p-head__dek">A sensor grid woven into a soccer cleat records where and how hard the ball was struck. An app scores the kick out of 100 against simulated “perfect” strikes and suggests how to improve. Built at VTHacks&nbsp;14.</p>
+      </div>
+      <div class="p-head__tb award">
+        <p class="label">VTHacks 14 · September 2026</p>
+        <p class="award__t">Best Hack to Promote Diversity, Equity &amp; Inclusion</p>
+        <p class="muted" style="font-size:14px;margin-top:8px">718 participants from 221 schools.</p>
+        <span class="ev ev--result" style="margin-top:14px">Award</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="wrap p-section" aria-labelledby="map">
+    <div class="grid" style="align-items:center">
+      <figure class="fig fig--contain c-1-6"><div class="sheet-img"><img src="../assets/img/gamesense/02-piezo-grid-intersection-map.webp" srcset="../assets/img/gamesense/02-piezo-grid-intersection-map-sm.webp 784w, ../assets/img/gamesense/02-piezo-grid-intersection-map.webp 1352w" sizes="(min-width: 1000px) 45vw, 100vw" width="1352" height="1655" alt="Flattened cleat mesh with twelve red and twenty-six blue sensor lines and their labelled intersections" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/02-piezo-grid-intersection-map.webp"></div><figcaption><span class="fig__no">Fig. 07.1</span>The sensor-line array on the flattened cleat. Each intersection is a force and impact measurement point.</figcaption></figure>
+      <div class="c-7-12">
+        <p class="label">My part</p>
+        <h2 id="map" class="h2" style="margin-top:14px">Physics first: a nonlinear map from cleat to grid</h2>
+        <p style="margin-top:16px">I built the physics-based simulation, the 3D model and the nonlinear transformation behind the analysis. We unwrapped an open-source cleat mesh into a flat UV space and laid the sensor grid over it. Working in a square grid simplifies the signal drastically, and the nonlinear mapping still places each impact back on the real cleat geometry. It also lets sensor placement be optimized for battery life.</p>
+        <p style="margin-top:12px">A Python script generated realistic simulated kicks with tunable contact force, curve and noise. These were the “professional” references a user’s kick is scored against.</p>
+      </div>
+    </div>
+    <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:40px">
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/03-simulated-kick-curved.webp" srcset="../assets/img/gamesense/03-simulated-kick-curved-sm.webp 960w, ../assets/img/gamesense/03-simulated-kick-curved.webp 1870w" sizes="(min-width: 1000px) 45vw, 100vw" width="1870" height="990" alt="Six-panel plot of a simulated curved kick: trajectory, force over time per sensor, impact location and summary statistics" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/03-simulated-kick-curved.webp"></div><figcaption><span class="fig__no">Fig. 07.2</span>Simulated curved kick (T<sub>end</sub> = 19.1&nbsp;ms): peak force, time of impact per sensor and impact map. <span class="ev ev--modeled">Simulated</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/04-simulated-kick-no-spin.webp" srcset="../assets/img/gamesense/04-simulated-kick-no-spin-sm.webp 960w, ../assets/img/gamesense/04-simulated-kick-no-spin.webp 1870w" sizes="(min-width: 1000px) 45vw, 100vw" width="1870" height="990" alt="Six-panel plot of a simulated central kick with no spin" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/04-simulated-kick-no-spin.webp"></div><figcaption><span class="fig__no">Fig. 07.3</span>Simulated central kick with no spin (T<sub>end</sub> = 6.0&nbsp;ms). <span class="ev ev--modeled">Simulated</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="wrap p-section" aria-labelledby="pivot">
+    <div class="grid">
+      <div class="c-1-5">
+        <p class="label">What went wrong, and the fixes</p>
+        <h2 id="pivot" class="h2" style="margin-top:14px">Hardware rarely goes as planned</h2>
+      </div>
+      <ul class="facts c-6-12">
+        <li><span>The “piezoelectric” sensors were thin-film force-sensitive resistors, which meant a full circuit redesign</span><span class="ev ev--built">Rewired</span></li>
+        <li><span>The ESP32 had no Bluetooth, so data went over Wi-Fi as UDP packets</span><span class="ev ev--built">Pivoted</span></li>
+        <li><span>The board had no headers, so we soldered them ourselves</span><span class="ev ev--built">Built</span></li>
+        <li><span>Blender meshing stalled, so animations became mathematically driven HTML</span><span class="ev ev--built">Pivoted</span></li>
+      </ul>
+    </div>
+    <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:40px">
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/01-blender-uv-unwrap.webp" srcset="../assets/img/gamesense/01-blender-uv-unwrap-sm.webp 960w, ../assets/img/gamesense/01-blender-uv-unwrap.webp 1917w" sizes="(min-width: 1000px) 45vw, 100vw" width="1917" height="1094" alt="Blender UV editing view with the cleat mesh unwrapped flat beside the 3D cleat" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/01-blender-uv-unwrap.webp"></div><figcaption><span class="fig__no">Fig. 07.4</span>UV-unwrapping the cleat in Blender, keeping local continuity through the points that matter.</figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/05-html-kick-animation.webp" srcset="../assets/img/gamesense/05-html-kick-animation-sm.webp 960w, ../assets/img/gamesense/05-html-kick-animation.webp 1030w" sizes="(min-width: 1000px) 45vw, 100vw" width="1030" height="613" alt="3D cleat in a browser animation with impact points shown as spheres" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/05-html-kick-animation.webp"></div><figcaption><span class="fig__no">Fig. 07.5</span>HTML animation of a simulated kick through the sensor array.</figcaption></figure>
+    </div>
+    <p style="margin-top:32px;display:flex;flex-wrap:wrap;gap:16px 32px"><a class="arrow-link" href="https://devpost.com/software/gamesense-eput46" rel="noopener">Devpost submission</a><a class="arrow-link" href="https://youtu.be/CKWcHSl-_ZE" rel="noopener">Video walkthrough</a></p>
+  </section>
+
+  <section class="wrap" style="padding-bottom:var(--section)" aria-labelledby="related">
+    <p class="label" id="related" style="margin-bottom:16px">Draws on</p>
+    <div class="xrefs">
+      <a class="xref" href="hydraulic-flight-simulator.html"><span class="xref__no">S-02</span><span class="xref__title">Hydraulic flight simulator<span class="xref__why">Sensors, UDP and control code, first time around.</span></span></a>
+      <a class="xref" href="fourier-visualizer.html"><span class="xref__no">S-08</span><span class="xref__title">Fourier visualizer<span class="xref__why">Signals, and making math visible in the browser.</span></span></a>
+    </div>
+    <a class="next-project" href="fourier-visualizer.html" style="margin-top:72px"><span class="label">Next sheet · S-08</span><span class="next-project__title" style="display:block;margin-top:12px">Fourier visualizer →</span></a>
+  </section>
+</main>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="label" style="color:var(--graphite-lt)">Contact</p>
+    <p class="footer__big" style="margin-top:14px">For engineering roles, research positions or a closer look at any of this work: <a href="mailto:daniellewisnelson@gmail.com">daniellewisnelson@gmail.com</a></p>
+    <div class="footer__grid">
+      <div>
+        <span class="label">Daniel Nelson</span>
+        <p class="muted" style="font-size:14px;max-width:40ch;color:var(--graphite-lt)">B.S. Chemical Engineering, University of California, Irvine. Energy &amp; Sustainability Specialization, Minor in Materials Science.</p>
+      </div>
+      <div>
+        <span class="label">Selected work</span>
+        <ul>
+          <li><a href="../work/fsae-valvetrain.html">Formula SAE valvetrain</a></li>
+          <li><a href="../work/hydraulic-flight-simulator.html">Hydraulic flight simulator</a></li>
+          <li><a href="../work/quantum-optics-research.html">Quantum optics research</a></li>
+          <li><a href="../work/hydrogen-combustion.html">Hydrogen combustion model</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Site</span>
+        <ul>
+          <li><a href="../index.html#index">Project index</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Elsewhere</span>
+        <ul>
+          <li><a href="mailto:daniellewisnelson@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/daniellewisnelson" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base label"><span>© 2026 Daniel Nelson</span><span>Set in Geist &amp; Archivo · Hand-built in HTML, CSS and SVG</span></div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fourier / Laplace transform visualizer — Daniel Nelson</title>
+<meta name="description" content="An independent web app that makes Fourier analysis visible: series, complex-plane and epicycle views of any signal you type in. Laplace module in development.">
+<meta name="author" content="Daniel Nelson">
+<meta name="theme-color" content="#F5F3EE">
+<link rel="canonical" href="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/fourier-visualizer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daniel Nelson — Engineering Portfolio">
+<meta property="og:title" content="Fourier / Laplace transform visualizer — Daniel Nelson">
+<meta property="og:description" content="An independent web app that makes Fourier analysis visible: series, complex-plane and epicycle views of any signal you type in. Laplace module in development.">
+<meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/fourier-visualizer.html">
+<meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html#work" aria-current="page">Work</a>
+      <a href="../index.html#index">Index</a>
+      <a href="../about.html">About</a>
+      <a href="../resume.html">Resume</a>
+      <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+  <header class="wrap p-head">
+    <div class="p-head__grid">
+      <div class="p-head__main">
+        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">Index</a><span class="label">Sheet 08 · Computation · 2025</span></p>
+        <h1 id="title">Fourier Lab: seeing a transform work</h1>
+        <p class="lead p-head__dek">An independent web app, built the summer before university, that shows how Fourier analysis takes a signal apart. Type a function or pick an example, then watch the series, complex-plane and epicycle views build it back up.</p>
+      </div>
+      <dl class="title-block p-head__tb">
+        <div class="title-block__head"><span>Independent project</span><span>S-08</span></div>
+        <dt>Stack</dt><dd>Python · JavaScript · HTML · CSS</dd>
+        <dt>Working</dt><dd>Fourier series, complex-plane and epicycle views; user-typed functions (spell-checked) and summations for square, saw and noise signals</dd>
+        <dt>Status</dt><dd>Fourier module working, not yet published · Laplace module in development</dd>
+      </dl>
+    </div>
+  </header>
+
+  <section class="wrap" aria-label="Screenshots">
+    <figure class="fig fig--contain">
+      <div class="sheet-img browser"><img src="../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp" srcset="../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series-sm.webp 960w, ../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp 1280w" sizes="(min-width: 1200px) 1200px, 100vw" width="1280" height="629" alt="Fourier Lab web app building a square wave from a 12-term series of odd sine harmonics, with signal and spectrum panels" loading="lazy" decoding="async" data-zoom="../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp"></div>
+      <figcaption><span class="fig__no">Fig. 08.1</span>A square wave built from odd sine harmonics, 4/π · sin((2n−1)πx)/(2n−1), sampled at 2,048 points. <span class="ev ev--built">Working</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="wrap p-section" aria-labelledby="ws">
+    <div class="detail-grid" style="align-items:center">
+      <div class="detail-grid__text">
+        <h2 id="ws" class="h2">The same math, other uses</h2>
+        <p style="margin-top:16px">The app also simulates Whittaker–Shannon interpolation, the band-limited reconstruction of a continuous signal from discrete samples. In signal processing and quantitative finance the same equation rebuilds smooth price paths from daily data and models how market shocks ripple and fade.</p>
+      </div>
+      <figure class="fig fig--contain detail-grid__media"><div class="sheet-img browser"><img src="../assets/img/fourier-visualizer/02-whittaker-shannon-interpolation.webp" srcset="../assets/img/fourier-visualizer/02-whittaker-shannon-interpolation-sm.webp 960w, ../assets/img/fourier-visualizer/02-whittaker-shannon-interpolation.webp 1280w" sizes="(min-width: 1000px) 50vw, 100vw" width="1280" height="627" alt="Fourier Lab showing Whittaker–Shannon interpolation reconstructing a continuous signal from discrete samples" loading="lazy" decoding="async" data-zoom="../assets/img/fourier-visualizer/02-whittaker-shannon-interpolation.webp"></div><figcaption><span class="fig__no">Fig. 08.2</span>Whittaker–Shannon interpolation of a sampled signal.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="wrap p-section" aria-labelledby="next-h">
+    <div class="rev">
+      <div class="rev__head"><span class="label"><span class="rev__tri">B</span>Next revision</span><span class="ev ev--dev">In development</span></div>
+      <h2 id="next-h" class="h3">Laplace transforms in 3D</h2>
+      <p style="margin-top:12px;max-width:64ch">I’m adding MATLAB-derived elements to simulate the Laplace transform in three dimensions, and I’ll publish the site once the interface is polished. None of the Laplace features are shown as finished here.</p>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:var(--section)" aria-labelledby="related">
+    <p class="label" id="related" style="margin-bottom:16px">Related</p>
+    <div class="xrefs">
+      <a class="xref" href="quantum-optics-research.html"><span class="xref__no">S-03</span><span class="xref__title">Nonlinear optics research<span class="xref__why">Interactive models as a way of thinking.</span></span></a>
+      <a class="xref" href="fsae-valvetrain.html#baseline"><span class="xref__no">S-01</span><span class="xref__title">Formula SAE valvetrain<span class="xref__why">A 12-harmonic Fourier fit cleaning a measured cam profile.</span></span></a>
+    </div>
+    <a class="next-project" href="hydrogen-combustion.html" style="margin-top:72px"><span class="label">Next sheet · S-11</span><span class="next-project__title" style="display:block;margin-top:12px">Hydrogen ignition model →</span></a>
+  </section>
+</main>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="label" style="color:var(--graphite-lt)">Contact</p>
+    <p class="footer__big" style="margin-top:14px">For engineering roles, research positions or a closer look at any of this work: <a href="mailto:daniellewisnelson@gmail.com">daniellewisnelson@gmail.com</a></p>
+    <div class="footer__grid">
+      <div>
+        <span class="label">Daniel Nelson</span>
+        <p class="muted" style="font-size:14px;max-width:40ch;color:var(--graphite-lt)">B.S. Chemical Engineering, University of California, Irvine. Energy &amp; Sustainability Specialization, Minor in Materials Science.</p>
+      </div>
+      <div>
+        <span class="label">Selected work</span>
+        <ul>
+          <li><a href="../work/fsae-valvetrain.html">Formula SAE valvetrain</a></li>
+          <li><a href="../work/hydraulic-flight-simulator.html">Hydraulic flight simulator</a></li>
+          <li><a href="../work/quantum-optics-research.html">Quantum optics research</a></li>
+          <li><a href="../work/hydrogen-combustion.html">Hydrogen combustion model</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Site</span>
+        <ul>
+          <li><a href="../index.html#index">Project index</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Elsewhere</span>
+        <ul>
+          <li><a href="mailto:daniellewisnelson@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/daniellewisnelson" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base label"><span>© 2026 Daniel Nelson</span><span>Set in Geist &amp; Archivo · Hand-built in HTML, CSS and SVG</span></div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
