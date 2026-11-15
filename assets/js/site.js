@@ -59,6 +59,23 @@
     }
   });
 
+  /* ---- Light / dark theme ---- */
+  var themeBtn = document.querySelector(".theme-toggle");
+  if (themeBtn) {
+    var label = function () {
+      var dark = root.getAttribute("data-theme") === "dark";
+      themeBtn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
+    };
+    label();
+    themeBtn.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label();
+    });
+  }
+
   /* ---- Mobile navigation ---- */
   var toggle = document.querySelector(".nav__toggle");
   var nav = document.getElementById("site-nav");

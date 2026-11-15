@@ -17,6 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)})();</script>
 <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
@@ -27,12 +28,15 @@
     <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html#work" aria-current="page">Work</a>
-      <a href="../index.html#index">Index</a>
+      <a href="../index.html#work" aria-current="page">Top 3</a>
+      <a href="../index.html#index">Projects</a>
       <a href="../about.html">About</a>
       <a href="../resume.html">Resume</a>
       <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Light / dark">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg>
+    </button>
   </div>
 </header>
 <main id="main">
@@ -45,25 +49,29 @@
     <div class="bleed__scrim bleed__scrim--l" aria-hidden="true"></div>
     <div class="wrap bleed__content p-hero-fsae__content">
       <div class="p-hero-fsae__text">
-        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">Index</a><span class="label" style="color:var(--blue)">Sheet 01 · Powertrain · 2026</span></p>
+        <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">All projects</a><span class="label" style="color:var(--blue)">Sheet 01 · Powertrain · 2026</span></p>
         <h1 id="title" class="h1">Valvetrain redesign for a restricted Yamaha R6</h1>
         <p class="lead" style="margin-top:24px;color:var(--graphite-lt);max-width:46ch">Formula SAE forces every cylinder of a 16,000&nbsp;rpm engine to breathe through one 20&nbsp;mm hole. Over ten weeks I measured the stock valvetrain, rebuilt it as a MATLAB model, and redesigned the cam and valve seat around the air the restrictor actually allows.</p>
-        <div class="title-block" style="margin-top:36px;max-width:520px"><div class="title-block__head"><span>Anteater Formula Racing · UC Irvine</span><span>S-01</span></div><dl class="tb">
-          <dt>Role</dt><dd>Powertrain engineer: valvetrain analysis, cam and valve redesign</dd>
-          <dt>Engine</dt><dd>2017 Yamaha YZF-R6 · 599&nbsp;cc inline-four · DOHC</dd>
-          <dt>Duration</dt><dd>~10 weeks remote engineering, then shop work, teardown and assembly</dd>
-          <dt>Tools</dt><dd>MATLAB (model + custom app) · Ansys Fluent · Ansys Mechanical · CAD · manual mill</dd>
-          <dt>Status</dt><dd>Designed and partly manufactured · car has not yet raced</dd>
-        </dl></div>
       </div>
     </div>
   </section>
 
   <!-- ============ EVIDENCE + SPECS ============ -->
   <section class="wrap" style="padding-block:40px 24px" aria-label="Key results">
+    <div class="fsae-intro">
+      <div class="title-block"><div class="title-block__head"><span>Anteater Formula Racing · UC Irvine</span><span>S-01</span></div><dl class="tb">
+          <dt>Role</dt><dd>Powertrain engineer: valvetrain analysis, cam and valve redesign</dd>
+          <dt>Engine</dt><dd>2017 Yamaha YZF-R6 · 599&nbsp;cc inline-four · DOHC</dd>
+          <dt>Duration</dt><dd>~10 weeks remote engineering, then shop work, teardown and assembly</dd>
+          <dt>Tools</dt><dd>MATLAB (model + custom app) · Ansys Fluent · Ansys Mechanical · CAD · manual mill</dd>
+          <dt>Status</dt><dd>Designed and partly manufactured · car has not yet raced</dd>
+        </dl></div>
+      <div>
     <div class="ev-banner">
       <p>Every performance figure on this page is a <strong>model output</strong> unless it is tagged measured or built. None of them is a track or dyno result.</p>
       <div class="ev-key"><span class="ev ev--modeled">Modeled</span><span class="ev ev--measured">Measured</span><span class="ev ev--built">Built</span><span class="ev ev--documented">Rule</span></div>
+    </div>
+      </div>
     </div>
     <div class="specs" style="margin-top:36px">
       <div class="spec"><span class="spec__num num">20<small>mm</small></span><p class="spec__text"><strong>Intake restrictor</strong>, the governing constraint for all four cylinders.</p><span class="ev ev--documented">FSAE rule</span></div>
@@ -198,7 +206,7 @@
                 <button type="button" class="law-btn" data-law="harmonic"><i class="dash" style="--c:#5B5E61"></i>Simple harmonic</button>
                 <button type="button" class="law-btn" data-law="p345"><i style="--c:#B66A4A;height:3px"></i>3-4-5 polynomial</button>
                 <button type="button" class="law-btn" data-law="p4567"><i style="--c:#2F5F96"></i>4-5-6-7 polynomial</button>
-                <button type="button" class="law-btn" data-law="p56789"><i class="dash" style="--c:#111214"></i>5-6-7-8-9 polynomial</button>
+                <button type="button" class="law-btn" data-law="p56789"><i class="dash" style="--c:currentColor"></i>5-6-7-8-9 polynomial</button>
               </div>
               <p style="font-size:13px" class="muted">The 3-4-5 law spends more of the event near full lift than harmonic motion and has steeper flanks. Its jerk stays finite, without the peak velocity and acceleration of the 5-6-7-8-9 law.</p>
             </div>

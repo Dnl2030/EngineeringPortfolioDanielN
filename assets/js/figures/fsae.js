@@ -103,7 +103,7 @@
       harmonic: { color: "#5B5E61", dash: "6 4", width: 1.6 },
       p345: { color: "#B66A4A", dash: "", width: 2.4 },
       p4567: { color: "#2F5F96", dash: "", width: 1.6 },
-      p56789: { color: "#111214", dash: "2 3", width: 1.6 }
+      p56789: { color: "currentColor", dash: "2 3", width: 1.6 }
     };
     var QTY = [
       { id: 0, label: "Lift", unit: "fraction of max lift", range: [0, 1.05] },
@@ -128,7 +128,7 @@
       }
       el("line", { x1: m.l, x2: W - m.r, y1: y(0), y2: y(0) }, ax);
       el("line", { x1: m.l, x2: m.l, y1: m.t, y2: H - m.b }, ax);
-      el("line", { x1: x(0.5), x2: x(0.5), y1: m.t, y2: H - m.b, stroke: "rgba(17,18,20,.25)", "stroke-dasharray": "12 3 2 3" }, gStatic);
+      el("line", { x1: x(0.5), x2: x(0.5), y1: m.t, y2: H - m.b, stroke: "currentColor", opacity: 0.3, "stroke-dasharray": "12 3 2 3" }, gStatic);
       el("text", { x: x(0.5) + 6, y: m.t + 10, class: "plot-text" }, gStatic).textContent = "nose (max lift)";
       [0, 0.25, 0.5, 0.75, 1].forEach(function (t) {
         el("text", { x: x(t), y: H - m.b + 18, "text-anchor": "middle", class: "plot-text" }, gStatic).textContent = Math.round(t * 100) + "%";

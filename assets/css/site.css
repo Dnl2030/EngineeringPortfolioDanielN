@@ -1325,3 +1325,156 @@ html.on-dark, html.on-dark body { background: var(--ink); color: var(--paper); }
 }
 .video-toggle:hover { background: var(--ink); }
 .bleed__media .video-toggle { bottom: 18px; }
+
+/* ==========================================================================
+   Scale: openings fit one screen on common laptop sizes
+   ========================================================================== */
+:root {
+  --fs-lead: clamp(17px, 0.98rem + 0.35vw, 20px);
+  --fs-h3: clamp(19px, 1.02rem + 0.35vw, 23px);
+  --fs-h2: clamp(26px, 1.15rem + 1.1vw, 36px);
+  --fs-h1: clamp(34px, 1.3rem + 2.6vw, 60px);
+  --fs-spec: clamp(40px, 1.4rem + 3.2vw, 80px);
+  --section: clamp(56px, 4vw + 28px, 112px);
+}
+.hero-statement { font-size: clamp(32px, 1.1rem + 2.6vw, 56px) !important; }
+.hero__lead { margin-top: var(--s-5); }
+.hero__cta { padding-top: var(--s-6); }
+@media (min-width: 1000px) { .hero__side { max-width: 360px; } }
+.p-head { padding-block: clamp(28px, 3.5vw, 56px) clamp(24px, 3vw, 44px); }
+.p-head h1 { max-width: 20ch; }
+.feature-fsae-split { min-height: min(86vh, 780px); }
+.feature-fsae-split__text h2.h1 { font-size: clamp(32px, 1.2rem + 2.4vw, 54px); }
+.p-hero-fsae { min-height: min(calc(100svh - var(--header-h)), 760px); }
+.kart-hero, .about-hero { min-height: min(calc(100svh - var(--header-h)), 720px); }
+.next-project__title { font-size: clamp(30px, 1.2rem + 2.2vw, 52px); }
+.fea-col__n { font-size: clamp(48px, 1.6rem + 2.6vw, 76px); }
+.result-plate__n { font-size: clamp(80px, 2.4rem + 5vw, 132px); }
+
+/* FSAE: title block moved out of the hero, beside the evidence note */
+.fsae-intro { display: grid; gap: var(--s-6); align-items: start; }
+@media (min-width: 1000px) { .fsae-intro { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--gutter); } }
+.fsae-intro .ev-banner { border-top: var(--lw-thin) solid var(--rule-strong); flex-direction: column; align-items: flex-start; }
+
+/* ==========================================================================
+   Home: top three + projects by discipline
+   ========================================================================== */
+.top3-head { display: grid; gap: 10px; padding-block: var(--s-8) var(--s-7); border-top: var(--lw-thin) solid var(--rule); }
+.top3-head .h2 { max-width: 22ch; }
+.top3-head .muted { max-width: 60ch; }
+.specs--exp .spec__text strong { display: block; color: var(--fg); margin-bottom: 4px; }
+.optics-photo .fig__media { aspect-ratio: 4 / 3; }
+@media (min-width: 1000px) {
+  .section--optics .feature-split { align-items: center; }
+  .feature-opt__text { grid-column: 1 / 6; }
+  .feature-opt__media.optics-photo { grid-column: 6 / 13; }
+  .optics-photo .fig__media { aspect-ratio: 16 / 11; }
+}
+
+.disc-map { display: grid; gap: var(--s-7); }
+@media (min-width: 1100px) {
+  .disc-map { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr) minmax(0, 1fr); column-gap: clamp(28px, 3vw, 48px); align-items: start; }
+}
+.disc { position: relative; }
+.disc__head { padding-bottom: 14px; border-bottom: 2px solid var(--fg); margin-bottom: 4px; display: grid; gap: 6px; }
+.disc__sub { font-size: 13.5px; color: var(--fg-2); }
+.disc--bridge .disc__head { border-bottom-color: var(--blue-ink); }
+.disc--chem .disc__head { border-bottom-color: var(--copper); }
+.plist { list-style: none; }
+.pitem {
+  display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; row-gap: 4px;
+  padding: 14px 0; border-bottom: var(--lw-thin) solid var(--rule); text-decoration: none;
+  transition: background var(--t-ui);
+}
+.pitem:hover { background: var(--bg-2); }
+.pitem > :not(.pitem__yr) { grid-column: 2; }
+.pitem__yr { grid-row: span 3; font-family: var(--f-mono); font-size: 12px; color: var(--fg-2); padding-top: 3px; padding-left: 4px; }
+.pitem__t { font-weight: 560; font-size: 16.5px; letter-spacing: -0.01em; line-height: 1.25; }
+.pitem:hover .pitem__t { color: var(--accent-text); }
+.pitem__d { font-size: 14px; color: var(--fg-2); line-height: 1.45; }
+.pitem .ev, .pitem .tag { justify-self: start; margin-top: 4px; }
+.tag--top { color: var(--fg); border-color: var(--fg); }
+/* the bridge: materials science sits between the two groups */
+.disc--bridge { background: var(--data-wash); padding: 18px 18px 8px; outline: 1px solid color-mix(in srgb, var(--blue-ink) 35%, transparent); }
+@media (min-width: 1100px) {
+  .disc--bridge { margin-top: 56px; }
+  .disc--bridge::before, .disc--bridge::after {
+    content: ""; position: absolute; top: 46px; width: clamp(28px, 3vw, 48px); height: 0;
+    border-top: 1.5px dashed var(--blue-ink);
+  }
+  .disc--bridge::before { right: 100%; }
+  .disc--bridge::after { left: 100%; }
+}
+
+/* ==========================================================================
+   Theme toggle
+   ========================================================================== */
+.theme-toggle {
+  display: inline-grid; place-items: center; width: 30px; height: 30px; margin-left: 6px; flex: none;
+  background: none; border: var(--lw-thin) solid transparent; border-radius: 50%; color: inherit; cursor: pointer;
+  transition: border-color var(--t-ui), transform var(--t-ui) var(--ease-out);
+}
+.theme-toggle:hover { border-color: currentColor; }
+.theme-toggle svg { width: 16px; height: 16px; transition: transform 300ms var(--ease-out); }
+[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
+@media (max-width: 760px) { .topbar__inner { gap: 10px; } .brand { margin-right: auto; } }
+
+/* ==========================================================================
+   Dark theme — same palette, carbon as the ground
+   ========================================================================== */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141517;
+  --paper-2: #1c1e21;
+  --paper-3: #26292d;
+  --ink: #f2efe9;
+  --ink-2: #e5e1d9;
+  --ink-3: #d6d1c7;
+  --graphite: #9a9da0;
+  --blue-ink: #9ac1f0;
+  --blue-wash: rgba(154, 193, 240, 0.07);
+  --copper-deep: #d3916f;
+  --copper-wash: rgba(182, 106, 74, 0.13);
+  --rule: rgba(242, 239, 233, 0.13);
+  --rule-strong: rgba(242, 239, 233, 0.32);
+}
+/* Plates, the footer and the dark hydrogen page keep their original carbon tokens */
+html[data-theme="dark"] .plate,
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .topbar--dark,
+html[data-theme="dark"].on-dark body {
+  --paper: #f5f3ee; --paper-2: #edeae3; --paper-3: #e3dfd6;
+  --ink: #0b0c0d; --ink-2: #16171a; --ink-3: #202226;
+  --graphite: #5b5e61; --blue-ink: #2f5f96; --copper-deep: #9a5236;
+  --blue-wash: #e2eaf2; --copper-wash: #efe2da;
+}
+html[data-theme="dark"] .frame { mix-blend-mode: normal; border-color: rgba(138, 141, 144, 0.28); }
+html[data-theme="dark"] .frame::before { background-image: linear-gradient(to right, rgba(138, 141, 144, 0.4) 0.75px, transparent 0.75px); }
+html[data-theme="dark"] .frame::after { background-image: linear-gradient(to bottom, rgba(138, 141, 144, 0.4) 0.75px, transparent 0.75px); }
+html[data-theme="dark"] .sheet-img { border-color: transparent; }
+html[data-theme="dark"] .ev--dev::before { background: transparent; }
+html[data-theme="dark"] .hero__portrait-frame { border-color: var(--rule-strong); }
+html[data-theme="dark"] .register__thumb { border-color: var(--ink); }
+html[data-theme="dark"] img:not(.sheet-img img):not(.fig--contain img) { filter: brightness(0.94); }
+.ifig { color: var(--fg); }
+html[data-theme="dark"] .ifig svg [stroke="#2F5F96"] { stroke: #9ac1f0; }
+html[data-theme="dark"] .ifig svg [fill="#2F5F96"], html[data-theme="dark"] .ifig svg text[style*="2F5F96"] { fill: #9ac1f0 !important; }
+html[data-theme="dark"] .ifig svg text[style*="9A5236"] { fill: #d3916f !important; }
+html[data-theme="dark"] .law-btn i[style*="2F5F96"] { --c: #9ac1f0 !important; }
+@media (min-width: 1000px) { .hero__side { max-width: 320px; gap: 16px; } .hero { padding-bottom: clamp(28px, 3vw, 48px); } }
+.p-hero-fsae { min-height: min(calc(100svh - var(--header-h) - 4px), 760px); }
+.kart-hero, .about-hero { min-height: min(calc(100svh - var(--header-h) - 4px), 720px); }
+@media (max-width: 639px) {
+  .hero__grid { gap: var(--s-5); }
+  .hero__side { order: -1; }
+  .hero__portrait { max-width: 132px; }
+  .hero__side .title-block { display: none; }
+  .hero__eyebrow { margin-bottom: var(--s-4); }
+  .hero__cta { padding-top: var(--s-5); gap: 14px 24px; }
+}
+@media (min-width: 1000px) and (max-height: 820px) {
+  .hero { padding-top: 28px; padding-bottom: 24px; }
+  .hero__side { max-width: 270px; }
+  .hero__eyebrow { margin-bottom: var(--s-5); }
+  .title-block dt, .title-block dd { padding-block: 6px; }
+}

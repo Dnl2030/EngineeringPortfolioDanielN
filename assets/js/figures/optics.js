@@ -28,7 +28,7 @@
     var vline = el("line", { stroke: "#B66A4A", "stroke-width": 1, "stroke-dasharray": "3 3" }, svg);
     var hline = el("line", { stroke: "#B66A4A", "stroke-width": 1, "stroke-dasharray": "3 3" }, svg);
     var dot = el("circle", { r: 5, fill: "#B66A4A" }, svg);
-    var degen = el("line", { stroke: "rgba(17,18,20,.3)", "stroke-dasharray": "12 3 2 3" }, svg);
+    var degen = el("line", { stroke: "currentColor", opacity: 0.35, "stroke-dasharray": "12 3 2 3" }, svg);
     var degenLabel = el("text", { class: "plot-text", "text-anchor": "middle" }, svg);
     var none = el("text", { class: "plot-text plot-text--strong", "text-anchor": "middle", x: (m.l + W - m.r) / 2, y: (m.t + H - m.b) / 2 }, svg);
 

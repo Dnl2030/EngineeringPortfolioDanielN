@@ -17,6 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)})();</script>
 <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
@@ -27,12 +28,15 @@
     <a class="brand" href="../index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html#work" aria-current="page">Work</a>
-      <a href="../index.html#index">Index</a>
+      <a href="../index.html#work" aria-current="page">Top 3</a>
+      <a href="../index.html#index">Projects</a>
       <a href="../about.html">About</a>
       <a href="../resume.html">Resume</a>
       <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Light / dark">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg>
+    </button>
   </div>
 </header>
 <main id="main" class="h2-page plate">
@@ -42,7 +46,7 @@
       <img src="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp" srcset="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map-sm.webp 960w, ../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp 1918w" sizes="(min-width: 1000px) 55vw, 100vw" width="1918" height="1025" alt="Two heatmaps of log ignition delay over pressure and equivalence ratio at spark temperatures of 2000 K and 3000 K" fetchpriority="high" decoding="async">
     </div>
     <div class="wrap h2-hero__content">
-      <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index" style="color:var(--paper)">Index</a><span class="label" style="color:var(--blue)">Sheet 11 · Combustion · 2025</span></p>
+      <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index" style="color:var(--paper)">All projects</a><span class="label" style="color:var(--blue)">Sheet 11 · Combustion · 2025</span></p>
       <h1 id="title" class="h1" style="max-width:15ch;font-size:clamp(36px, 1.2rem + 3vw, 64px)">Hydrogen–oxygen ignition, from first principles</h1>
       <p class="lead" style="margin-top:22px;max-width:48ch;color:var(--graphite-lt)">I wanted to understand what combustion software does under the hood, so I wrote the chemistry core myself. The result is a constant-volume kinetics simulator for hydrogen and oxygen, and 3D maps of where and how fast a spark-ignited mixture lights.</p>
     </div>

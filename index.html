@@ -17,6 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)})();</script>
 <link rel="stylesheet" href="assets/css/site.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Daniel Nelson", "jobTitle": "Chemical Engineering student", "affiliation": {"@type": "CollegeOrUniversity", "name": "University of California, Irvine"}, "email": "mailto:daniellewisnelson@gmail.com", "sameAs": ["https://www.linkedin.com/in/daniellewisnelson"], "url": "https://dnl2030.github.io/EngineeringPortfolioDanielN/"}</script>
 </head>
@@ -28,12 +29,15 @@
     <a class="brand" href="index.html"><span class="brand__name">Daniel Nelson</span><span class="brand__role">Chemical Engineering · UC Irvine</span></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="index.html#work">Work</a>
-      <a href="index.html#index">Index</a>
+      <a href="index.html#work">Top 3</a>
+      <a href="index.html#index">Projects</a>
       <a href="about.html">About</a>
       <a href="resume.html">Resume</a>
       <a href="mailto:daniellewisnelson@gmail.com">Contact</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Light / dark">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg>
+    </button>
   </div>
 </header>
 <main id="main">
@@ -49,7 +53,7 @@
         <h1 id="hero-title" class="hero-statement">Engineering Portfolio: Daniel Nelson</h1>
         <p class="lead hero__lead"><span class="hero__lead-first">I design mechanical systems, model the physics behind them, and machine the parts myself.</span> As a chemical engineering student at UC Irvine, my work so far includes a valvetrain redesign for a Formula SAE engine breathing through a 20&nbsp;mm restrictor, a two-axis motion platform with CNC-machined ball joints, and phase-matching models for nonlinear optics. Three years in a machine shop underpin all of it.</p>
         <div class="hero__cta">
-          <a class="arrow-link" href="#work">Selected work</a>
+          <a class="arrow-link" href="#work">Top three projects</a>
           <a class="arrow-link" href="#index">All projects</a>
           <a class="arrow-link" href="resume.html">Resume</a>
         </div>
@@ -70,34 +74,36 @@
     </div>
   </section>
 
-  <!-- ============ SPEC STRIP ============ -->
-  <section class="spec-strip wrap" aria-label="Selected results">
-    <div class="specs">
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="spec-strip wrap" aria-label="Experience">
+    <div class="specs specs--exp">
       <div class="spec" data-reveal style="--i:0">
-        <span class="spec__num num">~15<small>%</small></span>
-        <p class="spec__text"><strong>Intake airflow gain</strong> from a 30° valve back-cut, Formula SAE Yamaha R6.</p>
-        <span class="ev ev--modeled">Modeled · CFD</span>
+        <span class="spec__num num">5<small>yrs</small></span>
+        <p class="spec__text"><strong>Machining &amp; fabrication</strong>: CNC mill and lathe, manual machining, MIG welding, waterjet, laser and plasma cutting.</p>
       </div>
       <div class="spec" data-reveal style="--i:1">
-        <span class="spec__num num">1.9<small>hp</small></span>
-        <p class="spec__text"><strong>Less intake valvetrain friction</strong> at 16,000 rpm (6.0 → 4.1 hp), from softer springs and a lower-lift cam.</p>
-        <span class="ev ev--modeled">Modeled · MATLAB</span>
+        <span class="spec__num num">6<small>yrs</small></span>
+        <p class="spec__text"><strong>CAD &amp; design</strong>: SolidWorks, Fusion 360, GD&amp;T drawings, CAD/CAM toolpaths.</p>
       </div>
       <div class="spec" data-reveal style="--i:2">
-        <span class="spec__num num">6<small>th / 20+</small></span>
-        <p class="spec__text"><strong>ChemE Car, Western Regional</strong> at UCSB, on a 12&nbsp;V lead-acid battery built from raw materials.</p>
-        <span class="ev ev--result">Result</span>
+        <span class="spec__num num">3<small>yrs</small></span>
+        <p class="spec__text"><strong>Chemical instrumentation &amp; analysis</strong>: UV/VIS, FTIR, ICP-MS, SEM, optical measurement, electrochemical cells.</p>
       </div>
       <div class="spec" data-reveal style="--i:3">
-        <span class="spec__num num">718</span>
-        <p class="spec__text"><strong>Hackers at VTHacks 14.</strong> GameSense won Best Hack to Promote Diversity, Equity &amp; Inclusion.</p>
-        <span class="ev ev--result">Award</span>
+        <span class="spec__num num">12</span>
+        <p class="spec__text"><strong>Projects documented here</strong>, from powertrain and machining to materials research and combustion chemistry.</p>
       </div>
     </div>
   </section>
 
   <!-- ============ SELECTED WORK ============ -->
   <div id="work">
+    <header class="wrap top3-head" aria-labelledby="top3-title">
+      <p class="label">Top three projects</p>
+      <h2 id="top3-title" class="h2">Three projects, in depth</h2>
+      <p class="muted">The work I’d most like you to see first. Each one opens into a full write-up with the analysis, figures and hardware behind it.</p>
+    </header>
+
 
     <!-- 01 FSAE: dark plate, image fades into carbon -->
     <section class="plate bleed bleed--stack feature-fsae-split" aria-labelledby="w1">
@@ -107,7 +113,7 @@
       <div class="bleed__scrim bleed__scrim--l" aria-hidden="true"></div>
       <div class="wrap bleed__content feature-fsae-split__content">
         <div class="feature-fsae-split__text">
-          <p class="sheet-no" style="color:var(--blue)">Sheet 01 · Powertrain · 2026 · Anteater Formula Racing</p>
+          <p class="sheet-no" style="color:var(--blue)">01 / 03 · Powertrain · 2026 · Anteater Formula Racing</p>
           <h2 id="w1" class="h1" style="margin-top:22px">Valvetrain redesign for a restricted Yamaha&nbsp;R6</h2>
           <p class="lead" style="margin-top:22px;color:var(--graphite-lt)">Formula SAE forces all intake air through a single 20&nbsp;mm restrictor. Over ten weeks I measured the stock engine and modeled its valvetrain in MATLAB. Then I redesigned the cam and valve seat around that limit and checked the design with CFD and FEA before any metal was cut.</p>
           <div class="specs specs--compact" style="margin-top:36px">
@@ -140,7 +146,7 @@
           </div>
         </div>
         <div class="feature-sim__text">
-          <p class="sheet-no">Sheet 02 · Systems · 2024 · Team of two</p>
+          <p class="sheet-no">02 / 03 · Systems · 2024 · Team of two</p>
           <h2 id="w2" class="h2" style="margin-top:22px">Two-axis hydraulic flight simulator</h2>
           <p style="margin-top:20px">Two of us built a motion platform from scratch, from equations to a working prototype. The prototype demonstrated the concept to a laboratory director to secure funding for the hydraulic version.</p>
           <ol class="chain" aria-label="Signal path">
@@ -159,12 +165,11 @@
         </div>
       </div>
     </section>
-
-    <!-- 03 Optics: paper-like -->
+    <!-- 03 Optics: lab photo, enlarged -->
     <section class="section section--optics" aria-labelledby="w3">
       <div class="wrap feature-split">
         <div class="feature-opt__text">
-          <p class="sheet-no" style="color:var(--blue-ink)">Sheet 03 · Research · 2025 · UCI Materials Research Institute</p>
+          <p class="sheet-no" style="color:var(--blue-ink)">03 / 03 · Research · 2025 · UCI Materials Research Institute</p>
           <h2 id="w3" class="h2" style="margin-top:22px">Nonlinear optics in lithium niobate and 2D materials</h2>
           <p style="margin-top:20px">Entangled photon pairs only appear when pump, signal and idler satisfy a narrow phase-matching condition. I built Python models that find those conditions in LiNbO<sub>3</sub>, including an interactive map that locks any one wavelength and solves for the rest. I also helped with measurements in the lab.</p>
           <ul class="facts" style="margin-top:28px">
@@ -174,165 +179,65 @@
           </ul>
           <p style="margin-top:32px"><a class="arrow-link" href="work/quantum-optics-research.html">Read the research sheet</a></p>
         </div>
-        <div class="feature-opt__media">
-          <div class="paper-sheet">
-            <div class="paper-sheet__head"><span class="label">Fig. 03.1 — SPDC phase matching, Type II</span><span class="label">Screenshot of the interactive model</span></div>
-            <img src="assets/img/quantum-optics-research/03-spdc-phase-matching-interactive-heatmap.webp" srcset="assets/img/quantum-optics-research/03-spdc-phase-matching-interactive-heatmap-sm.webp 960w, assets/img/quantum-optics-research/03-spdc-phase-matching-interactive-heatmap.webp 1279w" sizes="(min-width: 1000px) 55vw, 100vw" width="1279" height="921" alt="Interactive heatmap: pump phase-matching angle versus internal signal emission angle, with a bright phase-matching ring and wavelength sliders" loading="lazy" decoding="async">
-            <p class="fig__src muted" style="margin-top:12px">P = 760.1 nm · S = 1180.9 nm · I = 2133.2 nm. Ring brightness = phase-matching efficiency (sinc²).</p>
-          </div>
-          <figure class="fig optics-lab">
-            <div class="fig__media frame-16x9"><img src="assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp" srcset="assets/img/quantum-optics-research/02-optics-lab-experimental-setup-sm.webp 960w, assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp 1280w" sizes="(min-width: 1000px) 30vw, 100vw" width="1280" height="1003" alt="Optical table crowded with mirrors, mounts, cabling and measurement electronics" loading="lazy" decoding="async" style="--fy:45%"></div>
-            <figcaption><span class="fig__no">Fig. 03.2</span> Experimental setup in the lab, where I assisted with alignment and measurements.</figcaption>
-          </figure>
-        </div>
+        <figure class="fig feature-opt__media optics-photo">
+          <div class="fig__media"><img src="assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp" srcset="assets/img/quantum-optics-research/02-optics-lab-experimental-setup-sm.webp 960w, assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp 1280w" sizes="(min-width: 1000px) 58vw, 100vw" width="1280" height="1003" alt="Optical table crowded with mirrors, mounts, cabling and measurement electronics in the research lab" loading="lazy" decoding="async" class="cover" style="--fy:42%"></div>
+          <figcaption><span class="fig__no">Fig. 03.1</span> Experimental setup in the lab, where I assisted with alignment and measurements.</figcaption>
+        </figure>
       </div>
     </section>
   </div>
 
-  <!-- ============ INDEX / REGISTER ============ -->
-  <section id="index" class="section wrap rule-top" aria-labelledby="index-title">
-    <div class="sec-head">
-      <p class="label">Project register</p>
-      <h2 id="index-title" class="h2">Every project, newest first.</h2>
-      <p class="muted"><span class="hide-sm">Filled dots mark the disciplines each project actually involved. </span>Filter by discipline, or open any row.</p>
-    </div>
-    <div class="register-tools" role="group" aria-label="Filter by discipline">
-      <button class="chip" data-filter="all" aria-pressed="true">All</button>
-      <button class="chip" data-filter="design" aria-pressed="false">Mechanical design</button>
-      <button class="chip" data-filter="mfg" aria-pressed="false">Manufacturing</button>
-      <button class="chip" data-filter="power" aria-pressed="false">Powertrain &amp; combustion</button>
-      <button class="chip" data-filter="fluids" aria-pressed="false">Thermal &amp; fluids</button>
-      <button class="chip" data-filter="materials" aria-pressed="false">Materials &amp; optics</button>
-      <button class="chip" data-filter="echem" aria-pressed="false">Electrochemistry</button>
-      <button class="chip" data-filter="comp" aria-pressed="false">Computation &amp; controls</button>
-      <span class="label" data-register-count aria-live="polite" style="margin-left:auto">12 projects</span>
-    </div>
-    <table class="register" data-register>
-      <caption class="visually-hidden">All projects with phase, disciplines and status</caption>
-      <thead>
-        <tr>
-          <th scope="col" class="r-no">No.</th>
-          <th scope="col">Project</th>
-          <th scope="col">Started</th>
-          <th scope="col" class="r-disc"><span>Design</span><span>Manufacturing</span><span>Powertrain</span><span>Thermal-fluids</span><span>Materials</span><span>Electrochem</span><span>Computation</span></th>
-          <th scope="col" class="r-status">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-disc="design power echem">
-          <td class="r-no">S-12</td>
-          <td class="r-title"><a href="work/hydrogen-combustion.html#next">Electrolysis dry cell</a><span>A miniature dry cell to supply oxyhydrogen to a small motorcycle engine. Initial CAD done and components purchased.</span></td>
-          <td class="r-phase">2026</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot"></i><i class="dot on" title="Combustion"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Electrochemistry"></i><i class="dot"></i></div></td>
-          <td class="r-status"><span class="ev ev--dev">In development</span></td>
-        </tr>
-        <tr data-disc="design comp" data-thumb="assets/img/gamesense/02-piezo-grid-intersection-map-sm.webp">
-          <td class="r-no">S-07</td>
-          <td class="r-title"><a href="work/gamesense.html">GameSense impact-sensing cleat</a><span>A sensor grid mapped onto a cleat, ESP32 over Wi-Fi and an app that scores each kick. Built at VTHacks 14.</span></td>
-          <td class="r-phase">2026</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Computation"></i></div></td>
-          <td class="r-status"><span class="ev ev--result">Award</span></td>
-        </tr>
-        <tr data-disc="design mfg power fluids comp" data-thumb="assets/img/fsae-valvetrain/09-r6-engine-camshafts-exposed-sm.webp">
-          <td class="r-no">S-01</td>
-          <td class="r-title"><a href="work/fsae-valvetrain.html">Valvetrain redesign, Yamaha R6</a><span>Measured baseline, MATLAB valve-dynamics model, CFD and FEA, a cam specification and in-house valve back-cuts.</span></td>
-          <td class="r-phase">2026</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot on" title="Manufacturing"></i><i class="dot on" title="Powertrain"></i><i class="dot on" title="Thermal and fluids"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Computation"></i></div></td>
-          <td class="r-status"><span class="ev ev--modeled">Modeled · part built</span></td>
-        </tr>
-        <tr data-disc="fluids materials design comp">
-          <td class="r-no">S-09</td>
-          <td class="r-title"><a href="work/supercritical-energy.html">Supercritical Energy LLC</a><span>Energy systems engineering internship: thermodynamic and heat-flow simulation, CFD, materials work and the company’s public website.</span></td>
-          <td class="r-phase">2026</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Thermal and fluids"></i><i class="dot on" title="Materials"></i><i class="dot"></i><i class="dot on" title="Computation"></i></div></td>
-          <td class="r-status"><span class="ev ev--documented">NDA</span></td>
-        </tr>
-        <tr data-disc="power fluids comp" data-thumb="assets/img/hydrogen-combustion/01-spark-ignition-flammability-map-sm.webp">
-          <td class="r-no">S-11</td>
-          <td class="r-title"><a href="work/hydrogen-combustion.html">Hydrogen–oxygen ignition model</a><span>Constant-volume kinetics model built on a 19-step mechanism with Troe falloff. More than 64,000 differential-equation evaluations map ignition in three dimensions.</span></td>
-          <td class="r-phase">2025</td>
-          <td class="r-disc"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot on" title="Combustion"></i><i class="dot on" title="Thermal and fluids"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Computation"></i></div></td>
-          <td class="r-status"><span class="ev ev--modeled">Modeled</span></td>
-        </tr>
-        <tr data-disc="echem materials mfg" data-thumb="assets/img/chemecar/01-battery-cell-assembly-sm.webp">
-          <td class="r-no">S-06</td>
-          <td class="r-title"><a href="work/chemecar.html">ChemE Car lead-acid battery</a><span>A 12&nbsp;V lead-acid battery built from raw materials. It placed 3rd in the first round and 6th of 20+ at Western Regionals.</span></td>
-          <td class="r-phase">2025</td>
-          <td class="r-disc"><div class="dots"><i class="dot"></i><i class="dot on" title="Manufacturing"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Materials"></i><i class="dot on" title="Electrochemistry"></i><i class="dot"></i></div></td>
-          <td class="r-status"><span class="ev ev--result">Result</span></td>
-        </tr>
-        <tr data-disc="materials comp" data-thumb="assets/img/quantum-optics-research/02-optics-lab-experimental-setup-sm.webp">
-          <td class="r-no">S-03</td>
-          <td class="r-title"><a href="work/quantum-optics-research.html">Nonlinear optics &amp; 2D materials research</a><span>SPDC phase-matching models for LiNbO<sub>3</sub>, assistance with interferometry and SHG experiments, and about 75 papers reviewed.</span></td>
-          <td class="r-phase">2025</td>
-          <td class="r-disc"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Materials and optics"></i><i class="dot"></i><i class="dot on" title="Computation"></i></div></td>
-          <td class="r-status"><span class="ev ev--documented">Ongoing</span></td>
-        </tr>
-        <tr data-disc="comp" data-thumb="assets/img/fourier-visualizer/01-fourier-lab-square-wave-series-sm.webp">
-          <td class="r-no">S-08</td>
-          <td class="r-title"><a href="work/fourier-visualizer.html">Fourier / Laplace transform visualizer</a><span>A web app that shows Fourier series, the complex plane and epicycles for any signal you type in.</span></td>
-          <td class="r-phase">2025</td>
-          <td class="r-disc"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Computation"></i></div></td>
-          <td class="r-status"><span class="ev ev--dev">Laplace in dev.</span></td>
-        </tr>
-        <tr data-disc="materials echem">
-          <td class="r-no">S-10</td>
-          <td class="r-title"><a href="work/catalyst-review.html">Fuel-cell catalyst literature review</a><span>Pt-based multimetallic catalysts (PtCoNiRuIr) and High Temperature Liquid Shock Synthesis, with exposure to UV/VIS, FTIR, ICP-MS and SEM.</span></td>
-          <td class="r-phase">2025</td>
-          <td class="r-disc"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Materials"></i><i class="dot on" title="Electrochemistry"></i><i class="dot"></i></div></td>
-          <td class="r-status"><span class="ev ev--literature">Literature</span></td>
-        </tr>
-        <tr data-disc="design mfg comp" data-thumb="assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston-sm.webp">
-          <td class="r-no">S-02</td>
-          <td class="r-title"><a href="work/hydraulic-flight-simulator.html">Two-axis hydraulic flight simulator</a><span>Hand-derived inverse kinematics, Python over UDP, a solenoid driver circuit and CNC ball joints, built as a ¼-scale pneumatic prototype.</span></td>
-          <td class="r-phase">2024</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot on" title="Manufacturing"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on" title="Computation and controls"></i></div></td>
-          <td class="r-status"><span class="ev ev--built">Prototype</span></td>
-        </tr>
-        <tr data-disc="design mfg power" data-thumb="assets/img/go-kart/02-gas-and-electric-karts-sm.webp">
-          <td class="r-no">S-05</td>
-          <td class="r-title"><a href="work/go-kart.html">Gas go-kart</a><span>Led a student build team as Automotive Engineering Club president. I built the fuel system, clutch and chain tensioner and welded chassis repairs and the exhaust.</span></td>
-          <td class="r-phase">2023</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot on" title="Manufacturing"></i><i class="dot on" title="Powertrain"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></td>
-          <td class="r-status"><span class="ev ev--built">Built</span></td>
-        </tr>
-        <tr data-disc="design mfg" data-thumb="assets/img/guitar/02-body-drying-after-clear-coat-sm.webp">
-          <td class="r-no">S-04</td>
-          <td class="r-title"><a href="work/manufacturing.html">Manufacturing &amp; fabrication</a><span>Three years in an integrated machinist program: CNC, CAM, waterjet, welding and laser cutting. Projects include a guitar, a gearbox car and a trebuchet.</span></td>
-          <td class="r-phase">2022</td>
-          <td class="r-disc"><div class="dots"><i class="dot on" title="Mechanical design"></i><i class="dot on" title="Manufacturing"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></td>
-          <td class="r-status"><span class="ev ev--built">Built</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
 
-  <!-- ============ WORKSHOP ============ -->
-  <section class="section workshop" aria-labelledby="shop-title">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="label">From model to part</p>
-        <h2 id="shop-title" class="h2">Three years in a machine shop means designs get made, not just drawn.</h2>
-        <p class="muted">The flight simulator’s ball joint, start to finish. I generated the toolpaths in CAM, cut the parts on a CNC mill and lathe from 6061 aluminum, and checked the fit by hand.</p>
+  <!-- ============ ALL PROJECTS, BY DISCIPLINE ============ -->
+  <section id="index" class="section wrap projects" aria-labelledby="index-title">
+    <div class="sec-head">
+      <p class="label">All projects</p>
+      <h2 id="index-title" class="h2">Grouped by discipline, newest first</h2>
+      <p class="muted">Most of this work crosses disciplines. Physical design sits on one side and chemistry and energy on the other. Materials science is where they meet.</p>
+    </div>
+
+    <div class="disc-map">
+      <div class="disc disc--design" aria-labelledby="g-design">
+        <div class="disc__head">
+          <p class="label">Group A</p>
+          <h3 id="g-design" class="h3">Physical design &amp; systems</h3>
+          <p class="disc__sub">Mechanical design · manufacturing · powertrain · controls</p>
+        </div>
+        <ol class="plist">
+          <li><a class="pitem" href="work/gamesense.html"><span class="pitem__yr">2026</span><span class="pitem__t">GameSense impact-sensing cleat</span><span class="pitem__d">Sensor grid mapped onto a cleat, an ESP32 prototype and a scoring app.</span><span class="ev ev--result">VTHacks 14 award</span></a></li>
+          <li><a class="pitem is-top" href="work/fsae-valvetrain.html"><span class="pitem__yr">2026</span><span class="pitem__t">Valvetrain redesign, Yamaha R6</span><span class="pitem__d">Measured baseline, MATLAB model, CFD and FEA for a 20&nbsp;mm-restricted engine.</span><span class="tag tag--top">Top 3</span></a></li>
+          <li><a class="pitem" href="work/fourier-visualizer.html"><span class="pitem__yr">2025</span><span class="pitem__t">Fourier / Laplace visualizer</span><span class="pitem__d">A web app that builds signals from Fourier series and epicycles.</span><span class="ev ev--dev">Laplace in dev.</span></a></li>
+          <li><a class="pitem is-top" href="work/hydraulic-flight-simulator.html"><span class="pitem__yr">2024</span><span class="pitem__t">Two-axis hydraulic flight simulator</span><span class="pitem__d">Hand-derived kinematics, UDP control and CNC ball joints at ¼ scale.</span><span class="tag tag--top">Top 3</span></a></li>
+          <li><a class="pitem" href="work/go-kart.html"><span class="pitem__yr">2023</span><span class="pitem__t">Gas go-kart</span><span class="pitem__d">Club president; fuel system, clutch, chain tensioning and welding.</span><span class="ev ev--built">Built</span></a></li>
+          <li><a class="pitem" href="work/manufacturing.html"><span class="pitem__yr">2022</span><span class="pitem__t">Manufacturing &amp; fabrication</span><span class="pitem__d">Machinist program: CNC, CAM, welding, laser cutting; guitar and gearbox car.</span><span class="ev ev--built">Built</span></a></li>
+        </ol>
       </div>
-      <div class="workshop__steps">
-        <figure class="fig workshop__step" data-reveal style="--i:0">
-          <span class="label">01 — Mill toolpaths</span>
-          <div class="fig__media frame-1x1"><video src="assets/video/hydraulic-flight-simulator--cam-mill.mp4" poster="assets/video/hydraulic-flight-simulator--cam-mill.jpg" width="912" height="852" muted loop playsinline preload="none" data-autoplay aria-label="CAM simulation of milling toolpaths for the ball-joint socket: pocketing, deep drilling, contouring, adaptive clearing and scallop finishing"></video></div>
-          <figcaption>Socket half: 2D pocket, deep drilling, adaptive clearing and a scallop finishing pass.</figcaption>
-        </figure>
-        <figure class="fig workshop__step" data-reveal style="--i:1">
-          <span class="label">02 — Lathe toolpaths</span>
-          <div class="fig__media frame-1x1"><video src="assets/video/hydraulic-flight-simulator--cam-lathe.mp4" poster="assets/video/hydraulic-flight-simulator--cam-lathe.jpg" width="1314" height="900" muted loop playsinline preload="none" data-autoplay aria-label="CAM simulation of lathe toolpaths for the ball stud: profile roughing and finishing, stem roughing, grooving and part-off"></video></div>
-          <figcaption>Ball stud: profile roughing and finishing, then the stem, a groove and the part-off.</figcaption>
-        </figure>
-        <figure class="fig workshop__step" data-reveal style="--i:2">
-          <span class="label">03 — Machined parts</span>
-          <div class="fig__media frame-1x1"><img src="assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin.webp" srcset="assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin-sm.webp 720w, assets/img/hydraulic-flight-simulator/08-cnc-ball-joint-components-bin.webp 1500w" sizes="(min-width: 900px) 30vw, 100vw" width="1500" height="2000" alt="Red bin holding CNC-machined aluminum ball studs and socket blocks" loading="lazy" decoding="async" style="--fy:40%"></div>
-          <figcaption>The finished set of ball-joint components, before final assembly.</figcaption>
-        </figure>
+
+      <div class="disc disc--bridge" aria-labelledby="g-mat">
+        <div class="disc__head">
+          <p class="label" style="color:var(--blue-ink)">The connection</p>
+          <h3 id="g-mat" class="h3">Materials science</h3>
+          <p class="disc__sub">Structure, properties and how materials respond to light, pressure and chemistry</p>
+        </div>
+        <ol class="plist">
+          <li><a class="pitem is-top" href="work/quantum-optics-research.html"><span class="pitem__yr">2025</span><span class="pitem__t">Nonlinear optics &amp; 2D materials research</span><span class="pitem__d">SPDC phase-matching models for LiNbO<sub>3</sub>; SHG and interferometry in the lab.</span><span class="tag tag--top">Top 3</span></a></li>
+          <li><a class="pitem" href="work/catalyst-review.html"><span class="pitem__yr">2025</span><span class="pitem__t">Fuel-cell catalyst literature review</span><span class="pitem__d">Pt-based multimetallic nanoparticles and High Temperature Liquid Shock Synthesis.</span><span class="ev ev--literature">Literature</span></a></li>
+        </ol>
       </div>
-      <p style="margin-top:40px"><a class="arrow-link" href="work/manufacturing.html">Manufacturing &amp; fabrication</a></p>
+
+      <div class="disc disc--chem" aria-labelledby="g-chem">
+        <div class="disc__head">
+          <p class="label">Group B</p>
+          <h3 id="g-chem" class="h3">Chemistry &amp; energy</h3>
+          <p class="disc__sub">Electrochemistry · kinetics · thermodynamics · energy systems</p>
+        </div>
+        <ol class="plist">
+          <li><a class="pitem" href="work/hydrogen-combustion.html#next"><span class="pitem__yr">2026</span><span class="pitem__t">Electrolysis dry cell</span><span class="pitem__d">A miniature dry cell to supply oxyhydrogen to a small engine.</span><span class="ev ev--dev">In development</span></a></li>
+          <li><a class="pitem" href="work/supercritical-energy.html"><span class="pitem__yr">2026</span><span class="pitem__t">Supercritical Energy LLC</span><span class="pitem__d">Energy systems internship: thermodynamic and heat-flow simulation, CFD.</span><span class="ev ev--documented">Industry · NDA</span></a></li>
+          <li><a class="pitem" href="work/hydrogen-combustion.html"><span class="pitem__yr">2025</span><span class="pitem__t">Hydrogen–oxygen ignition model</span><span class="pitem__d">Constant-volume kinetics on a 19-step mechanism; 3D flammability maps.</span><span class="ev ev--modeled">Modeled</span></a></li>
+          <li><a class="pitem" href="work/chemecar.html"><span class="pitem__yr">2025</span><span class="pitem__t">ChemE Car lead-acid battery</span><span class="pitem__d">A 12&nbsp;V battery from raw materials; 6th of 20+ at Western Regionals.</span><span class="ev ev--result">Result</span></a></li>
+        </ol>
+      </div>
     </div>
   </section>
 
