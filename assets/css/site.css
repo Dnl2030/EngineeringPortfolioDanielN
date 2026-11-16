@@ -1695,3 +1695,4 @@ html[data-theme="dark"] .law-btn i[style*="2F5F96"] { --c: #9ac1f0 !important; }
 .gs-grid { stroke: var(--rule); }
 .gs-trace { fill: none; stroke: color-mix(in srgb, var(--copper) calc((1 - var(--k)) * 100%), var(--blue)); stroke-width: 1.3; }
 .gs-cursor { stroke: var(--fg); stroke-width: 1; stroke-dasharray: 3 2; }
+.gs-links li { padding: 16px 0; }
