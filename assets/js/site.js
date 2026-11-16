@@ -127,41 +127,35 @@
     });
   }
 
-  /* ---- Project index: discipline filter + hover thumbnail ---- */
-  var register = document.querySelector("[data-register]");
-  if (register) {
-    var rows = register.querySelectorAll("tbody tr");
-    var chips = document.querySelectorAll("[data-filter]");
-    var count = document.querySelector("[data-register-count]");
-    chips.forEach(function (chip) {
-      chip.addEventListener("click", function () {
-        var f = chip.getAttribute("data-filter");
-        chips.forEach(function (c) { c.setAttribute("aria-pressed", c === chip ? "true" : "false"); });
-        var shown = 0;
-        rows.forEach(function (r) {
-          var on = f === "all" || (r.getAttribute("data-disc") || "").split(" ").indexOf(f) > -1;
-          r.classList.toggle("is-hidden", !on);
-          if (on) shown++;
-        });
-        if (count) count.textContent = shown + (shown === 1 ? " project" : " projects");
-      });
-    });
+  /* ---- Project lists: image preview that follows the cursor on hover ---- */
+  var thumbed = document.querySelectorAll("[data-thumb]");
+  if (thumbed.length) {
     var thumb = document.createElement("img");
     thumb.className = "register__thumb";
     thumb.alt = "";
+    thumb.setAttribute("aria-hidden", "true");
     document.body.appendChild(thumb);
     var fine = window.matchMedia("(hover: hover) and (min-width: 821px)");
-    rows.forEach(function (r) {
-      var src = r.getAttribute("data-thumb");
-      if (!src) return;
-      r.addEventListener("mouseenter", function () { if (!fine.matches) return; thumb.src = src; thumb.classList.add("is-on"); });
-      r.addEventListener("mouseleave", function () { thumb.classList.remove("is-on"); });
-      r.addEventListener("mousemove", function (e) {
-        var x = Math.min(window.innerWidth - 290, e.clientX + 28);
-        var y = Math.min(window.innerHeight - 220, Math.max(70, e.clientY - 90));
-        thumb.style.left = x + "px";
-        thumb.style.top = y + "px";
+    var place = function (e) {
+      var x = Math.min(window.innerWidth - 290, e.clientX + 28);
+      var y = Math.min(window.innerHeight - 220, Math.max(70, e.clientY - 90));
+      thumb.style.left = x + "px";
+      thumb.style.top = y + "px";
+    };
+    thumbed.forEach(function (row) {
+      var src = row.getAttribute("data-thumb");
+      row.addEventListener("mouseenter", function (e) {
+        if (!fine.matches) return;
+        if (thumb.getAttribute("src") !== src) thumb.src = src;
+        place(e);
+        thumb.classList.add("is-on");
       });
+      row.addEventListener("mouseleave", function () { thumb.classList.remove("is-on"); });
+      row.addEventListener("mousemove", place);
+    });
+    // warm the cache so previews appear instantly
+    if (fine.matches) window.addEventListener("load", function () {
+      thumbed.forEach(function (row) { var i = new Image(); i.src = row.getAttribute("data-thumb"); });
     });
   }
 

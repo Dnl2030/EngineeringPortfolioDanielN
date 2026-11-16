@@ -30,8 +30,11 @@ work/<project>.html        One page per project (four in-depth pages, seven comp
 404.html                   "Sheet not found"
 assets/css/site.css        All styles. Design tokens (colors, type scale, spacing, motion) are at the top.
 assets/js/site.js          Line drawing on scroll, video loops, mobile menu, lightbox, register filter, FSAE process rail
-assets/js/physics.js       Calculations behind the interactive figures (restrictor flow, cam motion laws, LiNbO3 phase matching)
-assets/js/figures/*.js     The interactive figures for the FSAE, flight-simulator and optics pages
+assets/js/physics.js       Calculations behind the Formula SAE figures (restrictor flow, cam motion laws)
+assets/js/figures/fsae.js  Formula SAE interactive figures
+assets/js/figures/sim.js   Flight-simulator piston targets, ported from the project's Python IK routine
+assets/js/figures/spdc.js  SPDC Type II phase-matching heatmap, ported from Phase_matching_graphs.py
+assets/js/figures/fourier.js  Fourier Lab, ported from the Flask app (app.py, DisplayFunction.py, displayfft.py, script.js)
 assets/img/<project>/      Images as WebP: <name>.webp (large) and <name>-sm.webp (small)
 assets/video/              MP4 videos and their poster images
 assets/fonts/              Geist, Geist Mono and Archivo (SIL Open Font License — see the LICENSE files)
@@ -48,8 +51,8 @@ tools/add-image.sh         Converts a new photo into the two WebP sizes and stri
   `ffmpeg -i in.mov -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart -an -map_metadata -1 out.mp4`,
   save a poster frame as a `.jpg` next to it, and copy an existing `<video>` tag.
 - **Add a project:** copy a compact page such as `work/catalyst-review.html`, give it the next sheet number,
-  and add a row to the project register table in `index.html` (`data-disc` sets which filters it appears under;
-  the seven dots follow the column order Design · Manufacturing · Powertrain · Thermal-fluids · Materials · Electrochem · Computation).
+  and add an `<li>` to the right group in the "All projects" section of `index.html` (newest first).
+  Add `data-thumb="assets/img/<folder>/<name>-sm.webp"` to the link to show an image preview on hover.
 
 ## Evidence labels
 

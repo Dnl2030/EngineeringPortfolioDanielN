@@ -1483,3 +1483,73 @@ html[data-theme="dark"] .law-btn i[style*="2F5F96"] { --c: #9ac1f0 !important; }
 .lightbox, .lightbox__close, .video-toggle, .video__badge { color: #f5f3ee; }
 .rail__list { position: relative; }
 .ctrl__label label { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; }
+
+/* ==========================================================================
+   Projects in two groups; hover previews
+   ========================================================================== */
+@media (min-width: 1000px) { .disc-map--two { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 4vw, 72px); } }
+.register__thumb { box-shadow: 0 10px 30px rgba(17, 18, 20, 0.18); }
+
+/* ==========================================================================
+   SPDC heatmap (ported model)
+   ========================================================================== */
+.spdc { display: grid; gap: var(--s-5); margin: 0; }
+@media (min-width: 1000px) { .spdc { grid-template-columns: minmax(0, 1fr) 280px; column-gap: var(--s-7); align-items: start; } }
+.spdc figcaption { grid-column: 1 / -1; font-size: var(--fs-caption); color: var(--fg-2); max-width: 90ch; }
+.spdc__plot { position: relative; min-width: 0; }
+.spdc__plot canvas { width: 100%; display: block; }
+.spdc__status { position: absolute; left: 70px; right: 90px; top: 45%; text-align: center; font-size: 14px; color: var(--paper); }
+.spdc__controls { display: grid; gap: 18px; align-content: start; }
+.spdc__controls input[type="range"] { accent-color: var(--copper); }
+.lock { border: 1px solid var(--rule-strong); padding: 10px 12px 12px; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.lock legend { padding: 0 6px; color: var(--fg-2); }
+.lock label { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+.lock input { accent-color: var(--copper); margin: 0; }
+.spdc__note { font-size: 13px; color: var(--fg-2); }
+
+/* ==========================================================================
+   Fourier Lab (ported app)
+   ========================================================================== */
+.fl-section { padding-block: 8px var(--section); }
+.fl-form { padding: 14px 16px 6px; border-bottom: var(--lw-thin) solid var(--rule); display: grid; gap: 8px; }
+.fl-input { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.fl-fx { font-family: var(--f-mono); font-size: 14px; color: var(--fg-2); }
+.fl-input input[type="text"] {
+  flex: 1 1 280px; min-width: 0; font-family: var(--f-mono); font-size: 14.5px; padding: 9px 11px;
+  background: var(--bg); color: var(--fg); border: 1px solid var(--rule-strong); border-radius: 0;
+}
+.fl-input input[type="text"]:focus { outline: 2px solid var(--copper); outline-offset: 1px; }
+.fl-input input[aria-invalid="true"] { border-color: var(--copper); }
+.fl-btn {
+  font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 9px 12px; background: none; color: var(--fg); border: 1px solid var(--rule-strong); cursor: pointer;
+}
+.fl-btn:hover { border-color: var(--fg); }
+.fl-btn--primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.fl-btn[aria-pressed="true"] { border-color: var(--copper); color: var(--accent-text); }
+.fl-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 13px; }
+.fl-sum[hidden] { display: none; }
+.fl-sigma { font-size: 22px; line-height: 1; }
+.fl-sum input { width: 72px; font-family: var(--f-mono); font-size: 14px; padding: 6px 8px; background: var(--bg); color: var(--fg); border: 1px solid var(--rule-strong); }
+.fl-msg { font-family: var(--f-mono); font-size: 12px; min-height: 1.4em; color: var(--fg-2); }
+.fl-msg[data-kind="bad"] { color: var(--accent-text); }
+.fl-msg[data-kind="good"] { color: var(--data-text); }
+.fl-plots { display: grid; gap: 0; }
+.fl-panel { padding: 12px 16px 14px; min-width: 0; }
+.fl-panel + .fl-panel { border-top: var(--lw-thin) solid var(--rule); }
+.fl-panel .label { margin-bottom: 6px; }
+.fl-panel svg { width: 100%; height: auto; overflow: hidden; }
+@media (min-width: 1000px) {
+  .fl-plots { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+  .fl-panel--fn { grid-column: 1; grid-row: 1; }
+  .fl-panel--fft { grid-column: 1; grid-row: 2; }
+  .fl-panel--wind { grid-column: 2; grid-row: 1 / span 2; border-top: 0 !important; border-left: var(--lw-thin) solid var(--rule); display: flex; flex-direction: column; gap: 10px; }
+}
+.fl-wind-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 6px; font-size: 12px; color: var(--fg-2); }
+.fl-line { stroke: var(--copper); stroke-width: 1.5; stroke-linejoin: round; }
+.fl-line--fft { stroke: var(--blue-ink); }
+.fl-line--wind { stroke: var(--copper); stroke-width: 1; opacity: 0.85; }
+.fl-com { fill: var(--blue-ink); stroke: var(--bg); stroke-width: 1.5; }
+.fl-vline { stroke: var(--fg-2); stroke-dasharray: 4 3; stroke-width: 1; }
+@media (max-width: 600px) { .fourier-lab .plot-text { font-size: 15px; } }
+.ctrl output { text-transform: none; letter-spacing: 0; }

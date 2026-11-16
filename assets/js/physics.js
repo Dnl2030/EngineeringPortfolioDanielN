@@ -1,64 +1,9 @@
 /*
- * Physics used by the interactive figures. Plain script (no modules) so the site also works
+ * Physics used by the Formula SAE interactive figures. Plain script (no modules) so the site also works
  * when opened directly from disk. Exposes window.Physics.
  */
 (function () {
   "use strict";
-
-  /* ------------------------------------------------------------------------------------------
-   * 1. Birefringent phase matching for SPDC in congruent lithium niobate (negative uniaxial).
-   * Sellmeier: D. E. Zelmon, D. L. Small, D. Jundt, JOSA B 14, 3319 (1997), room temperature.
-   *   n^2 - 1 = Σ A_k λ² / (λ² - B_k), λ in µm
-   * Collinear, perfect phase matching (Δk = 0), energy conservation 1/λp = 1/λs + 1/λi.
-   *   Type I : e(pump) → o(signal) + o(idler)
-   *   Type II: e(pump) → e(signal) + o(idler)
-   * ---------------------------------------------------------------------------------------- */
-  var ORD = [2.6734, 0.01764, 1.229, 0.05914, 12.614, 474.6];
-  var EXT = [2.9804, 0.02047, 0.5981, 0.0666, 8.9543, 416.08];
-
-  function sellmeier(c, um) {
-    var l2 = um * um;
-    return Math.sqrt(1 + (c[0] * l2) / (l2 - c[1]) + (c[2] * l2) / (l2 - c[3]) + (c[4] * l2) / (l2 - c[5]));
-  }
-  function nO(nm) { return sellmeier(ORD, nm / 1000); }
-  function nE(nm) { return sellmeier(EXT, nm / 1000); }
-  function nTheta(nm, theta) {
-    var no = nO(nm), ne = nE(nm), c = Math.cos(theta), s = Math.sin(theta);
-    return 1 / Math.sqrt((c * c) / (no * no) + (s * s) / (ne * ne));
-  }
-  function idlerFrom(pumpNm, signalNm) { return 1 / (1 / pumpNm - 1 / signalNm); }
-
-  /** Walk-off angle (rad) of an extraordinary wave at angle theta. */
-  function walkoff(nm, theta) {
-    var no = nO(nm), ne = nE(nm), n = nTheta(nm, theta);
-    return Math.atan(((n * n) / 2) * (1 / (ne * ne) - 1 / (no * no)) * Math.sin(2 * theta));
-  }
-
-  /** Δk-like mismatch in index units: n_p(θ)/λp − n_s/λs − n_i/λi, scaled by λp. */
-  function mismatch(type, pumpNm, signalNm, idlerNm, theta) {
-    var ns = type === "II" ? nTheta(signalNm, theta) : nO(signalNm);
-    var ni = nO(idlerNm);
-    return nTheta(pumpNm, theta) - pumpNm * (ns / signalNm + ni / idlerNm);
-  }
-
-  function phaseMatch(type, pumpNm, signalNm) {
-    var idlerNm = idlerFrom(pumpNm, signalNm);
-    var out = { type: type, pumpNm: pumpNm, signalNm: signalNm, idlerNm: idlerNm, thetaDeg: null, walkoffDeg: null };
-    // mismatch(θ) decreases monotonically from θ = 0 to 90° for both types in this crystal;
-    // a root exists only when the endpoints bracket zero.
-    var lo = 0, hi = Math.PI / 2;
-    var fLo = mismatch(type, pumpNm, signalNm, idlerNm, lo);
-    var fHi = mismatch(type, pumpNm, signalNm, idlerNm, hi);
-    if (!(fLo >= 0 && fHi <= 0)) return out;
-    for (var i = 0; i < 60; i++) {
-      var mid = (lo + hi) / 2;
-      if (mismatch(type, pumpNm, signalNm, idlerNm, mid) > 0) lo = mid; else hi = mid;
-    }
-    var theta = (lo + hi) / 2;
-    out.thetaDeg = (theta * 180) / Math.PI;
-    out.walkoffDeg = (walkoff(pumpNm, theta) * 180) / Math.PI;
-    return out;
-  }
 
   /* ------------------------------------------------------------------------------------------
    * 2. Formula SAE 20 mm intake restrictor: isentropic choked-flow ceiling vs engine demand.
@@ -146,7 +91,6 @@
   }
 
   window.Physics = {
-    optics: { nO: nO, nE: nE, nTheta: nTheta, idlerFrom: idlerFrom, phaseMatch: phaseMatch },
     restrictor: { chokedMassFlow: chokedMassFlow, airDemand: airDemand, crossoverRpm: crossoverRpm, STD: STD },
     cams: { LAWS: LAWS, eventKinematics: eventKinematics, fractionAbove: fractionAbove, peaks: peaks }
   };

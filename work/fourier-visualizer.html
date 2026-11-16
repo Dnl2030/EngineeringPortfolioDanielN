@@ -51,15 +51,36 @@
       <div class="title-block p-head__tb"><div class="title-block__head"><span>Independent project</span><span>S-08</span></div><dl class="tb">
         <dt>Stack</dt><dd>Python · JavaScript · HTML · CSS</dd>
         <dt>Working</dt><dd>Fourier series, complex-plane and epicycle views; user-typed functions (spell-checked) and summations for square, saw and noise signals</dd>
-        <dt>Status</dt><dd>Fourier module working, not yet published · Laplace module in development</dd>
+        <dt>Status</dt><dd>Fourier module working and running live below · Laplace module in development</dd>
       </dl></div>
     </div>
   </header>
 
-  <section class="wrap" aria-label="Screenshots">
-    <figure class="fig fig--contain">
-      <div class="sheet-img browser"><img src="../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp" srcset="../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series-sm.webp 960w, ../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp 1280w" sizes="(min-width: 1200px) 1200px, 100vw" width="1280" height="629" alt="Fourier Lab web app building a square wave from a 12-term series of odd sine harmonics, with signal and spectrum panels" loading="lazy" decoding="async" data-zoom="../assets/img/fourier-visualizer/01-fourier-lab-square-wave-series.webp"></div>
-      <figcaption><span class="fig__no">Fig. 08.1</span> A square wave built from odd sine harmonics, 4/π · sin((2n−1)πx)/(2n−1), sampled at 2,048 points. <span class="ev ev--built">Working</span></figcaption>
+  <section class="wrap fl-section" aria-labelledby="lab-title">
+    <figure class="ifig fourier-lab" data-fig="fourier-lab">
+      <div class="ifig__head"><span class="label" id="lab-title" style="color:var(--fg)">Fig. 08.1 — Interactive · Fourier Lab, ported from the Flask app</span><span class="ev ev--built">Runs in your browser</span></div>
+      <form class="fl-form" autocomplete="off">
+        <div class="fl-input">
+          <label for="fl-fn" class="fl-fx">f(x) =</label>
+          <input id="fl-fn" name="fn" type="text" spellcheck="false" autocapitalize="off" value="2*sinx+cosx+4*sin(7*x)+cos(13*x)+12*cos(2*x)">
+          <button type="submit" class="fl-btn fl-btn--primary">Plot</button>
+          <button type="button" class="fl-btn" data-act="example">Example</button>
+          <button type="button" class="fl-btn" data-act="sum" aria-pressed="false">Summation: off</button>
+        </div>
+        <div class="fl-sum" hidden><span class="fl-sigma" aria-hidden="true">Σ</span><label for="fl-lo">n =</label><input id="fl-lo" name="lower" type="number" value="1"><label for="fl-hi">to</label><input id="fl-hi" name="upper" type="number" value="10"></div>
+        <p class="fl-msg" data-out="msg" aria-live="polite"></p>
+      </form>
+      <div class="fl-plots">
+        <div class="fl-panel fl-panel--fn"><p class="label">Function, <span class="sym">−10 ≤ x ≤ 10</span></p><svg data-plot="fn" viewBox="0 0 600 260" role="img" aria-label="Plot of the entered function from x equals minus 10 to 10"></svg></div>
+        <div class="fl-panel fl-panel--fft"><p class="label">Fourier transform · the dashed line is the winding frequency</p><svg data-plot="fft" viewBox="0 0 600 260" role="img" aria-label="Magnitude spectrum of the entered function"></svg></div>
+        <div class="fl-panel fl-panel--wind">
+          <p class="label">Complex plane · <span class="sym">f(x)·e<sup>−iωx</sup></span></p>
+          <svg data-plot="complex" viewBox="0 0 420 420" role="img" aria-label="The function wound around the complex plane at the chosen frequency, with its centre of mass"></svg>
+          <div class="ctrl"><div class="ctrl__label"><label for="fl-w">Winding frequency <span class="sym">ω</span></label><output for="fl-w" data-out="wfreq">0.00</output></div><input id="fl-w" name="wfreq" type="range" min="0" max="10" step="0.01" value="0"></div>
+          <div class="fl-wind-foot"><button type="button" class="fl-btn" data-act="play">Play</button><span class="mono">Centre of mass <span data-out="com"></span></span></div>
+        </div>
+      </div>
+      <figcaption class="ifig__foot">Ported from <span class="mono">app.py</span>, <span class="mono">DisplayFunction.py</span>, <span class="mono">displayfft.py</span> and <span class="mono">script.js</span>. The function is sampled 5,000 times on −100 ≤ x ≤ 100, tapered with a Tukey window (α = 0.25) and zero-padded, then transformed with a 2,048-point FFT; summation mode transforms the padded samples. The winding animation slows and pauses at spectral peaks, where the centre of mass jumps away from the origin. Results match the original Python to within 10⁻¹³. Expressions are parsed safely rather than passed to eval(). The spinning-arrows (epicycle) panel isn’t part of the code ported here.</figcaption>
     </figure>
   </section>
 
@@ -77,7 +98,7 @@
     <div class="rev">
       <div class="rev__head"><span class="label"><span class="rev__tri">B</span>Next revision</span><span class="ev ev--dev">In development</span></div>
       <h2 id="next-h" class="h3">Laplace transforms in 3D</h2>
-      <p style="margin-top:12px;max-width:64ch">I’m adding MATLAB-derived elements to simulate the Laplace transform in three dimensions, and I’ll publish the site once the interface is polished. None of the Laplace features are shown as finished here.</p>
+      <p style="margin-top:12px;max-width:64ch">I’m adding MATLAB-derived elements to simulate the Laplace transform in three dimensions, and I’ll publish the full app once the interface is polished. None of the Laplace features are shown as finished here.</p>
     </div>
   </section>
 
@@ -129,5 +150,6 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/figures/fourier.js" defer></script>
 </body>
 </html>
