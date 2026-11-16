@@ -57,11 +57,11 @@
     </div>
   </header>
 
-  <section class="plate gs-section" aria-labelledby="gs-title">
+  <section class="gs-section" aria-labelledby="gs-title">
     <div class="wrap">
       <div class="grid" style="align-items:end;margin-bottom:22px">
-        <div class="c-1-6"><p class="label" style="color:var(--blue)">Fig. 07.1 — Interactive · force footprints on the cleat</p><h2 id="gs-title" class="h3" style="margin-top:10px">Watch a simulated kick travel across the sensor grid</h2></div>
-        <p class="c-7-12" style="color:var(--graphite-lt);font-size:15px">Each footprint grows with the force at one sensor intersection, relative to that sensor’s own peak. The real kick lasts about 6–19&nbsp;ms; playback stretches it to three seconds. Pick a kick type, scrub the timeline, drag to rotate, and hover a footprint to read its force.</p>
+        <div class="c-1-6"><p class="label" style="color:var(--data-text)">Fig. 07.1 — Interactive · force footprints on the cleat</p><h2 id="gs-title" class="h3" style="margin-top:10px">Watch a simulated kick travel across the sensor grid</h2></div>
+        <p class="c-7-12" style="color:var(--fg-2);font-size:15px">Each footprint spreads across the cleat with the force at one sensor intersection, relative to that sensor’s own peak. A kick lasts 6–19&nbsp;ms; playback stretches it to three seconds. Pick where the ball is struck, scrub the timeline, drag to rotate, and hover a sensor to read its force.</p>
       </div>
       <figure class="gs" data-fig="gamesense" data-base="../">
         <div class="gs__main">
@@ -80,12 +80,12 @@
         </div>
         <div class="gs__side">
           <div class="seg gs__kicks" role="group" aria-label="Kick type">
-            <button type="button" data-kick="curved" aria-pressed="true">Curved</button><button type="button" data-kick="linear" aria-pressed="false">Linear</button><button type="button" data-kick="diagonal" aria-pressed="false">Diagonal</button><button type="button" data-kick="central" aria-pressed="false">Central</button>
+            <button type="button" data-kick="curved" aria-pressed="true">Top right</button><button type="button" data-kick="diagonal" aria-pressed="false">Top left</button><button type="button" data-kick="central" aria-pressed="false">Ground pass</button>
           </div>
           <div><p class="label">Sensor grid · 12 × 16 lines</p><svg data-plot="grid" viewBox="0 0 220 280" role="img" aria-label="Sensor grid with the kick's detected intersections, sized by current force"></svg></div>
           <div><p class="label">Detected points</p><svg data-plot="chart" viewBox="0 0 300 170" role="img" aria-label="Force versus time for each detected sensor point, with a moving time cursor"></svg></div>
         </div>
-        <figcaption>Adapted from <span class="mono">force_footprints.html</span>, playing the simulator’s four demo kicks: synthetic data with sensor noise, cross-talk and peak detection, not a recorded strike. The six curved-kick sensor positions were placed by hand on the model; the other points are positioned from a grid-to-surface fit to those six. The cleat is a public-domain model, simplified for the web. <span class="ev ev--modeled">Simulated</span></figcaption>
+        <figcaption>Adapted from <span class="mono">force_footprints.html</span>, playing three of the simulator’s demo kicks: synthetic data with sensor noise, cross-talk and peak detection, not a recorded strike. Six sensor positions were placed by hand on the model in the original viewer; every point shown comes from those or from a grid-to-surface fit to them. The cleat is a public-domain model, simplified for the web and shown in black and white. <span class="ev ev--modeled">Simulated</span></figcaption>
       </figure>
     </div>
   </section>

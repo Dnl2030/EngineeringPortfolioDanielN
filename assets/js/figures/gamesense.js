@@ -1,23 +1,27 @@
 /*
  * GameSense force footprints — the force_footprints.html viewer (three.js r128) adapted to run inside the page.
- * Plays back the simulator's four demo kicks on the cleat: every detected sensor point grows a footprint whose
- * radius is its force divided by that sensor's own peak (as in the original), with a synced sensor-grid map and
- * force-time chart. Data: assets/data/gamesense-kicks.js; mesh: assets/data/gamesense-cleat.js (public domain model).
+ * Plays back three of the simulator's demo kicks on the cleat: every detected sensor point paints a footprint on the
+ * surface whose radius is its force divided by that sensor's own peak (the original's sizing rule), with a synced
+ * sensor-grid map and force-time chart. Data: assets/data/gamesense-kicks.js; mesh: assets/data/gamesense-cleat.js
+ * (public-domain model, simplified per part).
  */
 (function () {
   "use strict";
-  var MAX_FORCE_RADIUS = 6.0;   // scene units at a sensor's own peak force (original value)
+  var MAX_FORCE_RADIUS = 4.5;   // footprint radius (scene units) at a sensor's own peak force
   var PLAYBACK_SECONDS = 3;     // wall-clock seconds for the whole kick at 1x (original value)
   var GRID = { nx: 12, ny: 16 }; // config.py NUM_X_LINES / NUM_Y_LINES
-  var LIGHT_GREY = 0x7ea0ab, DARK_GREY = 0x4a4a55;
-  var CLEAT_MATERIALS = { // original colour assignments by OBJ material name
-    "02___Default": { color: LIGHT_GREY, roughness: 0.6 }, "03___Default": { color: LIGHT_GREY, roughness: 0.6 },
-    "04___Default": { color: LIGHT_GREY, roughness: 0.6 }, "05___Default": { color: LIGHT_GREY, roughness: 0.6 },
-    "07___Default": { color: DARK_GREY, roughness: 0.6 }, "08___Default": { color: LIGHT_GREY, roughness: 0.6 },
-    "09___Default": { color: DARK_GREY, roughness: 0.9 }, "10___Default": { color: DARK_GREY, roughness: 0.9 },
-    "11___Default": { color: 0x2b2b33, roughness: 0.6, metalness: 0.1 }, "12___Default": { color: 0xe6e6e6, roughness: 0.6, metalness: 0.1 }
-  };
-  var FOOT = 0xb66a4a, FOOT_EMISSIVE = 0x3a1608;
+  // Black-and-white finish. The model's outer skin is a set of panels (OBJ materials 02-05, 08); a full shell
+  // (Line094) sits just beneath them and only shows through the stripe cut-outs, and Shape028 lines the inside.
+  var WHITE = 0xd9d7d2, BLACK = 0x1d1e21, STUD = 0x2e3034, LINING = 0x26272a;
+  var SKIN = { "02___Default": 1, "03___Default": 1, "04___Default": 1, "05___Default": 1, "08___Default": 1 };
+  function partLook(g) {
+    if (SKIN[g.mat]) return { color: WHITE, roughness: 0.55 };
+    if (g.part === "Line094") return { color: BLACK, roughness: 0.5, offset: 2 };   // under-shell: pushed back
+    if (g.mat === "12___Default") return { color: LINING, roughness: 0.8, offset: 4 };
+    if (g.mat === "11___Default") return { color: STUD, roughness: 0.45 };
+    return { color: BLACK, roughness: g.mat === "07___Default" ? 0.5 : 0.7 };    // laces, tongue, collar, sole
+  }
+  var FOOT = 0xb66a4a, RING = 0x9a5236, DOT = 0x111214;
 
   function loadScript(src) {
     return new Promise(function (res, rej) { var s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = function () { rej(new Error("Could not load " + src)); }; document.head.appendChild(s); });
@@ -56,17 +60,18 @@
     function build() {
       var THREE = window.THREE, DATA = window.GS_KICKS;
       var renderer;
-      try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false }); }
+      try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
       catch (e) { status.textContent = "This browser could not start WebGL, so the 3D view is unavailable."; return; }
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      renderer.setClearColor(0x111214, 1);
+      renderer.setClearColor(0x000000, 0); // the stage background (light or dark theme) shows through
       stage.appendChild(renderer.domElement);
       var scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(40, 1, 0.1, 500);
-      scene.add(new THREE.AmbientLight(0xffffff, 0.38));
-      scene.add(new THREE.HemisphereLight(0xf5f3ee, 0x26292d, 0.45)); // sky/ground fill gives the shoe its form
-      var sun = new THREE.DirectionalLight(0xffffff, 0.7); scene.add(sun, sun.target);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.16));
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x2a2c30, 0.5)); // sky/ground fill gives the shoe its form
+      var sun = new THREE.DirectionalLight(0xffffff, 0.62); scene.add(sun, sun.target);   // key light, above and beside the camera
+      var rim = new THREE.DirectionalLight(0xdfe8f5, 0.45); scene.add(rim, rim.target);   // back light: keeps the black sole's outline on a dark page
 
-      // ---- cleat mesh (quantized positions → BufferGeometry, one draw group per OBJ material)
+      // ---- cleat mesh (quantized positions → BufferGeometry, one draw group per model part)
       var C = window.GS_CLEAT, q = new Uint16Array(b64(C.pos)), pos = new Float32Array(q.length);
       for (var i = 0; i < q.length; i++) pos[i] = C.vmin[i % 3] + q[i] * C.vscale[i % 3];
       var index = C.index32 ? new Uint32Array(b64(C.index)) : new Uint16Array(b64(C.index));
@@ -74,10 +79,35 @@
       geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       geo.setIndex(new THREE.BufferAttribute(index, 1));
       geo.computeVertexNormals();
+      // footprints are drawn per pixel in every part's shader: a disc where the sensor's force sphere meets the surface,
+      // with a thin outline, so nothing pokes through or floats off the shoe
+      var NS_MAX = 8, uS = [], uK = [];
+      for (var u = 0; u < NS_MAX; u++) { uS.push(new THREE.Vector4(0, 0, 0, 0)); uK.push(0); }
+      var U = { uHeat: { value: new THREE.Color(FOOT) }, uRing: { value: new THREE.Color(RING) }, uS: { value: uS }, uK: { value: uK } };
+      function withHeat(sh) {
+        sh.uniforms.uHeat = U.uHeat; sh.uniforms.uRing = U.uRing; sh.uniforms.uS = U.uS; sh.uniforms.uK = U.uK;
+        sh.vertexShader = "varying vec3 vGsPos;\n" + sh.vertexShader.replace("#include <begin_vertex>", "#include <begin_vertex>\n  vGsPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
+        sh.fragmentShader = "uniform vec3 uHeat;\nuniform vec3 uRing;\nuniform vec4 uS[" + NS_MAX + "];\nuniform float uK[" + NS_MAX + "];\nvarying vec3 vGsPos;\n" + sh.fragmentShader
+          .replace("#include <color_fragment>", [
+            "#include <color_fragment>",
+            "  float gsH = 0.0, gsR = 0.0;",
+            "  for (int i = 0; i < " + NS_MAX + "; i++) {",
+            "    float r = uS[i].w; if (r <= 0.0) continue;",
+            "    float d = distance(vGsPos, uS[i].xyz);",
+            "    gsH = max(gsH, uK[i] * (1.0 - smoothstep(r * 0.5, r, d)));",
+            "    gsR = max(gsR, 1.0 - smoothstep(0.0, 0.07, abs(d - r)));",
+            "  }",
+            "  diffuseColor.rgb = mix(diffuseColor.rgb, uHeat, gsH);",
+            "  diffuseColor.rgb = mix(diffuseColor.rgb, uRing, gsR * 0.85);"].join("\n"))
+          .replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n  totalEmissiveRadiance += uHeat * gsH * 0.2;");
+      }
       var mats = C.groups.map(function (g, k) {
         geo.addGroup(g.start, g.count, k);
-        var c = Object.assign({ color: 0x8a8a99, roughness: 0.85, metalness: 0 }, CLEAT_MATERIALS[g.mat] || {});
-        return new THREE.MeshStandardMaterial({ color: c.color, roughness: c.roughness, metalness: c.metalness, side: THREE.DoubleSide });
+        var c = partLook(g);
+        var m = new THREE.MeshStandardMaterial({ color: c.color, roughness: c.roughness, metalness: 0, side: THREE.DoubleSide });
+        if (c.offset) { m.polygonOffset = true; m.polygonOffsetFactor = c.offset; m.polygonOffsetUnits = c.offset * 2; } // coplanar layers: the outer skin always wins
+        m.onBeforeCompile = withHeat;
+        return m;
       });
       var cleat = new THREE.Mesh(geo, mats); scene.add(cleat);
 
@@ -97,10 +127,11 @@
         camera.lookAt(o.target); camera.updateMatrixWorld();
       }
       function resize() {
-        var w = stage.clientWidth, h = stage.clientHeight;
-        renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+        var w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
+        renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
       }
-      window.addEventListener("resize", resize); resize();
+      if ("ResizeObserver" in window) new ResizeObserver(resize).observe(stage); else window.addEventListener("resize", resize);
+      resize();
 
       // pointer: drag to rotate, pinch or wheel (once the view is active) to zoom
       var el = renderer.domElement, pointers = {}, lastPinch = 0, active = false;
@@ -133,12 +164,12 @@
       root.querySelector("[data-act=zoom-in]").addEventListener("click", function () { orbit.dist = Math.max(orbit.min, orbit.dist / 1.2); });
       root.querySelector("[data-act=zoom-out]").addEventListener("click", function () { orbit.dist = Math.min(orbit.max, orbit.dist * 1.2); });
 
-      // ---- footprints
+      // ---- footprints: each sensor paints a disc on the surface (radius and strength follow its force / own peak)
       var group = new THREE.Group(); scene.add(group);
       var sensors = [], data = null, tEnd = 0, tMs = 0, playing = false, last = performance.now();
-      var sphereGeo = new THREE.SphereGeometry(1, 32, 24);
+      var dotGeo = new THREE.SphereGeometry(Math.max(0.12, diag * 0.0028), 12, 8), dotMat = new THREE.MeshBasicMaterial({ color: DOT });
       function clear() {
-        sensors.forEach(function (s) { group.remove(s.sphere, s.dot); s.sphere.material.dispose(); s.dot.geometry.dispose(); s.dot.material.dispose(); });
+        sensors.forEach(function (s) { group.remove(s.dot); });
         sensors = [];
       }
       function loadKick(name) {
@@ -149,17 +180,22 @@
         k.labels.forEach(function (label, i) {
           var p = DATA.positions[label]; if (!p) return;
           var posV = new THREE.Vector3(p.x, p.y, p.z), normal = new THREE.Vector3(p.nx, p.ny, p.nz);
-          var sphere = new THREE.Mesh(sphereGeo, new THREE.MeshPhongMaterial({ color: FOOT, emissive: FOOT_EMISSIVE, shininess: 30, transparent: true, opacity: 0.5, depthWrite: false }));
-          sphere.renderOrder = 10; sphere.position.copy(posV);
-          var dot = new THREE.Points(new THREE.BufferGeometry().setFromPoints([posV]), new THREE.PointsMaterial({ color: 0xf5f3ee, size: 5, sizeAttenuation: false }));
-          dot.position.copy(normal).multiplyScalar(Math.max(0.03, diag * 0.002) * 1.5);
-          group.add(sphere, dot);
-          var values = k.cols[i], peak = 0; values.forEach(function (v) { if (v > peak) peak = v; });
-          sensors.push({ label: label, pos: posV, values: values, peak: peak, sphere: sphere, dot: dot, force: 0, order: i });
+          var dot = new THREE.Mesh(dotGeo, dotMat);
+          dot.position.copy(posV).addScaledVector(normal, Math.max(0.05, diag * 0.002));
+          group.add(dot);
+          var values = k.cols[i], peak = 0; values.forEach(function (x) { if (x > peak) peak = x; });
+          sensors.push({ label: label, pos: posV, normal: normal, values: values, peak: peak, dot: dot, force: 0, n: 0 });
         });
         root.querySelectorAll("[data-kick]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-kick") === name ? "true" : "false"); });
         drawGrid(); drawChart();
         tMs = 0; setPlaying(!reduced);
+      }
+      function paint() {
+        for (var u = 0; u < NS_MAX; u++) {
+          var sn = sensors[u], r = sn ? sn.n * MAX_FORCE_RADIUS : 0;
+          if (r < 0.05) { uS[u].w = 0; uK[u] = 0; continue; }
+          uS[u].set(sn.pos.x, sn.pos.y, sn.pos.z, r); uK[u] = 0.55 + 0.4 * sn.n;
+        }
       }
 
       // ---- side panels: sensor grid map + force-time chart
@@ -204,10 +240,11 @@
       }
 
       // ---- tooltip
-      var mouse = { x: -1e9, y: -1e9 }, tip = root.querySelector(".gs__tip"), tmp = new THREE.Vector3();
+      var mouse = { x: -1e9, y: -1e9 }, tip = root.querySelector(".gs__tip"), tmp = new THREE.Vector3(), camDir = new THREE.Vector3(), side = new THREE.Vector3();
       function updateTip() {
         var best = null, bestD = 40, w = stage.clientWidth, h = stage.clientHeight;
         sensors.forEach(function (s) {
+          if (camDir.copy(camera.position).sub(s.pos).dot(s.normal) < 0) return; // facing away from the viewer
           tmp.copy(s.pos).project(camera);
           if (tmp.z >= 1) return;
           var sx = (tmp.x * 0.5 + 0.5) * w, sy = (-tmp.y * 0.5 + 0.5) * h, d = Math.hypot(sx - mouse.x, sy - mouse.y);
@@ -235,14 +272,16 @@
         if (visible) {
           if (playing && tEnd > 0) { seek(tMs + dt * (tEnd / PLAYBACK_SECONDS) * parseFloat(speed.value)); if (tMs >= tEnd) setPlaying(false); }
           applyOrbit();
-          sun.position.copy(camera.position); sun.target.position.copy(orbit.target); sun.target.updateMatrixWorld();
+          camDir.copy(camera.position).sub(orbit.target);
+          sun.position.copy(orbit.target).add(camDir).addScaledVector(camera.up, orbit.dist * 0.5).addScaledVector(side.crossVectors(camDir, camera.up).normalize(), -orbit.dist * 0.35);
+          rim.position.copy(orbit.target).sub(camDir).addScaledVector(camera.up, orbit.dist * 0.8);
+          sun.target.position.copy(orbit.target); sun.target.updateMatrixWorld(); rim.target.position.copy(orbit.target); rim.target.updateMatrixWorld();
           sensors.forEach(function (s, k) {
-            var f = forceAt(data.times, s.values, tMs), n = s.peak > 0 ? Math.min(1, Math.max(0, f / s.peak)) : 0, r = n * MAX_FORCE_RADIUS;
-            s.force = f;
-            s.sphere.visible = r > MAX_FORCE_RADIUS * 0.004;
-            if (s.sphere.visible) { s.sphere.scale.setScalar(r); s.sphere.material.opacity = 0.28 + 0.5 * n; }
+            var f = forceAt(data.times, s.values, tMs), n = s.peak > 0 ? Math.min(1, Math.max(0, f / s.peak)) : 0;
+            s.force = f; s.n = n;
             if (gridDots[k]) { gridDots[k].setAttribute("r", (3 + 9 * n).toFixed(1)); gridDots[k].classList.toggle("is-on", n > 0.02); }
           });
+          paint();
           if (chartCursor) { var cx = chartCursor._x(tMs); chartCursor.setAttribute("x1", cx); chartCursor.setAttribute("x2", cx); }
           scrub.value = tEnd ? Math.round((tMs / tEnd) * 1000) : 0;
           timeOut.textContent = tMs.toFixed(1) + " / " + tEnd.toFixed(1) + " ms";
