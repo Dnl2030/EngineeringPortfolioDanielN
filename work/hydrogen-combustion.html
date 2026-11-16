@@ -52,184 +52,137 @@
     </div>
   </section>
 
-  <section class="wrap" style="padding-block:24px 64px" aria-label="Model scale">
-    <div class="specs">
-      <div class="spec"><span class="spec__num num">19</span><p class="spec__text"><strong>Elementary reactions</strong> in the published mechanism, with Troe falloff.</p><span class="ev ev--documented">Mechanism</span></div>
-      <div class="spec"><span class="spec__num num">64k<small>+</small></span><p class="spec__text"><strong>Differential-equation evaluations</strong> behind the 3D flammability map.</p><span class="ev ev--modeled">Computed</span></div>
-      <div class="spec"><span class="spec__num num">2,000<small>+</small></span><p class="spec__text"><strong>Lines of Python</strong>, written from scratch.</p><span class="ev ev--documented">Code</span></div>
-      <div class="spec"><span class="spec__num num">~8<small>h</small></span><p class="spec__text"><strong>Simulation runtime</strong> for the full parameter sweep.</p><span class="ev ev--documented">Runtime</span></div>
+  <section class="wrap" style="padding-block:20px 8px" aria-label="Model scale">
+    <div class="specs specs--compact specs--h2">
+      <div class="spec"><span class="spec__num num">19</span><p class="spec__text"><strong>Elementary reactions</strong>, two with Troe falloff.</p></div>
+      <div class="spec"><span class="spec__num num">64k<small>+</small></span><p class="spec__text"><strong>ODE evaluations</strong> behind the 3D map.</p></div>
+      <div class="spec"><span class="spec__num num">2,000<small>+</small></span><p class="spec__text"><strong>Lines of Python</strong>, from scratch.</p></div>
+      <div class="spec"><span class="spec__num num">~8<small>h</small></span><p class="spec__text"><strong>Runtime</strong> for the full sweep.</p></div>
     </div>
   </section>
 
   <section class="wrap p-section" aria-labelledby="why">
-    <div class="grid">
-      <div class="c-1-4"><p class="label" style="color:var(--blue)">01 — Why build it</p></div>
+    <div class="grid h2-row">
+      <div class="c-1-4 h2-side">
+        <p class="label" style="color:var(--blue)">01 — Why build it</p>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mn>2</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mo>+</mo><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub><mo>→</mo><mn>2</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mi mathvariant="normal">O</mi></math><math display="block"><mi>Δ</mi><msubsup><mi>H</mi><mn>298</mn><mo>∘</mo></msubsup><mo>=</mo><mo>−</mo><mn>483.6</mn><mtext>&#xa0;kJ</mtext></math></div><p class="eqc__cap">Overall reaction, water as vapour. Simple on paper; nineteen elementary steps in practice.</p></div>
+      </div>
       <div class="c-5-12 prose">
         <h2 id="why" class="h2">The overall reaction looks simple. It isn’t.</h2>
-        <p style="color:var(--graphite-lt)">I chose hydrogen because its overall reaction, 2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O, looked straightforward. The accepted kinetics are anything but. About nineteen elementary reactions compete. Free radicals (H, O, OH, HO<sub>2</sub>) are created, multiplied and destroyed by rival pathways, each pulled toward its own thermodynamic equilibrium. Ignition is the moment the radical-multiplying steps outrun the ones that remove radicals.</p>
+        <p style="color:var(--graphite-lt)">I chose hydrogen because its overall reaction looked straightforward. The accepted kinetics are anything but. About nineteen elementary reactions compete. Free radicals (H, O, OH, HO<sub>2</sub>) are created, multiplied and destroyed by rival pathways, each pulled toward its own thermodynamic equilibrium. Ignition is the moment the radical-multiplying steps outrun the ones that remove radicals.</p>
       </div>
     </div>
   </section>
 
   <section class="wrap p-section" aria-labelledby="mech">
-    <div class="p-section__head">
-      <p class="label" style="color:var(--blue)">02 — The mechanism</p>
-      <h2 id="mech">Radicals multiplying, radicals removed</h2>
-      <p class="lead">Each turn of the chain-branching cycle turns one H atom into three radicals. Competing with it, a three-body step parks H as the far less reactive HO<sub>2</sub>. Which one wins depends on temperature and pressure. That competition is why ignition is so sensitive to initial conditions.</p>
-    </div>
-    <figure class="fig">
-      <p class="scroll-cue label">Scroll →</p><div class="lanes">
-        <svg viewBox="0 0 980 400" role="img" aria-labelledby="lanes-t" data-draw>
-          <title id="lanes-t">Key steps of hydrogen–oxygen chain chemistry: two chain-branching reactions and one propagation reaction that multiply radicals, and the competing three-body reaction forming HO2, which leads slowly through hydrogen peroxide back to hydroxyl radicals</title>
-          <g class="lane" transform="translate(0 30)">
-            <text x="0" y="24" class="lane-tag" style="fill:var(--copper)">R1 · BRANCHING</text>
-            <rect x="200" y="0" width="64" height="36" class="sp sp--r"/><text x="232" y="24" text-anchor="middle">H</text>
-            <text x="282" y="24" class="op">+</text>
-            <rect x="300" y="0" width="64" height="36" class="sp"/><text x="332" y="24" text-anchor="middle">O₂</text>
-            <path class="draw arrow" pathLength="1" style="--i:1" d="M380 18H520"/><path class="draw-fade" style="--i:4" d="M512 12l10 6-10 6" fill="none" stroke="var(--copper)"/>
-            <rect x="540" y="0" width="64" height="36" class="sp sp--r"/><text x="572" y="24" text-anchor="middle">O</text>
-            <text x="622" y="24" class="op">+</text>
-            <rect x="640" y="0" width="64" height="36" class="sp sp--r"/><text x="672" y="24" text-anchor="middle">OH</text>
-            <text x="730" y="24" class="note">1 radical in → 2 out</text>
-          </g>
-          <g class="lane" transform="translate(0 100)">
-            <text x="0" y="24" class="lane-tag" style="fill:var(--copper)">R2 · BRANCHING</text>
-            <rect x="200" y="0" width="64" height="36" class="sp sp--r"/><text x="232" y="24" text-anchor="middle">O</text>
-            <text x="282" y="24" class="op">+</text>
-            <rect x="300" y="0" width="64" height="36" class="sp"/><text x="332" y="24" text-anchor="middle">H₂</text>
-            <path class="draw arrow" pathLength="1" style="--i:3" d="M380 18H520"/><path class="draw-fade" style="--i:6" d="M512 12l10 6-10 6" fill="none" stroke="var(--copper)"/>
-            <rect x="540" y="0" width="64" height="36" class="sp sp--r"/><text x="572" y="24" text-anchor="middle">H</text>
-            <text x="622" y="24" class="op">+</text>
-            <rect x="640" y="0" width="64" height="36" class="sp sp--r"/><text x="672" y="24" text-anchor="middle">OH</text>
-            <text x="730" y="24" class="note">1 radical in → 2 out</text>
-          </g>
-          <g class="lane" transform="translate(0 170)">
-            <text x="0" y="24" class="lane-tag" style="fill:var(--blue)">R3 · PROPAGATION</text>
-            <rect x="200" y="0" width="64" height="36" class="sp sp--r"/><text x="232" y="24" text-anchor="middle">OH</text>
-            <text x="282" y="24" class="op">+</text>
-            <rect x="300" y="0" width="64" height="36" class="sp"/><text x="332" y="24" text-anchor="middle">H₂</text>
-            <path class="draw arrow arrow--blue" pathLength="1" style="--i:5" d="M380 18H520"/><path class="draw-fade" style="--i:8" d="M512 12l10 6-10 6" fill="none" stroke="var(--blue)"/>
-            <rect x="540" y="0" width="64" height="36" class="sp sp--p"/><text x="572" y="24" text-anchor="middle">H₂O</text>
-            <text x="622" y="24" class="op">+</text>
-            <rect x="640" y="0" width="64" height="36" class="sp sp--r"/><text x="672" y="24" text-anchor="middle">H</text>
-            <text x="730" y="24" class="note">releases heat, keeps the chain going</text>
-          </g>
-          <path class="draw" pathLength="1" style="--i:9;stroke:var(--graphite-lt);stroke-width:.75" stroke-dasharray="4 3" d="M0 248H980"/>
-          <g class="lane" transform="translate(0 270)">
-            <text x="0" y="24" class="lane-tag">R9 · THIRD-BODY</text>
-            <rect x="200" y="0" width="64" height="36" class="sp sp--r"/><text x="232" y="24" text-anchor="middle">H</text>
-            <text x="282" y="24" class="op">+</text>
-            <rect x="300" y="0" width="64" height="36" class="sp"/><text x="332" y="24" text-anchor="middle">O₂</text>
-            <text x="372" y="24" class="op" style="font-size:11px">(+M)</text>
-            <path class="draw arrow arrow--grey" pathLength="1" style="--i:10" d="M412 18H520"/><path class="draw-fade" style="--i:12" d="M512 12l10 6-10 6" fill="none" stroke="var(--graphite-lt)"/>
-            <rect x="540" y="0" width="64" height="36" class="sp sp--i"/><text x="572" y="24" text-anchor="middle">HO₂</text>
-            <text x="730" y="24" class="note">competes with R1 · Troe falloff</text>
-          </g>
-          <g class="lane" transform="translate(0 340)">
-            <text x="0" y="24" class="lane-tag">HO₂ / H₂O₂ ROUTE</text>
-            <rect x="200" y="0" width="64" height="36" class="sp sp--i"/><text x="232" y="24" text-anchor="middle">HO₂</text>
-            <path class="draw arrow arrow--grey" pathLength="1" style="--i:12" d="M276 18H364"/>
-            <rect x="380" y="0" width="74" height="36" class="sp sp--i"/><text x="417" y="24" text-anchor="middle">H₂O₂</text>
-            <text x="470" y="24" class="op" style="font-size:11px">(+M)</text>
-            <path class="draw arrow arrow--grey" pathLength="1" style="--i:14" d="M508 18H580"/>
-            <rect x="596" y="0" width="80" height="36" class="sp sp--r"/><text x="636" y="24" text-anchor="middle">2 OH</text>
-            <text x="730" y="24" class="note">slow, low-temperature path</text>
-          </g>
-        </svg>
+    <div class="grid h2-row" style="margin-bottom:28px">
+      <div class="c-1-4"><p class="label" style="color:var(--blue)">02 — The mechanism</p></div>
+      <div class="c-5-12">
+        <h2 id="mech" class="h2">Radicals multiplying, radicals removed</h2>
+        <p style="margin-top:12px;color:var(--graphite-lt)">The 19 reactions fall into five jobs. Ignition is a race between chain branching, which grows the radical pool, and the steps that capture or recombine radicals. Pick a species to see every reaction it takes part in.</p>
       </div>
-      <figcaption><span class="fig__no">Fig. 11.1</span> Core steps of H<sub>2</sub>/O<sub>2</sub> chain chemistry (numbered as in the standard 19-reaction set). Reactive radicals are outlined in copper; HO<sub>2</sub>, a far less reactive radical, is dashed. M is any third body.</figcaption>
-    </figure>
-
-    <details class="rxn-details">
-      <summary><span class="label" style="color:var(--paper)">All 19 elementary reactions</span><span class="mono" style="color:var(--graphite-lt)">by role</span></summary>
-      <table class="rxn-table">
-        <thead><tr><th scope="col">No.</th><th scope="col">Reaction</th><th scope="col">Note</th></tr></thead>
-        <tbody>
-          <tr class="grp"><td colspan="3">Chain branching &amp; propagation</td></tr>
-          <tr><td>1</td><td>H + O₂ ⇌ O + OH</td><td>branching; dominant at high T</td></tr>
-          <tr><td>2</td><td>O + H₂ ⇌ H + OH</td><td>branching</td></tr>
-          <tr><td>3</td><td>H₂ + OH ⇌ H₂O + H</td><td>propagation, main heat release</td></tr>
-          <tr><td>4</td><td>O + H₂O ⇌ OH + OH</td><td></td></tr>
-          <tr class="grp"><td colspan="3">Dissociation / recombination</td></tr>
-          <tr><td>5</td><td>H₂ + M ⇌ H + H + M</td><td class="k">third body</td></tr>
-          <tr><td>6</td><td>O + O + M ⇌ O₂ + M</td><td class="k">third body</td></tr>
-          <tr><td>7</td><td>O + H + M ⇌ OH + M</td><td class="k">third body</td></tr>
-          <tr><td>8</td><td>H + OH + M ⇌ H₂O + M</td><td class="k">third body</td></tr>
-          <tr class="grp"><td colspan="3">HO₂ formation &amp; consumption</td></tr>
-          <tr><td>9</td><td>H + O₂ (+M) ⇌ HO₂ (+M)</td><td class="k">Troe falloff</td></tr>
-          <tr><td>10</td><td>HO₂ + H ⇌ H₂ + O₂</td><td></td></tr>
-          <tr><td>11</td><td>HO₂ + H ⇌ OH + OH</td><td></td></tr>
-          <tr><td>12</td><td>HO₂ + O ⇌ O₂ + OH</td><td></td></tr>
-          <tr><td>13</td><td>HO₂ + OH ⇌ H₂O + O₂</td><td></td></tr>
-          <tr class="grp"><td colspan="3">H₂O₂ formation &amp; consumption</td></tr>
-          <tr><td>14</td><td>HO₂ + HO₂ ⇌ H₂O₂ + O₂</td><td></td></tr>
-          <tr><td>15</td><td>H₂O₂ (+M) ⇌ OH + OH (+M)</td><td class="k">Troe falloff</td></tr>
-          <tr><td>16</td><td>H₂O₂ + H ⇌ H₂O + OH</td><td></td></tr>
-          <tr><td>17</td><td>H₂O₂ + H ⇌ HO₂ + H₂</td><td></td></tr>
-          <tr><td>18</td><td>H₂O₂ + O ⇌ OH + HO₂</td><td></td></tr>
-          <tr><td>19</td><td>H₂O₂ + OH ⇌ HO₂ + H₂O</td><td></td></tr>
-        </tbody>
-      </table>
-      <p class="mono" style="margin-top:14px;color:var(--graphite-lt)">The standard 19-reaction H₂/O₂ set used by published mechanisms of this size. Rate parameters come from the published mechanism.</p>
-    </details>
+    </div>
+    <div class="mech" data-fig="mechanism">
+      <div class="mech__bar">
+        <div class="mech__chips" role="group" aria-label="Highlight reactions by species"><button type="button" class="sp-btn sp--stable" data-sp="H2" aria-pressed="false">H₂</button><button type="button" class="sp-btn sp--stable" data-sp="O2" aria-pressed="false">O₂</button><button type="button" class="sp-btn sp--rad" data-sp="H" aria-pressed="false">H</button><button type="button" class="sp-btn sp--rad" data-sp="O" aria-pressed="false">O</button><button type="button" class="sp-btn sp--rad" data-sp="OH" aria-pressed="false">OH</button><button type="button" class="sp-btn sp--rad-weak" data-sp="HO2" aria-pressed="false">HO₂</button><button type="button" class="sp-btn sp--inter" data-sp="H2O2" aria-pressed="false">H₂O₂</button><button type="button" class="sp-btn sp--product" data-sp="H2O" aria-pressed="false">H₂O</button><button type="button" class="sp-btn sp--third" data-sp="M" aria-pressed="false">M</button></div>
+        <p class="mech__status mono" data-out="mech" aria-live="polite">Select a species to trace every reaction it takes part in.</p>
+      </div>
+      <div class="mech__key"><span><i class="k k--rad"></i>Radical</span><span><i class="k k--rad-weak"></i>Weakly reactive radical</span><span><i class="k k--stable"></i>Reactant</span><span><i class="k k--inter"></i>Intermediate</span><span><i class="k k--product"></i>Product</span><span><i class="k k--third"></i>Third body</span></div>
+      <div class="mech__grid"><div class="mgroup mgroup--branch"><h3 class="mgroup__t">Chain branching</h3><p class="mgroup__d">One radical in, more out. These steps let the radical pool grow exponentially.</p><ol class="rx-list"><li class="rx" data-sp="H O2 O OH"><span class="rx__no">R1</span><span class="rx__eq"><b class="sp sp--rad" data-sp="H">H</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="O2">O₂</b> <span class="arr">⇌</span> <b class="sp sp--rad" data-sp="O">O</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b></span><span class="rx__tag">dominant at high T</span></li><li class="rx" data-sp="O H2 H OH"><span class="rx__no">R2</span><span class="rx__eq"><b class="sp sp--rad" data-sp="O">O</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="H2">H₂</b> <span class="arr">⇌</span> <b class="sp sp--rad" data-sp="H">H</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b></span></li><li class="rx" data-sp="O H2O OH"><span class="rx__no">R4</span><span class="rx__eq"><b class="sp sp--rad" data-sp="O">O</b> <span class="op">+</span> <b class="sp sp--product" data-sp="H2O">H₂O</b> <span class="arr">⇌</span> <span class="coef">2</span><b class="sp sp--rad" data-sp="OH">OH</b></span></li></ol></div><div class="mgroup mgroup--prop"><h3 class="mgroup__t">Propagation</h3><p class="mgroup__d">Keeps the radical count and releases most of the heat.</p><ol class="rx-list"><li class="rx" data-sp="H2 OH H2O H"><span class="rx__no">R3</span><span class="rx__eq"><b class="sp sp--stable" data-sp="H2">H₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b> <span class="arr">⇌</span> <b class="sp sp--product" data-sp="H2O">H₂O</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="H">H</b></span><span class="rx__tag">main heat release</span></li></ol></div><div class="mgroup mgroup--ho2"><h3 class="mgroup__t">HO₂ formation & consumption</h3><p class="mgroup__d">Three-body capture of H competes directly with R1.</p><ol class="rx-list"><li class="rx" data-sp="H O2 M HO2"><span class="rx__no">R9</span><span class="rx__eq"><b class="sp sp--rad" data-sp="H">H</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="O2">O₂</b> <b class="sp sp--third" data-sp="M">(+M)</b> <span class="arr">⇌</span> <b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <b class="sp sp--third" data-sp="M">(+M)</b></span><span class="rx__tag">Troe falloff · competes with R1</span></li><li class="rx" data-sp="HO2 H H2 O2"><span class="rx__no">R10</span><span class="rx__eq"><b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="H">H</b> <span class="arr">⇌</span> <b class="sp sp--stable" data-sp="H2">H₂</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="O2">O₂</b></span></li><li class="rx" data-sp="HO2 H OH"><span class="rx__no">R11</span><span class="rx__eq"><b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="H">H</b> <span class="arr">⇌</span> <span class="coef">2</span><b class="sp sp--rad" data-sp="OH">OH</b></span></li><li class="rx" data-sp="HO2 O O2 OH"><span class="rx__no">R12</span><span class="rx__eq"><b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="O">O</b> <span class="arr">⇌</span> <b class="sp sp--stable" data-sp="O2">O₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b></span></li><li class="rx" data-sp="HO2 OH H2O O2"><span class="rx__no">R13</span><span class="rx__eq"><b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b> <span class="arr">⇌</span> <b class="sp sp--product" data-sp="H2O">H₂O</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="O2">O₂</b></span></li></ol></div><div class="mgroup mgroup--h2o2"><h3 class="mgroup__t">H₂O₂ chemistry</h3><p class="mgroup__d">A slow route back to OH that matters at lower temperatures.</p><ol class="rx-list"><li class="rx" data-sp="HO2 H2O2 O2"><span class="rx__no">R14</span><span class="rx__eq"><span class="coef">2</span><b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="arr">⇌</span> <b class="sp sp--inter" data-sp="H2O2">H₂O₂</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="O2">O₂</b></span></li><li class="rx" data-sp="H2O2 M OH"><span class="rx__no">R15</span><span class="rx__eq"><b class="sp sp--inter" data-sp="H2O2">H₂O₂</b> <b class="sp sp--third" data-sp="M">(+M)</b> <span class="arr">⇌</span> <span class="coef">2</span><b class="sp sp--rad" data-sp="OH">OH</b> <b class="sp sp--third" data-sp="M">(+M)</b></span><span class="rx__tag">Troe falloff</span></li><li class="rx" data-sp="H2O2 H H2O OH"><span class="rx__no">R16</span><span class="rx__eq"><b class="sp sp--inter" data-sp="H2O2">H₂O₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="H">H</b> <span class="arr">⇌</span> <b class="sp sp--product" data-sp="H2O">H₂O</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b></span></li><li class="rx" data-sp="H2O2 H HO2 H2"><span class="rx__no">R17</span><span class="rx__eq"><b class="sp sp--inter" data-sp="H2O2">H₂O₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="H">H</b> <span class="arr">⇌</span> <b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="op">+</span> <b class="sp sp--stable" data-sp="H2">H₂</b></span></li><li class="rx" data-sp="H2O2 O OH HO2"><span class="rx__no">R18</span><span class="rx__eq"><b class="sp sp--inter" data-sp="H2O2">H₂O₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="O">O</b> <span class="arr">⇌</span> <b class="sp sp--rad" data-sp="OH">OH</b> <span class="op">+</span> <b class="sp sp--rad-weak" data-sp="HO2">HO₂</b></span></li><li class="rx" data-sp="H2O2 OH HO2 H2O"><span class="rx__no">R19</span><span class="rx__eq"><b class="sp sp--inter" data-sp="H2O2">H₂O₂</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b> <span class="arr">⇌</span> <b class="sp sp--rad-weak" data-sp="HO2">HO₂</b> <span class="op">+</span> <b class="sp sp--product" data-sp="H2O">H₂O</b></span></li></ol></div><div class="mgroup mgroup--rec"><h3 class="mgroup__t">Dissociation & recombination</h3><p class="mgroup__d">Third-body steps that create or remove radicals in pairs.</p><ol class="rx-list"><li class="rx" data-sp="H2 M H"><span class="rx__no">R5</span><span class="rx__eq"><b class="sp sp--stable" data-sp="H2">H₂</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b> <span class="arr">⇌</span> <span class="coef">2</span><b class="sp sp--rad" data-sp="H">H</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b></span></li><li class="rx" data-sp="O M O2"><span class="rx__no">R6</span><span class="rx__eq"><span class="coef">2</span><b class="sp sp--rad" data-sp="O">O</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b> <span class="arr">⇌</span> <b class="sp sp--stable" data-sp="O2">O₂</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b></span></li><li class="rx" data-sp="O H M OH"><span class="rx__no">R7</span><span class="rx__eq"><b class="sp sp--rad" data-sp="O">O</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="H">H</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b> <span class="arr">⇌</span> <b class="sp sp--rad" data-sp="OH">OH</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b></span></li><li class="rx" data-sp="H OH M H2O"><span class="rx__no">R8</span><span class="rx__eq"><b class="sp sp--rad" data-sp="H">H</b> <span class="op">+</span> <b class="sp sp--rad" data-sp="OH">OH</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b> <span class="arr">⇌</span> <b class="sp sp--product" data-sp="H2O">H₂O</b> <span class="op">+</span> <b class="sp sp--third" data-sp="M">M</b></span></li></ol></div></div>
+    </div>
+    <p class="mono h2-foot">The standard 19-reaction H₂/O₂ set used by published mechanisms of this size, numbered as in that set; rate parameters come from the published mechanism. M is any third body that carries away energy.</p>
   </section>
 
   <section class="wrap p-section" aria-labelledby="model">
-    <div class="grid">
-      <div class="c-1-5">
+    <div class="grid h2-row">
+      <div class="c-1-6">
         <p class="label" style="color:var(--blue)">03 — The model</p>
-        <h2 id="model" class="h2" style="margin-top:14px">Species, temperature and a stiff solver</h2>
-        <p style="margin-top:18px;color:var(--graphite-lt)">Radical chemistry runs on timescales many orders of magnitude apart, so explicit integrators either fail or crawl. Every species concentration and the temperature are solved together as one stiff system.</p>
+        <h2 id="model" class="h2" style="margin-top:12px">Species, temperature and a stiff solver</h2>
+        <p style="margin-top:12px;color:var(--graphite-lt)">Radical chemistry runs on timescales many orders of magnitude apart, so explicit integrators fail or crawl. Every species concentration and the temperature are solved together as one stiff system.</p>
+        <dl class="limits" style="margin-top:22px">
+          <div><dt>Formulation</dt><dd>Constant volume (V<sub>chamber</sub> = 100&nbsp;cm³) · zero-dimensional, homogeneous</dd></div>
+          <div><dt>Unknowns</dt><dd>Every species concentration and the temperature, coupled through the reaction rates and an energy balance</dd></div>
+          <div><dt>Kinetics</dt><dd>19 elementary reactions · pressure-dependent rates with Troe falloff</dd></div>
+          <div><dt>Thermodynamics</dt><dd>NASA polynomials for temperature-dependent heat capacities and enthalpies</dd></div>
+          <div><dt>Integration</dt><dd>SciPy <code>solve_ivp</code> with the BDF method</dd></div>
+          <div><dt>Mixture</dt><dd>Hydrogen and oxygen only</dd></div>
+        </dl>
       </div>
-      <dl class="limits c-7-12">
-        <div><dt>Formulation</dt><dd>Constant volume (V<sub>chamber</sub> = 100&nbsp;cm³ in the maps) · zero-dimensional, homogeneous</dd></div>
-        <div><dt>Unknowns</dt><dd>Coupled ODEs for every species concentration and for temperature, linked through reaction rates and an energy balance</dd></div>
-        <div><dt>Kinetics</dt><dd>19-reaction elementary mechanism · pressure-dependent rates with Troe falloff</dd></div>
-        <div><dt>Thermodynamics</dt><dd>NASA polynomials for temperature-dependent heat capacities and enthalpies</dd></div>
-        <div><dt>Integration</dt><dd>SciPy <code>solve_ivp</code> with the BDF method</dd></div>
-        <div><dt>Mixture</dt><dd>Hydrogen and oxygen only</dd></div>
-        <div><dt>Scale</dt><dd>2,000+ lines of Python · ~8&nbsp;h for the full sweep</dd></div>
-      </dl>
+      <div class="c-7-12 eq-stack" role="group" aria-label="Governing relations">
+        <p class="label">Governing relations</p>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mfrac><mrow><mi>d</mi><mo>[</mo><msub><mi>X</mi><mi>k</mi></msub><mo>]</mo></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><msub><mover><mi>ω</mi><mo>˙</mo></mover><mi>k</mi></msub><mo>=</mo><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>ν</mi><mrow><mi>k</mi><mo>,</mo><mi>i</mi></mrow></msub><msub><mi>q</mi><mi>i</mi></msub></math></div><p class="eqc__cap">Species balance at constant volume: each concentration changes by the net rate of every reaction i that produces or consumes it.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><msub><mi>q</mi><mi>i</mi></msub><mo>=</mo><msub><mi>k</mi><mrow><mi>f</mi><mo>,</mo><mi>i</mi></mrow></msub><munder><mo>∏</mo><mi>k</mi></munder><msup><mrow><mo>[</mo><msub><mi>X</mi><mi>k</mi></msub><mo>]</mo></mrow><msubsup><mi>ν</mi><mrow><mi>k</mi><mi>i</mi></mrow><mo>′</mo></msubsup></msup><mo>−</mo><msub><mi>k</mi><mrow><mi>r</mi><mo>,</mo><mi>i</mi></mrow></msub><munder><mo>∏</mo><mi>k</mi></munder><msup><mrow><mo>[</mo><msub><mi>X</mi><mi>k</mi></msub><mo>]</mo></mrow><msubsup><mi>ν</mi><mrow><mi>k</mi><mi>i</mi></mrow><mo>″</mo></msubsup></msup></math></div><p class="eqc__cap">Rate of progress of reaction i: forward minus reverse, by the law of mass action.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mi>k</mi><mo>=</mo><mi>A</mi><msup><mi>T</mi><mi>β</mi></msup><mi>exp</mi><mo>&#x2061;</mo><mrow><mo>(</mo><mo>−</mo><mfrac><msub><mi>E</mi><mi>a</mi></msub><mrow><mi>R</mi><mi>T</mi></mrow></mfrac><mo>)</mo></mrow></math></div><p class="eqc__cap">Modified Arrhenius rate constant for each step.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mi>k</mi><mo>=</mo><msub><mi>k</mi><mi>∞</mi></msub><mfrac><msub><mi>P</mi><mi>r</mi></msub><mrow><mn>1</mn><mo>+</mo><msub><mi>P</mi><mi>r</mi></msub></mrow></mfrac><mi>F</mi><mo>,</mo><mspace width="0.8em"/><msub><mi>P</mi><mi>r</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>k</mi><mn>0</mn></msub><mo>[</mo><mi mathvariant="normal">M</mi><mo>]</mo></mrow><msub><mi>k</mi><mi>∞</mi></msub></mfrac></math></div><p class="eqc__cap">Troe falloff for the pressure-dependent steps (R9, R15): F broadens the transition between the low- and high-pressure limits.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mfrac><msub><mover><mi>C</mi><mo>¯</mo></mover><mi>p</mi></msub><mi>R</mi></mfrac><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mn>2</mn></msub><mi>T</mi><mo>+</mo><msub><mi>a</mi><mn>3</mn></msub><msup><mi>T</mi><mn>2</mn></msup><mo>+</mo><msub><mi>a</mi><mn>4</mn></msub><msup><mi>T</mi><mn>3</mn></msup><mo>+</mo><msub><mi>a</mi><mn>5</mn></msub><msup><mi>T</mi><mn>4</mn></msup></math></div><p class="eqc__cap">NASA polynomials give heat capacity, and from it enthalpy, as functions of temperature.</p></div>
+      </div>
     </div>
   </section>
 
   <section class="wrap p-section" aria-labelledby="results">
-    <div class="p-section__head">
-      <p class="label" style="color:var(--blue)">04 — Results</p>
-      <h2 id="results">Watching ignition happen</h2>
-      <p class="lead">One run at a time, radicals build through an induction period before heat release takes over. Across thousands of runs, a map emerges of where a spark-ignited mixture lights and how fast.</p>
+    <div class="grid h2-row" style="margin-bottom:24px">
+      <div class="c-1-4"><p class="label" style="color:var(--blue)">04 — Results</p></div>
+      <div class="c-5-12"><h2 id="results" class="h2">Watching ignition happen</h2><p style="margin-top:12px;color:var(--graphite-lt)">One run at a time, radicals build through an induction period before heat release takes over. Across thousands of runs, a map emerges of where a spark-ignited mixture lights and how fast.</p></div>
     </div>
-    <div class="grid">
-      <figure class="fig fig--contain c-1-7"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/05-species-and-temperature-evolution.webp" srcset="../assets/img/hydrogen-combustion/05-species-and-temperature-evolution-sm.webp 960w, ../assets/img/hydrogen-combustion/05-species-and-temperature-evolution.webp 1899w" sizes="(min-width: 1000px) 55vw, 100vw" width="1899" height="1039" alt="Four stacked plots against log time: bulk species H2, O2 and H2O; radicals H, O and OH; intermediates HO2 and H2O2; and temperature rising sharply at ignition" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/05-species-and-temperature-evolution.webp"></div><figcaption><span class="fig__no">Fig. 11.2</span> Single run: bulk species, radicals, intermediates and temperature on a log-time axis. The radical pool builds, then ignition. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
-      <figure class="fig fig--contain c-8-12"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot.webp" srcset="../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot-sm.webp 960w, ../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot.webp 1336w" sizes="(min-width: 1000px) 35vw, 100vw" width="1336" height="976" alt="Arrhenius plot of simulated ignition delay at equivalence ratio 1 and 1 atm, with two linear fits: 64.3 kilojoules per mole in the R1-dominated region and 431.9 kilojoules per mole in the HO2/H2O2 transition region" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot.webp"></div><figcaption><span class="fig__no">Fig. 11.3</span> Ignition delay vs. 1000/T at φ = 1, 1&nbsp;atm. Two regimes appear. Where R1 chain branching dominates the apparent E<sub>a</sub> is ≈ 64.3&nbsp;kJ/mol (R² 0.998). Through the HO<sub>2</sub>/H<sub>2</sub>O<sub>2</sub> transition it rises to ≈ 431.9&nbsp;kJ/mol (R² 0.965). <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+    <div class="grid h2-figs">
+      <figure class="fig fig--contain c-1-7"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/05-species-and-temperature-evolution.webp" srcset="../assets/img/hydrogen-combustion/05-species-and-temperature-evolution-sm.webp 960w, ../assets/img/hydrogen-combustion/05-species-and-temperature-evolution.webp 1899w" sizes="(min-width: 1000px) 50vw, 100vw" width="1899" height="1039" alt="Four stacked plots against log time: bulk species H2, O2 and H2O; radicals H, O and OH; intermediates HO2 and H2O2; and temperature rising sharply at ignition" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/05-species-and-temperature-evolution.webp"></div><figcaption><span class="fig__no">Fig. 11.2</span> Single run on a log-time axis: the radical pool builds, then ignition. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <div class="c-8-12 h2-figside">
+        <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot.webp" srcset="../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot-sm.webp 960w, ../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot.webp 1336w" sizes="(min-width: 1000px) 32vw, 100vw" width="1336" height="976" alt="Arrhenius plot of simulated ignition delay at equivalence ratio 1 and 1 atm with two linear fits, 64.3 and 431.9 kilojoules per mole" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/04-ignition-delay-arrhenius-plot.webp"></div><figcaption><span class="fig__no">Fig. 11.3</span> Ignition delay vs. 1000/T at φ = 1, 1&nbsp;atm. Where R1 branching dominates, E<sub>a</sub> ≈ 64.3&nbsp;kJ/mol (R² 0.998); through the HO<sub>2</sub>/H<sub>2</sub>O<sub>2</sub> transition, ≈ 431.9&nbsp;kJ/mol (R² 0.965). <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mi>ln</mi><mo>&#x2061;</mo><mi>τ</mi><mo>≈</mo><mfrac><msub><mi>E</mi><mi>a</mi></msub><mi>R</mi></mfrac><mo>·</mo><mfrac><mn>1</mn><mi>T</mi></mfrac><mo>+</mo><mi>C</mi></math></div><p class="eqc__cap">The slope of ln τ against 1/T gives the apparent activation energy of each regime.</p></div>
+      </div>
     </div>
-    <figure class="fig fig--contain" style="margin-top:40px"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp" srcset="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map-sm.webp 960w, ../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp 1918w" sizes="(min-width: 1000px) 80vw, 100vw" width="1918" height="1025" alt="Two heatmaps of log ignition delay over pressure and equivalence ratio at spark temperatures of 2000 K and 3000 K, annotated with an oxygen-starvation no-ignition region and the third explosion limit boundary" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp"></div><figcaption><span class="fig__no">Fig. 11.4</span> Spark-ignition flammability maps at T<sub>spark</sub> = 2000&nbsp;K and 3000&nbsp;K, showing log<sub>10</sub>(τ) over pressure and equivalence ratio. Annotated regions mark O<sub>2</sub> starvation (no ignition) and the third explosion-limit boundary. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+    <div class="grid h2-figs" style="margin-top:28px">
+      <figure class="fig fig--contain c-1-8"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp" srcset="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map-sm.webp 960w, ../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp 1918w" sizes="(min-width: 1000px) 60vw, 100vw" width="1918" height="1025" alt="Two heatmaps of log ignition delay over pressure and equivalence ratio at spark temperatures of 2000 K and 3000 K, annotated with an oxygen-starvation region and the third explosion limit boundary" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/01-spark-ignition-flammability-map.webp"></div><figcaption><span class="fig__no">Fig. 11.4</span> Flammability maps at T<sub>spark</sub> = 2000 and 3000&nbsp;K: log<sub>10</sub>(τ) over pressure and equivalence ratio, with O<sub>2</sub>-starvation and third-explosion-limit regions marked. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+      <div class="c-9-12 h2-figside">
+        <div class="eqc"><div class="eqc__m"><math display="block"><mi>φ</mi><mo>=</mo><mfrac><mrow><msub><mi>n</mi><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub></msub><mo>/</mo><msub><mi>n</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub></msub></mrow><msub><mrow><mo>(</mo><msub><mi>n</mi><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub></msub><mo>/</mo><msub><mi>n</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub></msub><mo>)</mo></mrow><mtext>st</mtext></msub></mfrac><mo>=</mo><mfrac><msub><mi>n</mi><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub></msub><mrow><mn>2</mn><msub><mi>n</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub></msub></mrow></mfrac></math></div><p class="eqc__cap">Equivalence ratio: φ = 1 is stoichiometric, φ &lt; 1 lean, φ &gt; 1 rich. The maps sweep φ from 0.1 to 5.</p></div>
+      </div>
+    </div>
   </section>
 
   <section class="h2-map p-section" aria-labelledby="map">
     <div class="wrap">
-      <div class="grid" style="align-items:end;margin-bottom:28px">
-        <div class="c-1-6"><p class="label" style="color:var(--blue)">The 3D map</p><h2 id="map" class="h2" style="margin-top:14px">64,000+ evaluations in one volume</h2></div>
-        <p class="c-7-12" style="color:var(--graphite-lt)">Axes: spark temperature, equivalence ratio and pressure. Color: log<sub>10</sub> of ignition delay. A highlight mode isolates one delay band so its surface can be followed through the volume. A built-in optimizer fixes two variables and finds the third that gives the shortest delay.</p>
+      <div class="grid h2-row" style="margin-bottom:22px;align-items:end">
+        <div class="c-1-6"><p class="label" style="color:var(--blue)">Fig. 11.5 — Interactive 3D map</p><h2 id="map" class="h2" style="margin-top:12px">64,000+ ignition delays in one volume</h2></div>
+        <p class="c-7-12" style="color:var(--graphite-lt)">Drag to rotate and hover for values. Highlight mode isolates one ignition-delay band and outlines its boundary. Slice mode cuts a plane through any axis, with contour lines. The optimizer fixes two variables and finds the third that gives the shortest delay. This is my Dash app’s figure logic running in the browser on the precomputed grid.</p>
       </div>
-      <figure class="fig">
-        <div class="fig__media" style="background:#fff"><video controls muted playsinline preload="none" poster="../assets/video/hydrogen-combustion--ignition-map-3d.jpg" width="1920" height="1036" aria-label="Screen recording of the interactive 3D flammability map: highlight band sweeping from log tau of minus 4.85 to minus 7, then the view orbiting to show a two-lobed surface"><source src="../assets/video/hydrogen-combustion--ignition-map-3d.mp4" type="video/mp4"></video></div>
-        <figcaption><span class="fig__no">Fig. 11.5</span> Interactive 3D flammability map, V<sub>chamber</sub> = 100&nbsp;cm³. The highlight band sweeps log<sub>10</sub>(τ) from −4.85 to −7.0, then the view orbits. <span class="ev ev--modeled">Modeled</span></figcaption>
+      <figure class="h2map" data-fig="h2map" data-base="../">
+        <div class="h2map__plot" role="region" aria-label="Interactive 3D scatter of log ignition delay over pressure, equivalence ratio and spark temperature">
+          <div class="h2map__poster"><img src="../assets/video/hydrogen-combustion--ignition-map-3d--loop.jpg" alt="" width="1280" height="690"><button type="button" class="fl-btn fl-btn--primary" data-act="load">Load the interactive 3D map</button><p class="h2map__status mono" data-out="status" aria-live="polite"></p></div>
+        </div>
+        <div class="h2map__panel">
+          <div class="h2map__modes"><button type="button" class="fl-btn" data-act="highlight" aria-pressed="false">Enable highlight mode</button><button type="button" class="fl-btn" data-act="slice" aria-pressed="false">Enable slice mode</button></div>
+          <div class="h2map__hl" hidden>
+            <div class="ctrl"><div class="ctrl__label"><label for="h2tau"><span class="sym">log₁₀(τ)</span> to highlight (± 0.025)</label><input class="h2map__num" type="number" name="tau-num" aria-label="log10 tau value" step="0.05"></div><input id="h2tau" type="range" name="tau"></div>
+          </div>
+          <div class="h2map__sl" hidden>
+            <div class="ctrl"><label for="h2axis" class="ctrl__label">Slice axis</label><select id="h2axis" name="slice-axis" class="h2map__sel"><option value="P">Pressure (P)</option><option value="φ">Equivalence ratio (φ)</option><option value="T_spark" selected>Spark temperature</option></select></div>
+            <div class="ctrl"><div class="ctrl__label"><label for="h2slice">Slice position</label><output for="h2slice" data-out="slice"></output></div><input id="h2slice" type="range" name="slice-pos" min="0" max="39" step="1" value="20"></div>
+          </div>
+          <div class="h2map__opt">
+            <p class="label" style="color:var(--fg)">Optimizer</p>
+            <p class="h2map__hint">Fix two variables and find the optimal third (shortest ignition delay).</p>
+            <div class="ctrl"><label for="h2free" class="ctrl__label">Optimize over</label><select id="h2free" name="opt-free" class="h2map__sel"><option value="P">Pressure (P)</option><option value="φ">Equivalence ratio (φ)</option><option value="T_spark" selected>Spark temperature</option></select></div>
+            <div class="h2map__fixed"></div>
+            <button type="button" class="fl-btn fl-btn--primary" data-act="optimize">Find optimum</button>
+            <div class="h2map__result" data-out="opt" aria-live="polite"></div>
+          </div>
+        </div>
+        <figcaption>Ported from <span class="mono">Plot_3D_Flammability.py</span>: 40 × 40 × 40 grid (φ 0.1–5, P 0.5–10&nbsp;atm, T<sub>spark</sub> 1500–3000&nbsp;K), V<sub>chamber</sub> = 100&nbsp;cm³; grey points did not ignite. Highlight counts, boundaries and optimizer results match the original Python exactly. <span class="ev ev--modeled">Modeled</span></figcaption>
       </figure>
-      <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:20px">
-        <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/02-ignition-delay-3d-map-phi-optimizer.webp" srcset="../assets/img/hydrogen-combustion/02-ignition-delay-3d-map-phi-optimizer-sm.webp 960w, ../assets/img/hydrogen-combustion/02-ignition-delay-3d-map-phi-optimizer.webp 1889w" sizes="(min-width: 1000px) 45vw, 100vw" width="1889" height="904" alt="3D ignition delay map with the optimizer panel solving for equivalence ratio" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/02-ignition-delay-3d-map-phi-optimizer.webp"></div><figcaption><span class="fig__no">Fig. 11.6</span> Optimizer solving for φ with the other two fixed: optimal φ = 0.351.</figcaption></figure>
-        <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/hydrogen-combustion/03-ignition-delay-3d-map-tspark-optimizer.webp" srcset="../assets/img/hydrogen-combustion/03-ignition-delay-3d-map-tspark-optimizer-sm.webp 960w, ../assets/img/hydrogen-combustion/03-ignition-delay-3d-map-tspark-optimizer.webp 1907w" sizes="(min-width: 1000px) 45vw, 100vw" width="1907" height="910" alt="3D ignition delay map with the optimizer panel solving for spark temperature" loading="lazy" decoding="async" data-zoom="../assets/img/hydrogen-combustion/03-ignition-delay-3d-map-tspark-optimizer.webp"></div><figcaption><span class="fig__no">Fig. 11.7</span> Optimizer solving for spark temperature: 3000&nbsp;K, the top of the range.</figcaption></figure>
-      </div>
     </div>
   </section>
 
   <section class="wrap p-section" aria-labelledby="limits">
-    <div class="grid">
-      <div class="c-1-4"><p class="label" style="color:var(--blue)">05 — Limits</p></div>
-      <div class="c-5-12 prose">
+    <div class="grid h2-row">
+      <div class="c-1-5 h2-side">
+        <p class="label" style="color:var(--blue)">05 — Limits</p>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mfrac><mrow><mi>d</mi><mo>[</mo><msub><mi>X</mi><mi>k</mi></msub><mo>]</mo></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><msub><mover><mi>ω</mi><mo>˙</mo></mover><mi>k</mi></msub></math></div><p class="eqc__cap">This model: zero-dimensional, chemistry only.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mfrac><mrow><mo>∂</mo><mo>(</mo><mi>ρ</mi><msub><mi>Y</mi><mi>k</mi></msub><mo>)</mo></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mo>∇</mo><mo>·</mo><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">u</mi><msub><mi>Y</mi><mi>k</mi></msub><mo>)</mo><mo>=</mo><mo>−</mo><mo>∇</mo><mo>·</mo><mo>(</mo><mi>ρ</mi><msub><mi>Y</mi><mi>k</mi></msub><msub><mi mathvariant="bold">V</mi><mi>k</mi></msub><mo>)</mo><mo>+</mo><msub><mi>W</mi><mi>k</mi></msub><msub><mover><mi>ω</mi><mo>˙</mo></mover><mi>k</mi></msub></math></div><p class="eqc__cap">Reacting-flow CFD adds convection and diffusion of every species, plus momentum and energy transport.</p></div>
+      </div>
+      <div class="c-6-12 prose">
         <h2 id="limits" class="h2">What a zero-dimensional model can’t tell you</h2>
-        <p style="color:var(--graphite-lt)">There is no transport: no heat or mass diffusion, no flame propagation, no flame-stability conditions. Those need partial differential equations, which is the jump from this to real CFD, and the ODE case alone took 2,000+ lines and about eight hours of runtime. The mixture is hydrogen and oxygen only. Real chambers add other gases acting as third bodies, catalysts such as platinum that open new pathways, and additives such as NH<sub>3</sub> that change hydrogen’s behavior.</p>
-        <p style="color:var(--graphite-lt)">The model has not been validated against an engine or against experimental ignition data. What it gives me is a working understanding of hydrogen kinetics: why ignition is so sensitive to initial conditions, and how competing radical pathways decide whether a mixture burns.</p>
+        <p style="color:var(--graphite-lt)">There is no transport: no heat or mass diffusion, no flame propagation, no flame-stability conditions. Those need the partial differential equations on the left, which is the jump to real CFD, and the ODE case alone took 2,000+ lines and about eight hours of runtime. Real chambers also add other gases as third bodies, catalysts such as platinum that open new pathways, and additives such as NH<sub>3</sub> that change hydrogen’s behavior.</p>
+        <p style="color:var(--graphite-lt)">The model has not been validated against an engine or experimental ignition data. What it gives me is a working understanding of why hydrogen ignition is so sensitive to initial conditions.</p>
         <p><a class="arrow-link" href="https://lnkd.in/p/gu2fsFzW" rel="noopener" style="color:var(--paper)">My presentation of the findings (LinkedIn)</a></p>
       </div>
     </div>
@@ -242,20 +195,14 @@
         <span class="ev ev--dev">In development — not assembled or tested</span>
       </div>
       <div class="grid">
-        <div class="c-1-5">
-          <h2 id="h-next" class="h3">A dry-cell electrolyzer for oxyhydrogen</h2>
-        </div>
-        <div class="c-6-12">
-          <p style="color:var(--graphite-lt)">I’m designing a miniature dry-cell electrolysis system to produce oxyhydrogen for a small motorcycle engine. So far:</p>
-          <ul class="facts" style="margin-top:16px">
-            <li><span>Initial CAD design</span><span class="ev ev--documented">Done</span></li>
-            <li><span>Component selection</span><span class="ev ev--documented">Done</span></li>
-            <li><span>Several components purchased</span><span class="ev ev--documented">Done</span></li>
-            <li><span>System integration</span><span class="ev ev--dev">Early stage</span></li>
-            <li><span>Assembly and testing</span><span class="ev ev--dev">Not started</span></li>
-          </ul>
-          <p style="margin-top:18px;color:var(--graphite-lt)">Once it runs, the simulator becomes a tool for the questions it raises: operating conditions, valve timing and, subject to laboratory approval, catalyst materials.</p>
-        </div>
+        <div class="c-1-5"><h2 id="h-next" class="h3">A dry-cell electrolyzer for oxyhydrogen</h2><p style="margin-top:10px;color:var(--graphite-lt);font-size:15px">A miniature dry-cell electrolysis system to produce oxyhydrogen for a small motorcycle engine. Once it runs, the simulator becomes a tool for choosing operating conditions, valve timing and, subject to laboratory approval, catalyst materials.</p></div>
+        <ul class="facts c-7-12">
+          <li><span>Initial CAD design</span><span class="ev ev--documented">Done</span></li>
+          <li><span>Component selection</span><span class="ev ev--documented">Done</span></li>
+          <li><span>Several components purchased</span><span class="ev ev--documented">Done</span></li>
+          <li><span>System integration</span><span class="ev ev--dev">Early stage</span></li>
+          <li><span>Assembly and testing</span><span class="ev ev--dev">Not started</span></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -313,5 +260,7 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/figures/mechanism.js" defer></script>
+<script src="../assets/js/figures/h2map.js" defer></script>
 </body>
 </html>
