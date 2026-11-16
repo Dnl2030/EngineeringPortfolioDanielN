@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -171,8 +171,8 @@
       <div class="ifig__body">
         <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Phase-matching angle versus signal wavelength for the selected pump wavelength"></svg></div>
         <div class="ifig__side">
-          <div class="ctrl"><label for="pump">Pump <span class="sym">λp</span> <output data-out="pump"></output></label><input id="pump" name="pump" type="range" min="540" max="1600" step="1" value="1064"></div>
-          <div class="ctrl"><label for="signal">Signal <span class="sym">λs</span> <output data-out="signal"></output></label><input id="signal" name="signal" type="range" min="1100" max="5000" step="1" value="1550"></div>
+          <div class="ctrl"><div class="ctrl__label"><label for="pump">Pump <span class="sym">λp</span></label><output for="pump" data-out="pump"></output></div><input id="pump" name="pump" type="range" min="540" max="1600" step="1" value="1064"></div>
+          <div class="ctrl"><div class="ctrl__label"><label for="signal">Signal <span class="sym">λs</span></label><output for="signal" data-out="signal"></output></div><input id="signal" name="signal" type="range" min="1100" max="5000" step="1" value="1550"></div>
           <dl class="readout">
             <dt>Polarizations</dt><dd data-out="convention">e → o + o</dd>
             <dt>Idler λi</dt><dd data-out="idler"></dd>

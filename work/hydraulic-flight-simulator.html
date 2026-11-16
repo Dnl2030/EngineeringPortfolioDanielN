@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -119,8 +119,8 @@
         <div class="ifig__plot"><svg viewBox="0 0 600 330" role="img" aria-label="Four pistons whose extensions update with simulator pitch and platform roll"></svg></div>
         <div class="ifig__side" style="border-left:0;border-top:var(--lw-thin) solid var(--rule)">
           <div class="ik-ctrls">
-            <div class="ctrl"><label for="pitch">Simulator pitch input <output data-out="pitch"></output></label><input id="pitch" name="pitch" type="range" min="0" max="180" step="1" value="45"></div>
-            <div class="ctrl"><label for="alpha">Platform roll <span class="sym">α</span> <output data-out="alpha"></output></label><input id="alpha" name="alpha" type="range" min="0" max="6" step="0.1" value="2"></div>
+            <div class="ctrl"><div class="ctrl__label"><label for="pitch">Simulator pitch input</label><output for="pitch" data-out="pitch"></output></div><input id="pitch" name="pitch" type="range" min="0" max="180" step="1" value="45"></div>
+            <div class="ctrl"><div class="ctrl__label"><label for="alpha">Platform roll <span class="sym">α</span></label><output for="alpha" data-out="alpha"></output></div><input id="alpha" name="alpha" type="range" min="0" max="6" step="0.1" value="2"></div>
           </div>
           <dl class="readout"><dt>Platform pitch <span class="sym">β = pitch / 8.7746</span></dt><dd data-out="beta"></dd><dt>Mean extension (held at neutral)</dt><dd data-out="mean"></dd></dl>
         </div>
@@ -171,11 +171,11 @@
       </div>
       <div class="cam-videos">
         <figure class="fig">
-          <div class="fig__media"><video src="../assets/video/hydraulic-flight-simulator--cam-mill.mp4" poster="../assets/video/hydraulic-flight-simulator--cam-mill.jpg" width="912" height="852" muted loop playsinline preload="none" data-autoplay aria-label="CAM simulation of the mill toolpaths for the ball-joint socket"></video></div>
+          <div class="fig__media"><video src="../assets/video/hydraulic-flight-simulator--cam-mill.mp4" poster="../assets/video/hydraulic-flight-simulator--cam-mill.jpg" width="912" height="852" muted loop playsinline preload="none" data-autoplay role="img" aria-label="CAM simulation of the mill toolpaths for the ball-joint socket"></video></div>
           <figcaption><span class="fig__no">Fig. 02.8</span> Mill: 2D pocket, deep drilling, contour, adaptive clearing and a scallop finish in the spherical socket.</figcaption>
         </figure>
         <figure class="fig">
-          <div class="fig__media"><video src="../assets/video/hydraulic-flight-simulator--cam-lathe.mp4" poster="../assets/video/hydraulic-flight-simulator--cam-lathe.jpg" width="1314" height="900" muted loop playsinline preload="none" data-autoplay aria-label="CAM simulation of the lathe toolpaths for the ball stud"></video></div>
+          <div class="fig__media"><video src="../assets/video/hydraulic-flight-simulator--cam-lathe.mp4" poster="../assets/video/hydraulic-flight-simulator--cam-lathe.jpg" width="1314" height="900" muted loop playsinline preload="none" data-autoplay role="img" aria-label="CAM simulation of the lathe toolpaths for the ball stud"></video></div>
           <figcaption><span class="fig__no">Fig. 02.9</span> Lathe: profile roughing and finishing of the ball, stem roughing, a groove and the part-off.</figcaption>
         </figure>
       </div>

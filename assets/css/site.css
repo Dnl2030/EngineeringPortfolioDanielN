@@ -1478,3 +1478,8 @@ html[data-theme="dark"] .law-btn i[style*="2F5F96"] { --c: #9ac1f0 !important; }
   .hero__eyebrow { margin-bottom: var(--s-5); }
   .title-block dt, .title-block dd { padding-block: 6px; }
 }
+
+/* Overlays sit on fixed carbon backgrounds in both themes: keep their text light */
+.lightbox, .lightbox__close, .video-toggle, .video__badge { color: #f5f3ee; }
+.rail__list { position: relative; }
+.ctrl__label label { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; }

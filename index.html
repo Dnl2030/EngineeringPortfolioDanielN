@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -136,11 +136,11 @@
         <div class="feature-sim__media">
           <div class="sim-pair">
             <figure class="fig">
-              <div class="fig__media frame-3x4"><video src="assets/video/hydraulic-flight-simulator--prototype-test--loop.mp4" poster="assets/video/hydraulic-flight-simulator--prototype-test--loop.jpg" width="606" height="1080" muted loop playsinline preload="none" data-autoplay aria-label="Pneumatic prototype: four cylinders extending and retracting independently on command"></video></div>
+              <div class="fig__media frame-3x4"><video src="assets/video/hydraulic-flight-simulator--prototype-test--loop.mp4" poster="assets/video/hydraulic-flight-simulator--prototype-test--loop.jpg" width="606" height="1080" muted loop playsinline preload="none" data-autoplay role="img" aria-label="Pneumatic prototype: four cylinders extending and retracting independently on command"></video></div>
               <figcaption><span class="fig__no">Fig. 02.1</span> Quarter-scale pneumatic prototype under test.</figcaption>
             </figure>
             <figure class="fig sim-pair__second">
-              <div class="fig__media frame-3x4"><video src="assets/video/hydraulic-flight-simulator--ball-joint-walkaround--loop.mp4" poster="assets/video/hydraulic-flight-simulator--ball-joint-walkaround--loop.jpg" width="720" height="1280" muted loop playsinline preload="none" data-autoplay aria-label="CNC-machined aluminum ball joint being tilted and rotated by hand to show free movement"></video></div>
+              <div class="fig__media frame-3x4"><video src="assets/video/hydraulic-flight-simulator--ball-joint-walkaround--loop.mp4" poster="assets/video/hydraulic-flight-simulator--ball-joint-walkaround--loop.jpg" width="720" height="1280" muted loop playsinline preload="none" data-autoplay role="img" aria-label="CNC-machined aluminum ball joint being tilted and rotated by hand to show free movement"></video></div>
               <figcaption><span class="fig__no">Fig. 02.2</span> CNC-machined aluminum ball joint, moving freely in its two-piece housing.</figcaption>
             </figure>
           </div>
@@ -149,7 +149,7 @@
           <p class="sheet-no">02 / 03 · Systems · 2024 · Team of two</p>
           <h2 id="w2" class="h2" style="margin-top:22px">Two-axis hydraulic flight simulator</h2>
           <p style="margin-top:20px">Two of us built a motion platform from scratch, from equations to a working prototype. The prototype demonstrated the concept to a laboratory director to secure funding for the hydraulic version.</p>
-          <ol class="chain" aria-label="Signal path">
+          <ol class="chain">
             <li><span>Flight simulator</span><em>X-Plane</em></li>
             <li><span>UDP packets</span><em>Python</em></li>
             <li><span>Inverse kinematics</span><em>derived by hand</em></li>
@@ -278,7 +278,7 @@
           <h2 id="conv-title" class="h2" style="margin-top:18px">None of these began as hydrogen projects. Several of them point there anyway.</h2>
           <p style="margin-top:22px;color:var(--graphite-lt)">The same questions keep coming up across the work: how valve timing and port flow shape what a chamber can burn, how electrochemistry stores and releases energy, how to model a system honestly in code. My hydrogen–oxygen ignition model sits where those overlap. It is a constant-volume kinetics simulator built on a 19-step elementary mechanism, and more than 64,000 differential-equation evaluations map how ignition delay responds to spark temperature, pressure and mixture.</p>
           <figure class="fig" style="margin-top:32px">
-            <div class="fig__media frame-16x9"><video src="assets/video/hydrogen-combustion--ignition-map-3d--loop.mp4" poster="assets/video/hydrogen-combustion--ignition-map-3d--loop.jpg" width="1280" height="690" muted loop playsinline preload="none" data-autoplay aria-label="Rotating 3D flammability map of hydrogen ignition delay across spark temperature, equivalence ratio and pressure"></video></div>
+            <div class="fig__media frame-16x9"><video src="assets/video/hydrogen-combustion--ignition-map-3d--loop.mp4" poster="assets/video/hydrogen-combustion--ignition-map-3d--loop.jpg" width="1280" height="690" muted loop playsinline preload="none" data-autoplay role="img" aria-label="Rotating 3D flammability map of hydrogen ignition delay across spark temperature, equivalence ratio and pressure"></video></div>
             <figcaption><span class="fig__no">Fig. 11.1</span> 3D flammability map, V<sub>chamber</sub> = 100&nbsp;cm³. Highlighted iso-surfaces of log<sub>10</sub>(τ) sweep across spark temperature, equivalence ratio and pressure. <span class="ev ev--modeled">Modeled</span></figcaption>
           </figure>
           <p style="margin-top:28px"><a class="arrow-link" href="work/hydrogen-combustion.html">Hydrogen ignition model</a></p>

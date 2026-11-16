@@ -101,9 +101,11 @@
     var dlg = document.createElement("dialog");
     dlg.className = "lightbox";
     dlg.setAttribute("aria-label", "Enlarged figure");
-    dlg.innerHTML = '<button class="lightbox__close" type="button">Close</button><img alt=""><p class="lightbox__cap"></p>';
+    dlg.innerHTML = '<button class="lightbox__close" type="button">Close</button><p class="lightbox__cap"></p>';
     document.body.appendChild(dlg);
-    var big = dlg.querySelector("img");
+    var big = document.createElement("img");
+    big.alt = "";
+    big.decoding = "async";
     var cap = dlg.querySelector(".lightbox__cap");
     dlg.querySelector(".lightbox__close").addEventListener("click", function () { dlg.close(); });
     dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
@@ -113,6 +115,7 @@
       im.setAttribute("role", "button");
       var open = function () {
         big.src = im.getAttribute("data-zoom");
+        if (!big.parentNode) dlg.insertBefore(big, cap);
         big.alt = im.alt;
         var fig = im.closest("figure");
         var fc = fig && fig.querySelector("figcaption");

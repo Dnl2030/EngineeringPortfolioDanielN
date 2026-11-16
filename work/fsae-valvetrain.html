@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -86,8 +86,9 @@
   <div class="wrap process" style="padding-block:72px 40px">
     <nav class="rail" aria-label="Engineering process" data-rail>
       <p class="label" style="margin-bottom:18px">Process</p>
+      <div class="rail__list">
+      <span class="rail__track" aria-hidden="true"></span><span class="rail__fill" aria-hidden="true"></span>
       <ol>
-        <span class="rail__track" aria-hidden="true"></span><span class="rail__fill" aria-hidden="true"></span>
         <li><a href="#baseline"><span class="rail__n">01</span><span class="rail__t">Baseline</span></a></li>
         <li><a href="#constraint"><span class="rail__n">02</span><span class="rail__t">Constraint</span></a></li>
         <li><a href="#redesign"><span class="rail__n">03</span><span class="rail__t">Redesign</span></a></li>
@@ -95,6 +96,7 @@
         <li><a href="#manufacturing"><span class="rail__n">05</span><span class="rail__t">Manufacturing</span></a></li>
         <li><a href="#implementation"><span class="rail__n">06</span><span class="rail__t">Implementation</span></a></li>
       </ol>
+      </div>
     </nav>
 
     <div class="stages">
@@ -160,8 +162,8 @@
           <div class="ifig__body">
             <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Plot of engine air demand rising with engine speed against the flat choked-flow ceiling of the 20 millimetre restrictor"></svg></div>
             <div class="ifig__side">
-              <div class="ctrl"><label for="ve">Volumetric efficiency <output data-out="ve"></output></label><input id="ve" name="ve" type="range" min="0.7" max="1.1" step="0.01" value="0.95"></div>
-              <div class="ctrl"><label for="cd">Restrictor discharge coeff. <output data-out="cd"></output></label><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.01" value="1"></div>
+              <div class="ctrl"><div class="ctrl__label"><label for="ve">Volumetric efficiency</label><output for="ve" data-out="ve"></output></div><input id="ve" name="ve" type="range" min="0.7" max="1.1" step="0.01" value="0.95"></div>
+              <div class="ctrl"><div class="ctrl__label"><label for="cd">Restrictor discharge coeff.</label><output for="cd" data-out="cd"></output></div><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.01" value="1"></div>
               <dl class="readout">
                 <dt>Ceiling</dt><dd data-out="cap"></dd>
                 <dt>Demand meets ceiling</dt><dd data-out="cross"></dd>
