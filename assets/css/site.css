@@ -1658,3 +1658,40 @@ html[data-theme="dark"] .law-btn i[style*="2F5F96"] { --c: #9ac1f0 !important; }
   .mgroup--rec { grid-column: 4; grid-row: 1 / span 2; }
 }
 @media (min-width: 700px) and (max-width: 1099px) { .mech__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ==========================================================================
+   GameSense force-footprint viewer
+   ========================================================================== */
+.gs-section { padding-block: clamp(48px, 5vw, 88px); }
+.gs { margin: 0; display: grid; gap: 16px; }
+@media (min-width: 1000px) { .gs { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; } }
+.gs figcaption { grid-column: 1 / -1; font-size: var(--fs-caption); color: var(--fg-2); max-width: 100ch; }
+.gs__main { min-width: 0; }
+.gs__stage { position: relative; aspect-ratio: 16 / 10; max-height: 70vh; width: 100%; background: #111214; border: 1px solid var(--rule); overflow: hidden; touch-action: none; }
+.gs__stage canvas { display: block; width: 100% !important; height: 100% !important; cursor: grab; }
+.gs__stage canvas:active { cursor: grabbing; }
+.gs__poster { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; color: var(--fg-2); background: radial-gradient(circle at 50% 50%, #1e2024, #111214 70%); z-index: 1; }
+.gs.is-ready .gs__poster { display: none; }
+.gs__tip { position: absolute; z-index: 3; pointer-events: none; padding: 7px 10px; font-family: var(--f-mono); font-size: 12px; line-height: 1.5; color: #f5f3ee; background: rgba(17, 18, 20, 0.92); border: 1px solid var(--copper); }
+.gs__tip b { color: #d08a6c; font-weight: 500; }
+.gs__zoom { position: absolute; right: 10px; top: 10px; z-index: 2; display: grid; gap: 4px; }
+.gs__zoom .fl-btn { width: 32px; padding: 6px 0; color: #f5f3ee; border-color: rgba(245, 243, 238, 0.35); background: rgba(17, 18, 20, 0.6); font-size: 14px; }
+.gs__bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 10px; }
+.gs__bar input[type="range"] { flex: 1 1 200px; accent-color: var(--copper); }
+.gs__time { min-width: 120px; text-align: right; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.gs__speed { width: auto; }
+.gs__side { display: grid; gap: 18px; align-content: start; }
+.gs__side .label { margin-bottom: 6px; }
+.gs__side svg { width: 100%; height: auto; }
+.gs__kicks { display: grid; grid-template-columns: repeat(4, 1fr); }
+.gs__kicks button { padding-inline: 4px; }
+.gs-line { stroke-width: 1; }
+.gs-line--x { stroke: rgba(182, 106, 74, 0.45); }
+.gs-line--y { stroke: rgba(154, 193, 240, 0.4); }
+.gs-path { fill: none; stroke: var(--fg-2); stroke-dasharray: 3 3; stroke-width: 1; }
+.gs-dot { fill: var(--bg); stroke: var(--copper); stroke-width: 1.5; transition: r 60ms linear; }
+.gs-dot.is-on { fill: rgba(182, 106, 74, 0.55); }
+.gs-dot-label { font-size: 9px; }
+.gs-grid { stroke: var(--rule); }
+.gs-trace { fill: none; stroke: color-mix(in srgb, var(--copper) calc((1 - var(--k)) * 100%), var(--blue)); stroke-width: 1.3; }
+.gs-cursor { stroke: var(--fg); stroke-width: 1; stroke-dasharray: 3 2; }

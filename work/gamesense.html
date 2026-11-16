@@ -57,9 +57,42 @@
     </div>
   </header>
 
+  <section class="plate gs-section" aria-labelledby="gs-title">
+    <div class="wrap">
+      <div class="grid" style="align-items:end;margin-bottom:22px">
+        <div class="c-1-6"><p class="label" style="color:var(--blue)">Fig. 07.1 — Interactive · force footprints on the cleat</p><h2 id="gs-title" class="h3" style="margin-top:10px">Watch a simulated kick travel across the sensor grid</h2></div>
+        <p class="c-7-12" style="color:var(--graphite-lt);font-size:15px">Each footprint grows with the force at one sensor intersection, relative to that sensor’s own peak. The real kick lasts about 6–19&nbsp;ms; playback stretches it to three seconds. Pick a kick type, scrub the timeline, drag to rotate, and hover a footprint to read its force.</p>
+      </div>
+      <figure class="gs" data-fig="gamesense" data-base="../">
+        <div class="gs__main">
+          <div class="gs__stage">
+            <div class="gs__poster"><button type="button" class="fl-btn fl-btn--primary" data-act="load">Load the 3D cleat</button><p class="mono" data-out="status" aria-live="polite"></p></div>
+            <div class="gs__tip" hidden></div>
+            <div class="gs__zoom"><button type="button" class="fl-btn" data-act="zoom-in" aria-label="Zoom in">+</button><button type="button" class="fl-btn" data-act="zoom-out" aria-label="Zoom out">−</button></div>
+          </div>
+          <div class="gs__bar">
+            <button type="button" class="fl-btn fl-btn--primary" data-act="play">Play</button>
+            <button type="button" class="fl-btn" data-act="reset">Reset</button>
+            <input type="range" name="scrub" min="0" max="1000" value="0" aria-label="Kick timeline">
+            <span class="mono gs__time" data-out="time">0.0 / 0.0 ms</span>
+            <select name="speed" aria-label="Playback speed" class="h2map__sel gs__speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+          </div>
+        </div>
+        <div class="gs__side">
+          <div class="seg gs__kicks" role="group" aria-label="Kick type">
+            <button type="button" data-kick="curved" aria-pressed="true">Curved</button><button type="button" data-kick="linear" aria-pressed="false">Linear</button><button type="button" data-kick="diagonal" aria-pressed="false">Diagonal</button><button type="button" data-kick="central" aria-pressed="false">Central</button>
+          </div>
+          <div><p class="label">Sensor grid · 12 × 16 lines</p><svg data-plot="grid" viewBox="0 0 220 280" role="img" aria-label="Sensor grid with the kick's detected intersections, sized by current force"></svg></div>
+          <div><p class="label">Detected points</p><svg data-plot="chart" viewBox="0 0 300 170" role="img" aria-label="Force versus time for each detected sensor point, with a moving time cursor"></svg></div>
+        </div>
+        <figcaption>Adapted from <span class="mono">force_footprints.html</span>, playing the simulator’s four demo kicks: synthetic data with sensor noise, cross-talk and peak detection, not a recorded strike. The six curved-kick sensor positions were placed by hand on the model; the other points are positioned from a grid-to-surface fit to those six. The cleat is a public-domain model, simplified for the web. <span class="ev ev--modeled">Simulated</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="wrap p-section" aria-labelledby="map">
     <div class="grid" style="align-items:center">
-      <figure class="fig fig--contain c-1-6"><div class="sheet-img"><img src="../assets/img/gamesense/02-piezo-grid-intersection-map.webp" srcset="../assets/img/gamesense/02-piezo-grid-intersection-map-sm.webp 784w, ../assets/img/gamesense/02-piezo-grid-intersection-map.webp 1352w" sizes="(min-width: 1000px) 45vw, 100vw" width="1352" height="1655" alt="Flattened cleat mesh with twelve red and twenty-six blue sensor lines and their labelled intersections" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/02-piezo-grid-intersection-map.webp"></div><figcaption><span class="fig__no">Fig. 07.1</span> The sensor-line array on the flattened cleat. Each intersection is a force and impact measurement point.</figcaption></figure>
+      <figure class="fig fig--contain c-1-6"><div class="sheet-img"><img src="../assets/img/gamesense/02-piezo-grid-intersection-map.webp" srcset="../assets/img/gamesense/02-piezo-grid-intersection-map-sm.webp 784w, ../assets/img/gamesense/02-piezo-grid-intersection-map.webp 1352w" sizes="(min-width: 1000px) 45vw, 100vw" width="1352" height="1655" alt="Flattened cleat mesh with twelve red and twenty-six blue sensor lines and their labelled intersections" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/02-piezo-grid-intersection-map.webp"></div><figcaption><span class="fig__no">Fig. 07.2</span> The sensor-line array on the flattened cleat. Each intersection is a force and impact measurement point.</figcaption></figure>
       <div class="c-7-12">
         <p class="label">My part</p>
         <h2 id="map" class="h2" style="margin-top:14px">Physics first: a nonlinear map from cleat to grid</h2>
@@ -68,8 +101,8 @@
       </div>
     </div>
     <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:40px">
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/03-simulated-kick-curved.webp" srcset="../assets/img/gamesense/03-simulated-kick-curved-sm.webp 960w, ../assets/img/gamesense/03-simulated-kick-curved.webp 1870w" sizes="(min-width: 1000px) 45vw, 100vw" width="1870" height="990" alt="Six-panel plot of a simulated curved kick: trajectory, force over time per sensor, impact location and summary statistics" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/03-simulated-kick-curved.webp"></div><figcaption><span class="fig__no">Fig. 07.2</span> Simulated curved kick (T<sub>end</sub> = 19.1&nbsp;ms): peak force, time of impact per sensor and impact map. <span class="ev ev--modeled">Simulated</span></figcaption></figure>
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/04-simulated-kick-no-spin.webp" srcset="../assets/img/gamesense/04-simulated-kick-no-spin-sm.webp 960w, ../assets/img/gamesense/04-simulated-kick-no-spin.webp 1870w" sizes="(min-width: 1000px) 45vw, 100vw" width="1870" height="990" alt="Six-panel plot of a simulated central kick with no spin" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/04-simulated-kick-no-spin.webp"></div><figcaption><span class="fig__no">Fig. 07.3</span> Simulated central kick with no spin (T<sub>end</sub> = 6.0&nbsp;ms). <span class="ev ev--modeled">Simulated</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/03-simulated-kick-curved.webp" srcset="../assets/img/gamesense/03-simulated-kick-curved-sm.webp 960w, ../assets/img/gamesense/03-simulated-kick-curved.webp 1870w" sizes="(min-width: 1000px) 45vw, 100vw" width="1870" height="990" alt="Six-panel plot of a simulated curved kick: trajectory, force over time per sensor, impact location and summary statistics" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/03-simulated-kick-curved.webp"></div><figcaption><span class="fig__no">Fig. 07.3</span> Simulated curved kick (T<sub>end</sub> = 19.1&nbsp;ms): peak force, time of impact per sensor and impact map. <span class="ev ev--modeled">Simulated</span></figcaption></figure>
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/04-simulated-kick-no-spin.webp" srcset="../assets/img/gamesense/04-simulated-kick-no-spin-sm.webp 960w, ../assets/img/gamesense/04-simulated-kick-no-spin.webp 1870w" sizes="(min-width: 1000px) 45vw, 100vw" width="1870" height="990" alt="Six-panel plot of a simulated central kick with no spin" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/04-simulated-kick-no-spin.webp"></div><figcaption><span class="fig__no">Fig. 07.4</span> Simulated central kick with no spin (T<sub>end</sub> = 6.0&nbsp;ms). <span class="ev ev--modeled">Simulated</span></figcaption></figure>
     </div>
   </section>
 
@@ -86,9 +119,8 @@
         <li><span>Blender meshing stalled, so animations became mathematically driven HTML</span><span class="ev ev--built">Pivoted</span></li>
       </ul>
     </div>
-    <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:40px">
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/01-blender-uv-unwrap.webp" srcset="../assets/img/gamesense/01-blender-uv-unwrap-sm.webp 960w, ../assets/img/gamesense/01-blender-uv-unwrap.webp 1917w" sizes="(min-width: 1000px) 45vw, 100vw" width="1917" height="1094" alt="Blender UV editing view with the cleat mesh unwrapped flat beside the 3D cleat" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/01-blender-uv-unwrap.webp"></div><figcaption><span class="fig__no">Fig. 07.4</span> UV-unwrapping the cleat in Blender, keeping local continuity through the points that matter.</figcaption></figure>
-      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/05-html-kick-animation.webp" srcset="../assets/img/gamesense/05-html-kick-animation-sm.webp 960w, ../assets/img/gamesense/05-html-kick-animation.webp 1030w" sizes="(min-width: 1000px) 45vw, 100vw" width="1030" height="613" alt="3D cleat in a browser animation with impact points shown as spheres" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/05-html-kick-animation.webp"></div><figcaption><span class="fig__no">Fig. 07.5</span> HTML animation of a simulated kick through the sensor array.</figcaption></figure>
+    <div class="gallery" style="margin-top:40px;max-width:760px">
+      <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/gamesense/01-blender-uv-unwrap.webp" srcset="../assets/img/gamesense/01-blender-uv-unwrap-sm.webp 960w, ../assets/img/gamesense/01-blender-uv-unwrap.webp 1917w" sizes="(min-width: 1000px) 45vw, 100vw" width="1917" height="1094" alt="Blender UV editing view with the cleat mesh unwrapped flat beside the 3D cleat" loading="lazy" decoding="async" data-zoom="../assets/img/gamesense/01-blender-uv-unwrap.webp"></div><figcaption><span class="fig__no">Fig. 07.5</span> UV-unwrapping the cleat in Blender, keeping local continuity through the points that matter.</figcaption></figure>
     </div>
     <p style="margin-top:32px;display:flex;flex-wrap:wrap;gap:16px 32px"><a class="arrow-link" href="https://devpost.com/software/gamesense-eput46" rel="noopener">Devpost submission</a><a class="arrow-link" href="https://youtu.be/CKWcHSl-_ZE" rel="noopener">Video walkthrough</a></p>
   </section>
@@ -141,5 +173,6 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/figures/gamesense.js" defer></script>
 </body>
 </html>

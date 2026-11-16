@@ -35,6 +35,11 @@ assets/js/figures/fsae.js  Formula SAE interactive figures
 assets/js/figures/sim.js   Flight-simulator piston targets, ported from the project's Python IK routine
 assets/js/figures/spdc.js  SPDC Type II phase-matching heatmap, ported from Phase_matching_graphs.py
 assets/js/figures/fourier.js  Fourier Lab, ported from the Flask app (app.py, DisplayFunction.py, displayfft.py, script.js)
+assets/js/figures/h2map.js    Hydrogen 3D flammability map, ported from Plot_3D_Flammability.py (Dash)
+assets/js/figures/mechanism.js  Hydrogen mechanism explorer (trace a species through the 19 reactions)
+assets/js/figures/gamesense.js  GameSense force-footprint viewer, adapted from force_footprints.html
+assets/data/                Data for the live figures (3D map grid, simplified cleat mesh, simulated kicks)
+assets/vendor/              Plotly 3D and three.js builds (MIT licenses alongside), loaded only by the pages that use them
 assets/img/<project>/      Images as WebP: <name>.webp (large) and <name>-sm.webp (small)
 assets/video/              MP4 videos and their poster images
 assets/fonts/              Geist, Geist Mono and Archivo (SIL Open Font License — see the LICENSE files)
