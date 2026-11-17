@@ -114,19 +114,46 @@
         <div class="sheet-img"><img src="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp" srcset="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation-sm.webp 960w, ../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp 1119w" sizes="(min-width: 1000px) 38vw, 100vw" width="1119" height="627" alt="Collage of handwritten inverse-kinematics derivations relating platform pitch and roll to piston positions" loading="lazy" decoding="async" data-zoom="../assets/img/hydraulic-flight-simulator/01-inverse-kinematics-hand-derivation.webp"></div>
         <figcaption><span class="fig__no">Fig. 02.2</span> Hand derivation: piston positions from a required pitch and roll.</figcaption>
       </figure>
-      <figure class="ifig c-6-12" data-fig="ik">
-        <div class="ifig__head"><span class="label" style="color:var(--fg)">Fig. 02.3 — Interactive · The project’s IK routine</span><span class="ev ev--built">Ported from project code</span></div>
-        <div class="ifig__plot"><svg viewBox="0 0 600 330" role="img" aria-label="Four pistons whose extensions update with simulator pitch and platform roll"></svg></div>
-        <div class="ifig__side" style="border-left:0;border-top:var(--lw-thin) solid var(--rule)">
-          <div class="ik-ctrls">
-            <div class="ctrl"><div class="ctrl__label"><label for="pitch">Simulator pitch input</label><output for="pitch" data-out="pitch"></output></div><input id="pitch" name="pitch" type="range" min="0" max="180" step="1" value="45"></div>
-            <div class="ctrl"><div class="ctrl__label"><label for="alpha">Platform roll <span class="sym">α</span></label><output for="alpha" data-out="alpha"></output></div><input id="alpha" name="alpha" type="range" min="0" max="6" step="0.1" value="2"></div>
-          </div>
-          <dl class="readout"><dt>Platform pitch <span class="sym">β = pitch / 8.7746</span></dt><dd data-out="beta"></dd><dt>Mean extension (held at neutral)</dt><dd data-out="mean"></dd></dl>
-        </div>
-        <figcaption class="ifig__foot">Ported directly from the Python in Fig. 02.4, the turning-left, turning-up branch: x = 9.5, y = 20.5·tan α, z = 52.5·tan β, then every target is shifted so the four pistons average 9.5. That keeps the platform centred while it tilts. Aircraft pitch is scaled down by 8.77, so 90° in the simulator becomes about 10.3° on the platform. Lengths are in the code’s units.</figcaption>
-      </figure>
+      <div class="c-6-12 eq-stack" role="group" aria-label="The kinematics routine">
+        <div class="eqc"><div class="eqc__m"><math display="block"><mi>α</mi><mo>=</mo><mfrac><mtext>roll</mtext><mn>3.62</mn></mfrac><mo>,</mo><mspace width="1em"/><mi>β</mi><mo>=</mo><mfrac><mtext>pitch</mtext><mn>8.77</mn></mfrac></math></div><p class="eqc__cap">Aircraft attitude scaled to platform angles: ±90° in the simulator becomes ±24.9° of roll and ±10.3° of pitch.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><mi>y</mi><mo>=</mo><mn>20.5</mn><mi>tan</mi><mo>&#x2061;</mo><mi>α</mi><mo>,</mo><mspace width="1em"/><mi>z</mi><mo>=</mo><mn>52.5</mn><mi>tan</mi><mo>&#x2061;</mo><mi>β</mi></math></div><p class="eqc__cap">Height differences across the 20.5 spacing between left and right pistons and the 52.5 spacing between front and back.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><msub><mi>h</mi><mtext>FL</mtext></msub><mo>=</mo><mi>x</mi><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>y</mi><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>z</mi><mo>,</mo><mspace width="0.6em"/><msub><mi>h</mi><mtext>FR</mtext></msub><mo>=</mo><mi>x</mi><mo>+</mo><mfrac><mn>3</mn><mn>2</mn></mfrac><mi>y</mi><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>z</mi><mo>,</mo><mspace width="0.6em"/><mo>…</mo></math></div><p class="eqc__cap">Each piston’s target from x = 9.5, with the signs set by which way the aircraft rolls and pitches.</p></div>
+        <div class="eqc"><div class="eqc__m"><math display="block"><msub><mi>h</mi><mi>i</mi></msub><mo>←</mo><msub><mi>h</mi><mi>i</mi></msub><mo>+</mo><mrow><mo>(</mo><mn>9.5</mn><mo>−</mo><mover><mi>h</mi><mo>¯</mo></mover><mo>)</mo></mrow></math></div><p class="eqc__cap">Every target shifts so the four average 9.5, so the platform tilts about its centre.</p></div>
+      </div>
     </div>
+    <figure class="ifig sim3d" data-fig="ik">
+      <div class="ifig__head"><span class="label" style="color:var(--fg)">Fig. 02.3 — Interactive · From aircraft attitude to piston lengths</span><span class="ev ev--built">Ported from project code</span></div>
+      <div class="ifig__body">
+        <div class="ifig__plot sim3d__main">
+          <div class="sim3d__view">
+            <p class="sim3d__hint">Drag the view to turn it</p>
+            <svg class="sim3d__svg" viewBox="0 0 640 400" role="img" aria-label="Three-dimensional view of the platform on its four pistons"></svg>
+          </div>
+          <div class="sim3d__gauges">
+            <div class="gauge" data-g="FL"><span class="gauge__k">Front left</span><span class="gauge__bar"><i></i></span><span class="gauge__v">9.50</span></div>
+            <div class="gauge" data-g="FR"><span class="gauge__k">Front right</span><span class="gauge__bar"><i></i></span><span class="gauge__v">9.50</span></div>
+            <div class="gauge" data-g="BL"><span class="gauge__k">Back left</span><span class="gauge__bar"><i></i></span><span class="gauge__v">9.50</span></div>
+            <div class="gauge" data-g="BR"><span class="gauge__k">Back right</span><span class="gauge__bar"><i></i></span><span class="gauge__v">9.50</span></div>
+          </div>
+        </div>
+        <div class="ifig__side">
+          <button type="button" class="fl-btn fl-btn--primary sim3d__fly" data-act="fly" aria-pressed="false">Fly a maneuver</button>
+          <div class="sim3d__inputs">
+            <div class="ctrl"><div class="ctrl__label"><label for="sim-roll">Aircraft roll</label><output for="sim-roll" data-out="roll"></output></div><input id="sim-roll" name="roll" type="range" min="-180" max="180" step="1" value="30"></div>
+            <div class="ctrl"><div class="ctrl__label"><label for="sim-pitch">Aircraft pitch</label><output for="sim-pitch" data-out="pitch"></output></div><input id="sim-pitch" name="pitch" type="range" min="-90" max="90" step="1" value="20"></div>
+          </div>
+          <dl class="readout"><dt>Platform roll <span class="sym">α</span></dt><dd data-out="alpha"></dd><dt>Platform pitch <span class="sym">β</span></dt><dd data-out="beta"></dd></dl>
+          <p class="sim3d__mode" data-out="mode"></p>
+          <div>
+            <p class="label">Attitudes the stroke allows</p>
+            <svg class="sim3d__env" viewBox="0 0 260 176" role="img" aria-label="Chart of platform roll against platform pitch, showing the region that keeps every piston within 0 to 19, the smaller box the project's mapping covers, and the current attitude"></svg>
+            <p class="sim3d__key"><span><i class="sim3d__k sim3d__k--reach"></i>Every piston within 0–19</span><span><i class="sim3d__k sim3d__k--map"></i>Reached by the mapping</span></p>
+            <p class="sim3d__note">Drag the dot to set the platform directly, including the extra roll the mapping leaves unused.</p>
+          </div>
+        </div>
+      </div>
+      <figcaption class="ifig__foot">All four sign branches of the project’s Python routine (Fig.&nbsp;02.4), checked against it for 1,924 roll and pitch pairs. Dividing aircraft roll by 3.62 and pitch by 8.77 turns ±90° into ±24.9° of platform roll and ±10.3° of pitch. With both at their limits, one corner piston reaches exactly 0 and the opposite one 19, twice the 9.5 neutral. The scale factors split the stroke evenly between roll and pitch, so every input stays reachable; roll alone could reach 42.8° before a piston bottoms out. Lengths are in the code’s units. Ball-joint angles and dynamics are not modeled.</figcaption>
+    </figure>
   </section>
 
   <!-- 03 software -->

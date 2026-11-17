@@ -1089,9 +1089,6 @@ sub, sup { font-size: 0.7em; line-height: 0; }
 .sysmap a.node { cursor: pointer; }
 .sysmap a.node rect { transition: fill var(--t-ui), stroke var(--t-ui); }
 @media (max-width: 700px) { .sysmap { overflow-x: auto; } .sysmap svg { min-width: 760px; } }
-.ik-ctrls { display: grid; gap: 18px; }
-@media (min-width: 700px) { .ik-ctrls { grid-template-columns: 1fr 1fr; gap: 28px; } }
-[data-fig="ik"] .ifig__plot { color: var(--ink); }
 .elec-grid { display: grid; gap: var(--gutter); }
 @media (min-width: 900px) { .elec-grid { grid-template-columns: 1.3fr 1fr 1fr; align-items: start; } }
 .cam-videos { display: grid; gap: var(--gutter); margin-top: var(--s-8); }
@@ -1809,3 +1806,50 @@ html[data-theme="dark"] .law-btn i[style*="2F5F96"] { --c: #9ac1f0 !important; }
   .rx-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .rx-specs .spec:nth-child(even) { padding-left: 16px; border-left: var(--lw-thin) solid var(--rule); }
 }
+
+/* ---------- Flight simulator · attitude to pistons (Fig. 02.3) ---------- */
+.sim3d { margin-top: 36px; }
+@media (min-width: 900px) { .sim3d .ifig__body { grid-template-columns: minmax(0, 1fr) 300px; } }
+.sim3d__main { position: relative; display: grid; gap: 10px; }
+.sim3d__svg { display: block; width: 100%; height: auto; cursor: grab; touch-action: pan-y; color: var(--fg); }
+.sim3d__svg:active { cursor: grabbing; }
+.sim3d__view { position: relative; }
+.sim3d__hint { position: absolute; top: 0; left: 0; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2); pointer-events: none; }
+.sim3d__frame { fill: var(--bg-2); stroke: var(--fg-2); stroke-width: 1; }
+.sim3d__hatch { stroke: var(--rule); stroke-width: 1; }
+.sim3d__fwd { stroke: var(--data-text); stroke-width: 1.4; color: var(--data-text); }
+.sim3d svg marker path { fill: var(--data-text); }
+.sim3d__neutral { fill: none; stroke: var(--data-text); stroke-width: 1; stroke-dasharray: 8 3 2 3; opacity: 0.8; }
+.sim3d__body { fill: var(--bg-3); stroke: var(--fg); stroke-width: 1.1; }
+.sim3d__cap { fill: var(--bg-2); stroke: var(--fg); stroke-width: 1.1; }
+.sim3d__rod { stroke: var(--fg); stroke-width: 4; stroke-linecap: round; }
+.sim3d__deck { fill: color-mix(in srgb, var(--copper) 16%, transparent); stroke: var(--copper); stroke-width: 1.6; stroke-linejoin: round; }
+.sim3d__ball { fill: var(--bg); stroke: var(--copper); stroke-width: 1.8; }
+.sim3d__gauges { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 16px; padding-top: 12px; border-top: var(--lw-thin) solid var(--rule); }
+@media (max-width: 600px) { .sim3d__gauges { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.gauge { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 8px; align-items: center; --v: 0.5; }
+.gauge__k { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2); }
+.gauge__v { font-family: var(--f-mono); font-size: 13px; color: var(--fg); font-variant-numeric: tabular-nums; text-align: right; }
+.gauge__bar { grid-column: 1 / -1; position: relative; height: 8px; background: var(--bg-2); border: var(--lw-thin) solid var(--rule); }
+.gauge__bar::after { content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: var(--data-text); }
+.gauge__bar i { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) * 100%); background: var(--copper); }
+.gauge.is-stop .gauge__v { color: var(--accent-text); font-weight: 600; }
+.gauge.is-stop .gauge__bar { border-color: var(--copper); }
+.sim3d__fly { width: 100%; }
+.sim3d__inputs { display: grid; gap: 14px; transition: opacity var(--t-ui); }
+.sim3d.is-direct .sim3d__inputs { opacity: 0.45; }
+.sim3d__mode { font-size: 12.5px; line-height: 1.4; color: var(--fg-2); margin-top: -6px; }
+.sim3d__env { display: block; width: 100%; max-width: 320px; height: auto; margin-top: 8px; touch-action: none; }
+.sim3d__axis { stroke: var(--rule-strong); stroke-width: 1; }
+.sim3d__reach { fill: var(--data-wash); stroke: var(--data-text); stroke-width: 1.2; }
+.sim3d__map { fill: none; stroke: var(--copper); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.sim3d__dot { fill: var(--copper); stroke: var(--bg); stroke-width: 2; pointer-events: none; }
+.sim3d__hit { cursor: crosshair; }
+.sim3d__axlabel { fill: var(--fg-2); }
+.sim3d__key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-family: var(--f-mono); font-size: 10.5px; color: var(--fg-2); }
+.sim3d__key span { display: inline-flex; align-items: center; gap: 6px; }
+.sim3d__k { display: inline-block; width: 12px; height: 8px; }
+.sim3d__k--reach { background: var(--data-wash); border: 1px solid var(--data-text); }
+.sim3d__k--map { background: none; border: 1px dashed var(--copper); }
+.sim3d__note { margin-top: 8px; font-size: 12.5px; line-height: 1.4; color: var(--fg-2); }
+@media (max-width: 600px) { .sim3d__svg .plot-text { font-size: 25px; } .sim3d__env .plot-text { font-size: 9.5px; } .sim3d__hint { position: static; margin-bottom: 4px; } }
