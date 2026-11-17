@@ -62,13 +62,13 @@
       <div class="title-block"><div class="title-block__head"><span>Anteater Formula Racing · UC Irvine</span><span>S-01</span></div><dl class="tb">
           <dt>Role</dt><dd>Powertrain engineer: valvetrain analysis, cam and valve redesign, intake restrictor design</dd>
           <dt>Engine</dt><dd>2017 Yamaha YZF-R6 · 599&nbsp;cc inline-four · DOHC</dd>
-          <dt>Duration</dt><dd>~10 weeks remote engineering, then shop work, teardown and assembly</dd>
-          <dt>Tools</dt><dd>MATLAB (model + custom app) · Ansys Fluent · Ansys Mechanical · CAD · manual mill</dd>
-          <dt>Status</dt><dd>Designed and partly manufactured · car has not yet raced</dd>
+          <dt>Duration</dt><dd>~10 weeks remote engineering, now ongoing shop work, teardown and assembly</dd>
+          <dt>Tools</dt><dd>MATLAB (model + custom app) · Ansys Fluent · Ansys Mechanical · CAD · manual mill · plasma cutter</dd>
+          <dt>Status</dt><dd>Designed and partly manufactured</dd>
         </dl></div>
       <div>
     <div class="ev-banner">
-      <p>Every performance figure on this page is a <strong>model output</strong> unless it is tagged measured or built. None of them is a track or dyno result.</p>
+      <p>Every performance figure on this page is a <strong>model output</strong> unless it is tagged measured or built. None of them is a track or dyno result (yet).</p>
       <div class="ev-key"><span class="ev ev--modeled">Modeled</span><span class="ev ev--measured">Measured</span><span class="ev ev--built">Built</span><span class="ev ev--documented">Rule</span></div>
     </div>
       </div>
@@ -164,7 +164,7 @@
             <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Plot of engine air demand rising with engine speed against the flat choked-flow ceiling of the 20 millimetre restrictor"></svg></div>
             <div class="ifig__side">
               <div class="ctrl"><div class="ctrl__label"><label for="ve">Volumetric efficiency</label><output for="ve" data-out="ve"></output></div><input id="ve" name="ve" type="range" min="0.7" max="1.1" step="0.01" value="0.95"></div>
-              <div class="ctrl"><div class="ctrl__label"><label for="cd">Restrictor discharge coeff.</label><output for="cd" data-out="cd"></output></div><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.005" value="1"><div class="cd-presets" role="group" aria-label="Discharge coefficient presets"><button type="button" class="chip" data-cd="1" aria-pressed="true">Ideal · 1.000</button><button type="button" class="chip" data-cd="0.925" aria-pressed="false">My restrictor · 0.925</button></div></div>
+              <div class="ctrl"><div class="ctrl__label"><label for="cd">Restrictor discharge coeff.</label><output for="cd" data-out="cd"></output></div><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.005" value="1"><div class="cd-presets" role="group" aria-label="Discharge coefficient presets"><button type="button" class="chip" data-cd="0.999" aria-pressed="true">Ideal Restrictor · 0.999</button><button type="button" class="chip" data-cd="0.925" aria-pressed="false">Real Restrictor · 0.925</button></div></div>
               <dl class="readout">
                 <dt>Ceiling</dt><dd data-out="cap"></dd>
                 <dt>Demand meets ceiling</dt><dd data-out="cross"></dd>
@@ -192,7 +192,7 @@
         <div class="stage__head">
           <p class="label">03 — Restrictor design</p>
           <h2 id="s-rx">Getting the most air through the hole</h2>
-          <p>The rules fix the 20&nbsp;mm throat, not the shape around it. I was in charge of designing the restrictor for a high discharge coefficient, C<sub>d</sub>. The closer it is to 1, the less flow is lost on the way through, and the choked-flow ceiling in Fig.&nbsp;02.1 scales directly with it. It took three designs in Ansys Fluent. The highest-C<sub>d</sub> design didn’t have the right connections, and the second didn’t fit on the car. The third is the shortest, and the one that fits.</p>
+          <p>The rules fix the 20&nbsp;mm throat, not the shape around it. I was in charge of designing the restrictor for a high discharge coefficient, C<sub>d</sub>. The closer it is to 1, the less flow is lost on the way through, and the choked-flow ceiling in Fig.&nbsp;02.1 scales directly with it. The highest-C<sub>d</sub> design didn’t have the right connections, and the second didn’t fit on the car. The third is the shortest, and the one that fits.</p>
         </div>
         <div class="specs specs--h2 rx-specs">
           <div class="spec"><span class="spec__num num">0.925</span><p class="spec__text"><strong>Final C<sub>d</sub></strong>, compressible CFD at 20&nbsp;°C</p><span class="ev ev--modeled">Modeled · CFD</span></div>
@@ -460,7 +460,7 @@
       <!-- 06 MANUFACTURING -->
       <section class="stage" id="manufacturing" aria-labelledby="s5">
         <div class="stage__head">
-          <p class="label">06 — Manufacturing</p>
+          <p class="label">06 — Manufacturing (In progress)</p>
           <h2 id="s5">From model to metal</h2>
         </div>
         <div class="grid">
@@ -479,11 +479,11 @@
       </section>
 
       <!-- 07 IMPLEMENTATION -->
-      <section class="stage" id="implementation" aria-labelledby="s6">
+      <section class="stage" id="Extras" aria-labelledby="s6">
         <div class="stage__head">
-          <p class="label">07 — Physical implementation</p>
-          <h2 id="s6">Assembly, testing and the rest of the powertrain</h2>
-          <p>I took part in engine assembly and testing. A borescope inspection found a crack in the block, which prompted the full teardown. I examined uneven scoring on a piston for signs of the engine running hot at a previous competition. Beyond the valvetrain, I used CFD on combustion and exhaust flow, contributed to header and plenum decisions, and helped MIG weld, manufacture and assemble the header and gearbox systems.</p>
+          <p class="label">07 — Powertrain Team Work</p>
+          <h2 id="s6">The rest of Powertrain</h2>
+          <p>Although I focused in on airflow, being a member of the powertrain team inherently means understanding and working on the whole engine. A borescope inspection found a crack in the block, which prompted a full engine teardown. I examined uneven scoring on a piston for signs of the engine running hot at a previous competition. I also contributed to the teardown and eventual rebuild of the engine. Separately, I used CFD on combustion and exhaust flow, contributed to header and plenum decisions, and helped MIG weld, manufacture and assemble the header and gearbox systems.</p>
         </div>
         <div class="impl-grid">
           <figure class="fig impl-a"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp" srcset="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission-sm.webp 720w, ../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp 1500w" sizes="(min-width: 1100px) 30vw, 100vw" width="1500" height="2000" alt="Engine block stripped to the crankshaft and transmission gears" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp"></div><figcaption><span class="fig__no">Fig. 07.1</span> Block stripped to crankshaft and transmission.</figcaption></figure>
@@ -512,7 +512,7 @@
         <h2 id="status" class="h2" style="margin-top:14px">Where this stands</h2>
       </div>
       <div class="c-7-12 statusbox">
-        <p>The car has not yet completed a race. Every performance figure on this page is a model output or a component measurement, not a track or dyno result.</p>
+        <p>Every performance figure on this page is a model output or a component measurement, not yet a track or dyno result. We hope to place well in competition this year.</p>
         <p>Taken together, the redesign is projected to add about 4.9&nbsp;hp. That projection comes from the models above. <span class="ev ev--modeled">Projected</span></p>
         <p>The camshaft specification was developed with an outside machine shop. The valve back-cuts were machined in-house.</p>
       </div>
