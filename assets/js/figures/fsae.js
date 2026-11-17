@@ -1,6 +1,8 @@
 /*
  * Interactive figures for the Formula SAE valvetrain page.
  *  [data-fig="restrictor"]  engine air demand vs. the 20 mm choked-flow ceiling
+ *  [data-fig="cfd-explorer"] the three restrictor designs' Fluent results, by design and field
+ *  [data-fig="compare"]      before / after slider for the intake stack on the car
  *  [data-fig="motion-laws"] normalized cam rise laws: lift, velocity, acceleration, jerk
  * Requires physics.js (window.Physics).
  */
@@ -83,7 +85,8 @@
       demandLabel.setAttribute("x", W - m.r - 4); demandLabel.setAttribute("y", y(Math.min(need, 110)) - 8);
       demandLabel.textContent = "Unrestricted demand";
       out("ve").textContent = fmt(VE, 2);
-      out("cd").textContent = fmt(CD, 2);
+      out("cd").textContent = fmt(CD, 3);
+      root.querySelectorAll("[data-cd]").forEach(function (b) { b.setAttribute("aria-pressed", Math.abs(parseFloat(b.getAttribute("data-cd")) - CD) < 1e-6 ? "true" : "false"); });
       out("cap").textContent = fmt(cap, 1) + " g/s";
       out("cross").textContent = cross < 16000 ? fmt(Math.round(cross / 10) * 10, 0) + " rpm" : "above 16,000 rpm";
       out("need").textContent = fmt(need, 1) + " g/s";
@@ -91,6 +94,9 @@
     }
     ve.addEventListener("input", draw);
     cd.addEventListener("input", draw);
+    root.querySelectorAll("[data-cd]").forEach(function (b) {
+      b.addEventListener("click", function () { cd.value = b.getAttribute("data-cd"); draw(); });
+    });
     draw();
   }
 
@@ -187,7 +193,61 @@
     draw();
   }
 
+  /* ------------------------------------------------------------------ restrictor CFD explorer */
+  function cfdExplorer(root) {
+    var state = { d: "3", f: "pressure" };
+    var imgs = root.querySelectorAll(".cfdx__img"), tag = root.querySelector(".cfdx__tag");
+    var names = { pressure: "Pressure", stream: "Velocity streamlines", volume: "Velocity field", mesh: "Mesh" };
+    imgs.forEach(function (n) { n.hidden = false; });            // crossfade instead of display toggling
+    root.classList.add("is-live");
+    function has(d, f) { return !!root.querySelector('.cfdx__img[data-d="' + d + '"][data-f="' + f + '"]'); }
+    function show() {
+      if (!has(state.d, state.f)) state.f = "pressure";
+      imgs.forEach(function (n) {
+        var on = n.getAttribute("data-d") === state.d && n.getAttribute("data-f") === state.f;
+        n.classList.toggle("is-on", on); n.setAttribute("aria-hidden", on ? "false" : "true");
+      });
+      root.querySelectorAll("[data-d]").forEach(function (n) {
+        if (n.tagName === "BUTTON") n.setAttribute("aria-pressed", n.getAttribute("data-d") === state.d ? "true" : "false");
+        else if (n.classList.contains("cfdx__info")) n.hidden = n.getAttribute("data-d") !== state.d;
+      });
+      root.querySelectorAll("button[data-f]").forEach(function (b) {
+        var f = b.getAttribute("data-f"), ok = has(state.d, f);
+        b.disabled = !ok; b.setAttribute("aria-pressed", f === state.f ? "true" : "false");
+        b.title = ok ? "" : "No mesh image saved for this design";
+      });
+      if (tag) tag.textContent = "Design " + state.d + " · " + names[state.f];
+    }
+    root.querySelectorAll("button[data-d]").forEach(function (b) { b.addEventListener("click", function () { state.d = b.getAttribute("data-d"); show(); }); });
+    root.querySelectorAll("button[data-f]").forEach(function (b) { b.addEventListener("click", function () { state.f = b.getAttribute("data-f"); show(); }); });
+    show();
+  }
+
+  /* ------------------------------------------------------------------ before / after slider */
+  function compare(root) {
+    var range = root.querySelector(".cmp__range");
+    function set(v) { root.style.setProperty("--pos", v + "%"); range.value = v; }
+    range.addEventListener("input", function () { root.classList.add("is-touched"); set(parseFloat(range.value)); });
+    // one gentle sweep the first time it scrolls into view, so it's clear it can be dragged
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return; io.disconnect();
+      var t0 = null, from = 50;
+      function step(t) {
+        if (root.classList.contains("is-touched")) return;
+        if (t0 === null) t0 = t;
+        var k = Math.min(1, (t - t0) / 2200), e = Math.sin(k * Math.PI * 2) * (1 - k);   // out to the right, back past centre, settle
+        set(from + 30 * e);
+        if (k < 1) requestAnimationFrame(step); else set(50);
+      }
+      setTimeout(function () { requestAnimationFrame(step); }, 350);
+    }, { threshold: 0.6 });
+    io.observe(root);
+  }
+
   function init() {
+    document.querySelectorAll('[data-fig="cfd-explorer"]').forEach(cfdExplorer);
+    document.querySelectorAll('[data-fig="compare"]').forEach(compare);
     if (!window.Physics) return;
     document.querySelectorAll('[data-fig="restrictor"]').forEach(restrictor);
     document.querySelectorAll('[data-fig="motion-laws"]').forEach(motionLaws);

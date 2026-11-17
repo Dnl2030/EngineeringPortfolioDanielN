@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Valvetrain redesign for a restricted Yamaha R6 — Daniel Nelson</title>
-<meta name="description" content="Anteater Formula Racing: measuring, modeling and redesigning the valvetrain of a 2017 Yamaha YZF-R6 for the Formula SAE 20 mm intake restrictor — MATLAB, CFD, FEA and machining.">
+<meta name="description" content="Anteater Formula Racing: measuring, modeling and redesigning the valvetrain of a 2017 Yamaha YZF-R6 for the Formula SAE 20 mm intake restrictor, and designing a high-Cd restrictor in Ansys Fluent — MATLAB, CFD, FEA and machining.">
 <meta name="author" content="Daniel Nelson">
 <meta name="theme-color" content="#F5F3EE">
 <link rel="canonical" href="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/fsae-valvetrain.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Daniel Nelson — Engineering Portfolio">
 <meta property="og:title" content="Valvetrain redesign for a restricted Yamaha R6 — Daniel Nelson">
-<meta property="og:description" content="Anteater Formula Racing: measuring, modeling and redesigning the valvetrain of a 2017 Yamaha YZF-R6 for the Formula SAE 20 mm intake restrictor — MATLAB, CFD, FEA and machining.">
+<meta property="og:description" content="Anteater Formula Racing: measuring, modeling and redesigning the valvetrain of a 2017 Yamaha YZF-R6 for the Formula SAE 20 mm intake restrictor, and designing a high-Cd restrictor in Ansys Fluent — MATLAB, CFD, FEA and machining.">
 <meta property="og:url" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/work/fsae-valvetrain.html">
 <meta property="og:image" content="https://dnl2030.github.io/EngineeringPortfolioDanielN/assets/img/og/fsae-valvetrain--09-r6-engine-camshafts-exposed.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -51,7 +51,7 @@
       <div class="p-hero-fsae__text">
         <p class="p-head__crumb"><a class="arrow-link arrow-link--back" href="../index.html#index">All projects</a><span class="label" style="color:var(--blue)">Sheet 01 · Powertrain · 2026</span></p>
         <h1 id="title" class="h1">Valvetrain redesign for a restricted Yamaha R6</h1>
-        <p class="lead" style="margin-top:24px;color:var(--graphite-lt);max-width:46ch">Formula SAE forces every cylinder of a 16,000&nbsp;rpm engine to breathe through one 20&nbsp;mm hole. Over ten weeks I measured the stock valvetrain, rebuilt it as a MATLAB model, and redesigned the cam and valve seat around the air the restrictor actually allows.</p>
+        <p class="lead" style="margin-top:24px;color:var(--graphite-lt);max-width:46ch">Formula SAE forces every cylinder of a 16,000&nbsp;rpm engine to breathe through one 20&nbsp;mm hole. Over ten weeks I measured the stock valvetrain, rebuilt it as a MATLAB model, and redesigned the cam and valve seat around the air the restrictor actually allows. I also designed the restrictor itself, for a high discharge coefficient that still fits the car.</p>
       </div>
     </div>
   </section>
@@ -60,7 +60,7 @@
   <section class="wrap" style="padding-block:40px 24px" aria-label="Key results">
     <div class="fsae-intro">
       <div class="title-block"><div class="title-block__head"><span>Anteater Formula Racing · UC Irvine</span><span>S-01</span></div><dl class="tb">
-          <dt>Role</dt><dd>Powertrain engineer: valvetrain analysis, cam and valve redesign</dd>
+          <dt>Role</dt><dd>Powertrain engineer: valvetrain analysis, cam and valve redesign, intake restrictor design</dd>
           <dt>Engine</dt><dd>2017 Yamaha YZF-R6 · 599&nbsp;cc inline-four · DOHC</dd>
           <dt>Duration</dt><dd>~10 weeks remote engineering, then shop work, teardown and assembly</dd>
           <dt>Tools</dt><dd>MATLAB (model + custom app) · Ansys Fluent · Ansys Mechanical · CAD · manual mill</dd>
@@ -91,10 +91,11 @@
       <ol>
         <li><a href="#baseline"><span class="rail__n">01</span><span class="rail__t">Baseline</span></a></li>
         <li><a href="#constraint"><span class="rail__n">02</span><span class="rail__t">Constraint</span></a></li>
-        <li><a href="#redesign"><span class="rail__n">03</span><span class="rail__t">Redesign</span></a></li>
-        <li><a href="#validation"><span class="rail__n">04</span><span class="rail__t">Validation</span></a></li>
-        <li><a href="#manufacturing"><span class="rail__n">05</span><span class="rail__t">Manufacturing</span></a></li>
-        <li><a href="#implementation"><span class="rail__n">06</span><span class="rail__t">Implementation</span></a></li>
+        <li><a href="#restrictor"><span class="rail__n">03</span><span class="rail__t">Restrictor</span></a></li>
+        <li><a href="#redesign"><span class="rail__n">04</span><span class="rail__t">Redesign</span></a></li>
+        <li><a href="#validation"><span class="rail__n">05</span><span class="rail__t">Validation</span></a></li>
+        <li><a href="#manufacturing"><span class="rail__n">06</span><span class="rail__t">Manufacturing</span></a></li>
+        <li><a href="#implementation"><span class="rail__n">07</span><span class="rail__t">Implementation</span></a></li>
       </ol>
       </div>
     </nav>
@@ -163,7 +164,7 @@
             <div class="ifig__plot"><svg viewBox="0 0 640 360" role="img" aria-label="Plot of engine air demand rising with engine speed against the flat choked-flow ceiling of the 20 millimetre restrictor"></svg></div>
             <div class="ifig__side">
               <div class="ctrl"><div class="ctrl__label"><label for="ve">Volumetric efficiency</label><output for="ve" data-out="ve"></output></div><input id="ve" name="ve" type="range" min="0.7" max="1.1" step="0.01" value="0.95"></div>
-              <div class="ctrl"><div class="ctrl__label"><label for="cd">Restrictor discharge coeff.</label><output for="cd" data-out="cd"></output></div><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.01" value="1"></div>
+              <div class="ctrl"><div class="ctrl__label"><label for="cd">Restrictor discharge coeff.</label><output for="cd" data-out="cd"></output></div><input id="cd" name="cd" type="range" min="0.85" max="1" step="0.005" value="1"><div class="cd-presets" role="group" aria-label="Discharge coefficient presets"><button type="button" class="chip" data-cd="1" aria-pressed="true">Ideal · 1.000</button><button type="button" class="chip" data-cd="0.925" aria-pressed="false">My restrictor · 0.925</button></div></div>
               <dl class="readout">
                 <dt>Ceiling</dt><dd data-out="cap"></dd>
                 <dt>Demand meets ceiling</dt><dd data-out="cross"></dd>
@@ -172,7 +173,7 @@
               </dl>
             </div>
           </div>
-          <figcaption class="ifig__foot">Ideal-gas isentropic choked flow, ṁ* = C<sub>d</sub>·A·p₀·√(γ/RT₀)·(2/(γ+1))<sup>(γ+1)/2(γ−1)</sup>, against four-stroke demand ṁ = VE·ρ₀·V<sub>d</sub>·N/120. Standard air (101.325&nbsp;kPa, 298&nbsp;K) and V<sub>d</sub> = 599&nbsp;cm³. Volumetric efficiency is held constant, so this is an upper bound for intuition, not an engine curve. The MATLAB design tool below uses its own operating assumptions and reports a 68.6&nbsp;g/s ceiling.</figcaption>
+          <figcaption class="ifig__foot">Ideal-gas isentropic choked flow, ṁ* = C<sub>d</sub>·A·p₀·√(γ/RT₀)·(2/(γ+1))<sup>(γ+1)/2(γ−1)</sup>, against four-stroke demand ṁ = VE·ρ₀·V<sub>d</sub>·N/120. Standard air (101.325&nbsp;kPa, 298&nbsp;K) and V<sub>d</sub> = 599&nbsp;cm³. Volumetric efficiency is held constant, so this is an upper bound for intuition, not an engine curve. The MATLAB design tool below uses its own operating assumptions and reports a 68.6&nbsp;g/s ceiling. The 0.925 preset is the restrictor I designed in section&nbsp;03.</figcaption>
         </figure>
 
         <div class="grid" style="margin-top:48px">
@@ -186,17 +187,151 @@
         <figure class="fig fig--contain" style="margin-top:28px;max-width:560px"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations.webp" srcset="../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations-sm.webp 960w, ../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations.webp 1020w" sizes="(min-width: 1100px) 50vw, 100vw" width="1020" height="552" alt="Equations for isentropic mass flow through a converging nozzle" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/16-isentropic-nozzle-mass-flow-equations.webp"></div><figcaption><span class="fig__no">Fig. 02.3</span> Mass-flow relations used in the app. <span class="fig__src">After NASA Glenn, isentropic flow; G. P. Blair, Design and Simulation of Four-Stroke Engines.</span></figcaption></figure>
       </section>
 
-      <!-- 03 REDESIGN -->
+      <!-- 03 RESTRICTOR -->
+      <section class="stage" id="restrictor" aria-labelledby="s-rx">
+        <div class="stage__head">
+          <p class="label">03 — Restrictor design</p>
+          <h2 id="s-rx">Getting the most air through the hole</h2>
+          <p>The rules fix the 20&nbsp;mm throat, not the shape around it. I was in charge of designing the restrictor for a high discharge coefficient, C<sub>d</sub>. The closer it is to 1, the less flow is lost on the way through, and the choked-flow ceiling in Fig.&nbsp;02.1 scales directly with it. It took three designs in Ansys Fluent. The highest-C<sub>d</sub> design didn’t have the right connections, and the second didn’t fit on the car. The third is the shortest, and the one that fits.</p>
+        </div>
+        <div class="specs specs--h2 rx-specs">
+          <div class="spec"><span class="spec__num num">0.925</span><p class="spec__text"><strong>Final C<sub>d</sub></strong>, compressible CFD at 20&nbsp;°C</p><span class="ev ev--modeled">Modeled · CFD</span></div>
+          <div class="spec"><span class="spec__num num">4<small>in</small></span><p class="spec__text"><strong>Final restrictor length</strong></p><span class="ev ev--documented">CAD</span></div>
+          <div class="spec"><span class="spec__num num">79<small>mm</small></span><p class="spec__text"><strong>Shorter intake stack</strong>, 307 → 228&nbsp;mm, to clear the rear wing</p><span class="ev ev--documented">CAD</span></div>
+          <div class="spec"><span class="spec__num num">0.66</span><p class="spec__text"><strong>Peak Mach number</strong> through the restrictor</p><span class="ev ev--modeled">Modeled · CFD</span></div>
+        </div>
+
+        <figure class="ifig cfdx" data-fig="cfd-explorer">
+          <div class="ifig__head"><span class="label" style="color:var(--fg)">Fig. 03.1 — Interactive · Three restrictor designs in Ansys Fluent</span><span class="ev ev--modeled">Modeled · CFD</span></div>
+          <div class="ifig__body">
+            <div class="ifig__plot cfdx__main">
+            <div class="cfdx__stage">
+              <span class="cfdx__tag" aria-hidden="true">Design 3 · Pressure</span>
+              <div class="cfdx__img" data-d="1" data-f="pressure" hidden><img src="../assets/img/fsae-valvetrain/44-restrictor-1-pressure-contour.webp" width="949" height="579" alt="Design 1 pressure contour: pressure falls to about minus 18 kilopascals at the throat and recovers along a long diffuser" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/44-restrictor-1-pressure-contour.webp"></div>
+              <div class="cfdx__img" data-d="1" data-f="stream" hidden><img src="../assets/img/fsae-valvetrain/43-restrictor-1-velocity-streamlines.webp" width="943" height="579" alt="Design 1 velocity streamlines peaking at about 183 metres per second in the throat" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/43-restrictor-1-velocity-streamlines.webp"></div>
+              <div class="cfdx__img" data-d="1" data-f="volume" hidden><img src="../assets/img/fsae-valvetrain/45-restrictor-1-velocity-volume.webp" width="943" height="586" alt="Design 1 velocity volume rendering" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/45-restrictor-1-velocity-volume.webp"></div>
+              <div class="cfdx__img" data-d="2" data-f="pressure" hidden><img src="../assets/img/fsae-valvetrain/49-restrictor-2-pressure-contour.webp" width="946" height="585" alt="Design 2 pressure contour: from about plus 1.8 kilopascals at the flanged inlet to about minus 19 kilopascals at the throat" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/49-restrictor-2-pressure-contour.webp"></div>
+              <div class="cfdx__img" data-d="2" data-f="stream" hidden><img src="../assets/img/fsae-valvetrain/51-restrictor-2-velocity-streamlines.webp" width="949" height="579" alt="Design 2 velocity streamlines peaking at about 186 metres per second in the throat" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/51-restrictor-2-velocity-streamlines.webp"></div>
+              <div class="cfdx__img" data-d="2" data-f="volume" hidden><img src="../assets/img/fsae-valvetrain/50-restrictor-2-velocity-volume.webp" width="946" height="580" alt="Design 2 velocity volume rendering" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/50-restrictor-2-velocity-volume.webp"></div>
+              <div class="cfdx__img" data-d="2" data-f="mesh" hidden><img src="../assets/img/fsae-valvetrain/48-restrictor-2-mesh.webp" srcset="../assets/img/fsae-valvetrain/48-restrictor-2-mesh-sm.webp 960w, ../assets/img/fsae-valvetrain/48-restrictor-2-mesh.webp 1599w" sizes="(min-width: 1100px) 50vw, 100vw" width="1599" height="823" alt="Design 2 tetrahedral mesh, showing the bolted flange that mounts to the throttle body" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/48-restrictor-2-mesh.webp"></div>
+              <div class="cfdx__img" data-d="3" data-f="pressure"><img src="../assets/img/fsae-valvetrain/55-restrictor-3-pressure-contour.webp" width="943" height="583" alt="Design 3 pressure contour: a short restrictor with pressure dropping to about minus 15 kilopascals at the throat" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/55-restrictor-3-pressure-contour.webp"></div>
+              <div class="cfdx__img" data-d="3" data-f="stream" hidden><img src="../assets/img/fsae-valvetrain/57-restrictor-3-velocity-streamlines.webp" width="954" height="580" alt="Design 3 velocity streamlines peaking at about 192 metres per second just past the throat" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/57-restrictor-3-velocity-streamlines.webp"></div>
+              <div class="cfdx__img" data-d="3" data-f="volume" hidden><img src="../assets/img/fsae-valvetrain/56-restrictor-3-velocity-volume.webp" width="949" height="586" alt="Design 3 velocity volume rendering" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/56-restrictor-3-velocity-volume.webp"></div>
+              <div class="cfdx__img" data-d="3" data-f="mesh" hidden><img src="../assets/img/fsae-valvetrain/54-restrictor-3-mesh.webp" srcset="../assets/img/fsae-valvetrain/54-restrictor-3-mesh-sm.webp 960w, ../assets/img/fsae-valvetrain/54-restrictor-3-mesh.webp 1609w" sizes="(min-width: 1100px) 50vw, 100vw" width="1609" height="835" alt="Design 3 mesh: a short restrictor body on the same four-bolt flange" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/54-restrictor-3-mesh.webp"></div>
+            </div>
+            <div class="cfdx__cards" role="group" aria-label="Restrictor design" data-draw>
+              <button type="button" class="cfdx__card" data-d="1" aria-pressed="false"><span class="cfdx__card-n">Design 1</span><span class="cfdx__card-cd num">0.966</span><span class="cfdx__card-bar"><i style="--w:0.771"></i></span><span class="cfdx__card-k">Best C<sub>d</sub> · no connections</span></button>
+              <button type="button" class="cfdx__card" data-d="2" aria-pressed="false"><span class="cfdx__card-n">Design 2</span><span class="cfdx__card-cd num">0.921</span><span class="cfdx__card-bar"><i style="--w:0.473"></i></span><span class="cfdx__card-k">Clipped the wing</span></button>
+              <button type="button" class="cfdx__card cfdx__card--comp" data-d="3" aria-pressed="true"><span class="cfdx__card-n">Design 3</span><span class="cfdx__card-cd num">0.925</span><span class="cfdx__card-bar"><i style="--w:0.5"></i></span><span class="cfdx__card-k">Fits the car</span></button>
+            </div>
+            </div>
+            <div class="ifig__side">
+              <div><p class="label cfdx__lab">Result</p><div class="seg cfdx__seg cfdx__seg--4" role="group" aria-label="Result shown"><button type="button" data-f="pressure" aria-pressed="true">Pressure</button><button type="button" data-f="stream" aria-pressed="false">Flow</button><button type="button" data-f="volume" aria-pressed="false">Velocity</button><button type="button" data-f="mesh" aria-pressed="false">Mesh</button></div></div>
+              <div class="cfdx__info" data-d="1" hidden>
+                <p class="cfdx__t">The highest C<sub>d</sub>, from a long, gentle diffuser.</p>
+                <dl class="readout"><dt>Throat / D</dt><dd>20 / 32&nbsp;mm</dd><dt>ΔP to throat</dt><dd>17.9&nbsp;kPa</dd><dt>Peak velocity</dt><dd>183&nbsp;m/s</dd><dt>C<sub>d</sub> · incompressible</dt><dd class="big">0.966</dd></dl>
+                <p class="cfdx__fit"><span class="ev ev--dev">No connections</span> It didn’t have the connections for the team’s existing throttle body and plenum.</p>
+              </div>
+              <div class="cfdx__info" data-d="2" hidden>
+                <p class="cfdx__t">Rebuilt around the throttle-body and plenum models, with a four-bolt flange.</p>
+                <dl class="readout"><dt>Throat / D</dt><dd>20 / 36&nbsp;mm</dd><dt>ΔP to throat</dt><dd>21.0&nbsp;kPa</dd><dt>Peak velocity</dt><dd>186&nbsp;m/s</dd><dt>C<sub>d</sub> · incompressible</dt><dd class="big">0.921</dd></dl>
+                <p class="cfdx__fit"><span class="ev ev--dev">Didn’t fit</span> Within the rules under the main hoop, but the 12.1&nbsp;in stack hit the rear wing.</p>
+              </div>
+              <div class="cfdx__info" data-d="3">
+                <p class="cfdx__t">The shortest, at 4&nbsp;in, feeding a 25&nbsp;mm plenum opening. Solved compressible at 20&nbsp;°C.</p>
+                <dl class="readout"><dt>Throat / plenum opening</dt><dd>20 / 25&nbsp;mm</dd><dt>Peak Mach</dt><dd>0.66</dd><dt>Length</dt><dd>4&nbsp;in</dd><dt>C<sub>d</sub> · compressible</dt><dd class="big">0.925</dd></dl>
+                <p class="cfdx__fit"><span class="ev ev--built">Fits</span> Clears the wing, with no reverse flow in the diverging section.</p>
+              </div>
+            </div>
+          </div>
+          <figcaption class="ifig__foot">Ansys Fluent results for each design. Every image keeps its own colour scale, so read values from its legend. Design&nbsp;1 has no saved mesh image. C<sub>d</sub> bars run from 0.85 to 1.00; grey marks an incompressible solution and copper a compressible one. Designs 1 and 2 are worked out below.</figcaption>
+        </figure>
+
+        <div class="grid rx-calc" style="margin-top:48px">
+          <div class="c-1-5">
+            <h3 class="h3">Working out C<sub>d</sub></h3>
+            <p style="margin-top:12px">From each solution I took the pressure drop from the inlet to the throat. I then compared the mass flow through the model with the ideal venturi flow for that drop.</p>
+            <div class="eq-stack" style="margin-top:20px" role="group" aria-label="Discharge coefficient relations">
+              <div class="eqc"><div class="eqc__m"><math display="block"><msub><mover><mi>m</mi><mo>˙</mo></mover><mtext>ideal</mtext></msub><mo>=</mo><msub><mi>A</mi><mn>2</mn></msub><msqrt><mfrac><mrow><mn>2</mn><mi>ρ</mi><mi>Δ</mi><mi>P</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>β</mi><mn>4</mn></msup></mrow></mfrac></msqrt><mo>,</mo><mspace width="0.6em"/><mi>β</mi><mo>=</mo><mfrac><mi>d</mi><mi>D</mi></mfrac><mo>,</mo><mspace width="0.6em"/><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>d</mi><mn>2</mn></msup></mrow><mn>4</mn></mfrac></math></div><p class="eqc__cap">Ideal flow through a venturi with throat diameter d = 20&nbsp;mm, for ρ = 1.225&nbsp;kg/m³.</p></div>
+              <div class="eqc"><div class="eqc__m"><math display="block"><msub><mi>C</mi><mi>d</mi></msub><mo>=</mo><mfrac><msub><mover><mi>m</mi><mo>˙</mo></mover><mtext>actual</mtext></msub><msub><mover><mi>m</mi><mo>˙</mo></mover><mtext>ideal</mtext></msub></mfrac></math></div><p class="eqc__cap">With ṁ<sub>actual</sub> = 0.069&nbsp;kg/s, the mass flow through the model.</p></div>
+            </div>
+          </div>
+          <div class="c-6-12 calc-wrap">
+            <table class="calc-table">
+              <caption class="label">Sample calculations · incompressible runs</caption>
+              <thead><tr><th scope="col">Step</th><th scope="col">Design 1</th><th scope="col">Design 2</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Diameter ratio, β = d/D</th><td>20 / 32 = 0.625</td><td>20 / 36 = 0.556</td></tr>
+                <tr><th scope="row">Throat area, A₂</th><td>3.1416 × 10⁻⁴&nbsp;m²</td><td>3.1416 × 10⁻⁴&nbsp;m²</td></tr>
+                <tr><th scope="row">1 − β⁴</th><td>0.8474</td><td>0.9047</td></tr>
+                <tr><th scope="row">Pressure drop, ΔP = P₁ − P₂</th><td>−54.95 − (−17,950)<br>= 17,895&nbsp;Pa</td><td>1,781 − (−19,200)<br>= 20,981&nbsp;Pa</td></tr>
+                <tr><th scope="row">Ideal mass flow, ṁ<sub>ideal</sub></th><td>0.07146&nbsp;kg/s</td><td>0.07488&nbsp;kg/s</td></tr>
+                <tr class="calc-table__res"><th scope="row">C<sub>d</sub> = 0.069 / ṁ<sub>ideal</sub></th><td>0.9656</td><td>0.9214</td></tr>
+              </tbody>
+            </table>
+            <p class="calc-note">Both runs treated air as incompressible. When I added compressibility for design&nbsp;3, its C<sub>d</sub> rose from an estimated 0.89 to 0.925, so the first two would likely read higher as well. <span class="ev ev--modeled">Modeled · CFD</span></p>
+          </div>
+        </div>
+
+        <h3 class="h3 sub-h">Built around parts that already existed</h3>
+        <p class="sub-p">The first design’s dimensions didn’t fit the team’s existing throttle body and plenum. So I got the CAD models of both and built design&nbsp;2 around them, with a flange that bolts to the throttle body. On the full car it fit every component and stayed under the main hoop, as the rules require. But the 12.1&nbsp;in stack of filter, throttle body and restrictor clipped the rear wing.</p>
+        <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:28px">
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/46-restrictor-2-throttle-body-filter-assembly.webp" width="573" height="406" alt="CAD assembly of the air filter, throttle body and design 2 restrictor with its long conical diffuser" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/46-restrictor-2-throttle-body-filter-assembly.webp"></div><figcaption><span class="fig__no">Fig. 03.2</span> Design 2 on the throttle body and air filter.</figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/47-restrictor-2-stack-length-307mm.webp" width="907" height="496" alt="CAD measurement of the same assembly: 307.4 millimetres from the filter face to the restrictor outlet" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/47-restrictor-2-stack-length-307mm.webp"></div><figcaption><span class="fig__no">Fig. 03.3</span> The stack measures 307.4&nbsp;mm (12.1&nbsp;in) end to end. <span class="ev ev--documented">CAD</span></figcaption></figure>
+        </div>
+        <figure class="fig fig--contain rx-wide">
+          <div class="sheet-img"><div class="rx-clash" data-draw>
+            <img src="../assets/img/fsae-valvetrain/52-restrictor-2-car-front-view-wing.webp" width="738" height="612" alt="Front view of the car model with the intake stack rising inside the main hoop; the air filter reaches into the lowest element of the rear wing" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/52-restrictor-2-car-front-view-wing.webp">
+            <svg class="rx-clash__svg" viewBox="0 0 738 612" aria-hidden="true">
+              <circle class="draw" cx="377" cy="134" r="36" pathLength="1" />
+              <path class="draw" d="M407 114 L470 72 L560 72" pathLength="1" style="--i:4" />
+            </svg>
+            <span class="rx-clash__label draw-fade" style="--i:8">Filter in the wing</span>
+          </div></div>
+          <figcaption><span class="fig__no">Fig. 03.4</span> Design 2 on the full car: under the main hoop, but into the rear wing.</figcaption>
+        </figure>
+
+        <h3 class="h3 sub-h">Shorter, tighter and compressible</h3>
+        <p class="sub-p">Clearing the wing meant a much shorter restrictor, while the plenum designer also wanted to extend the plenum up. I convinced him to narrow the plenum opening from 36&nbsp;mm to 25&nbsp;mm, so the flow would stay attached in the diverging section and the package would slim down. I also realised the earlier runs had ignored compressibility. Near Mach 0.66 that matters, so I reran the final design compressible at 20&nbsp;°C. That raised its C<sub>d</sub> from an estimated 0.89 to 0.925. The result is a restrictor only 4&nbsp;in long, with a C<sub>d</sub> of 0.925, that fits the car.</p>
+        <div class="grid rx-final" style="margin-top:28px">
+          <figure class="fig fig--contain c-1-6"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/58-restrictor-3-diffuser-slice.webp" width="946" height="586" alt="Cross-section of axial velocity in the diverging section of design 3: every value is in the flow direction, with no reverse flow" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/58-restrictor-3-diffuser-slice.webp"></div><figcaption><span class="fig__no">Fig. 03.5</span> Axial velocity across a slice of the diverging section: little boundary-layer separation and no reverse flow. <span class="ev ev--modeled">Modeled · CFD</span></figcaption></figure>
+          <figure class="fig fig--contain c-7-12"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/60-restrictor-3-compact-intake-stack.webp" width="787" height="454" alt="CAD of the compact intake: air filter, throttle body and the short design 3 restrictor" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/60-restrictor-3-compact-intake-stack.webp"></div><figcaption><span class="fig__no">Fig. 03.6</span> The compact filter, throttle body and restrictor.</figcaption></figure>
+        </div>
+        <div class="grid rx-after">
+          <figure class="fig c-1-5 rx-compare">
+            <div class="cmp" data-fig="compare" style="--pos:50%">
+              <img src="../assets/img/fsae-valvetrain/53-restrictor-compare-design-2.webp" width="372" height="583" alt="Rear view of the car model with design 2: a tall intake stack above the plenum inside the main hoop" loading="lazy" decoding="async" class="cmp__a">
+              <div class="cmp__b"><img src="../assets/img/fsae-valvetrain/59-restrictor-compare-design-3.webp" width="372" height="583" alt="The same rear view with design 3: a noticeably shorter intake stack" loading="lazy" decoding="async"></div>
+              <span class="cmp__lvl cmp__lvl--a" style="--y:9.6%"><b>Design 2 top</b></span>
+              <span class="cmp__lvl cmp__lvl--b" style="--y:17%"><b>Design 3 top</b></span>
+              <span class="cmp__tag cmp__tag--a">Design 2</span><span class="cmp__tag cmp__tag--b">Design 3</span>
+              <input class="cmp__range" type="range" min="0" max="100" step="0.5" value="50" aria-label="Slide between design 2 and design 3 on the car">
+              <span class="cmp__handle" aria-hidden="true"><i></i></span>
+            </div>
+            <figcaption><span class="fig__no">Fig. 03.7</span> Same camera, two designs. Drag across the intake to compare the stacks.</figcaption>
+          </figure>
+          <div class="c-6-12 rx-after__side">
+            <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/61-restrictor-3-stack-length-228mm.webp" width="783" height="381" alt="CAD measurement of the compact intake stack: 228.21 millimetres from the filter face to the restrictor outlet" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/61-restrictor-3-stack-length-228mm.webp"></div><figcaption><span class="fig__no">Fig. 03.8</span> The compact stack measures 228.2&nbsp;mm, down from 307.4&nbsp;mm. <span class="ev ev--documented">CAD</span></figcaption></figure>
+            <div class="rx-ledger" data-draw>
+              <p class="label">Stack length, filter to restrictor outlet</p>
+              <div class="rx-ledger__row"><span>Design 2</span><span class="rx-ledger__bar" style="--w:1"></span><b>307.4&nbsp;mm</b></div>
+              <div class="rx-ledger__row is-final"><span>Design 3</span><span class="rx-ledger__bar" style="--w:0.7424"></span><b>228.2&nbsp;mm</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 REDESIGN -->
       <section class="stage" id="redesign" aria-labelledby="s3">
         <div class="stage__head">
-          <p class="label">03 — Redesign</p>
+          <p class="label">04 — Redesign</p>
           <h2 id="s3">Less lift, the right motion law, softer springs</h2>
           <p>The redesign brought maximum lift down to 6.5&nbsp;mm to suit restricted airflow and low-to-midrange torque, with softer springs. The motion law sets how the valve gets there. It trades time near full lift and flank steepness against peak acceleration and jerk, which drive spring load and valve control.</p>
         </div>
 
         <figure class="ifig" data-fig="motion-laws">
           <div class="ifig__head">
-            <span class="label" style="color:var(--fg)">Fig. 03.1 — Interactive · Cam motion laws, same lift and duration</span>
+            <span class="label" style="color:var(--fg)">Fig. 04.1 — Interactive · Cam motion laws, same lift and duration</span>
             <div class="seg" role="group" aria-label="Quantity">
               <button type="button" data-q="0" aria-pressed="true">Lift</button><button type="button" data-q="1" aria-pressed="false">Velocity</button><button type="button" data-q="2" aria-pressed="false">Accel.</button><button type="button" data-q="3" aria-pressed="false">Jerk</button>
             </div>
@@ -218,13 +353,13 @@
               <thead><tr><th scope="col">Law</th><th scope="col">Peak velocity</th><th scope="col">Peak accel.</th><th scope="col">Peak jerk</th><th scope="col">Event above 90% lift</th></tr></thead>
               <tbody data-stats></tbody>
             </table>
-            <p style="margin-top:10px">Standard motion-law equations evaluated for a symmetric event with no dwell at the nose, normalized to unit lift and unit event duration. This illustrates the trade-off; the MATLAB model and the plots in Fig. 03.2 carry the real profiles.</p>
+            <p style="margin-top:10px">Standard motion-law equations evaluated for a symmetric event with no dwell at the nose, normalized to unit lift and unit event duration. This illustrates the trade-off; the MATLAB model and the plots in Fig. 04.2 carry the real profiles.</p>
           </div>
         </figure>
 
         <div class="gallery gallery--2 gallery--stack-sm" style="margin-top:40px">
-          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/03-motion-law-comparison.webp" srcset="../assets/img/fsae-valvetrain/03-motion-law-comparison-sm.webp 960w, ../assets/img/fsae-valvetrain/03-motion-law-comparison.webp 1077w" sizes="(min-width: 1100px) 35vw, 100vw" width="1077" height="363" alt="Plot comparing several motion laws and their effect on cam lift properties" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/03-motion-law-comparison.webp"></div><figcaption><span class="fig__no">Fig. 03.2</span> Motion laws compared in the MATLAB model. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
-          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp" srcset="../assets/img/fsae-valvetrain/04-motion-law-coefficients-sm.webp 960w, ../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp 1518w" sizes="(min-width: 1100px) 35vw, 100vw" width="1518" height="1144" alt="Plot comparing velocity, acceleration and jerk magnitudes for each cam profile" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp"></div><figcaption><span class="fig__no">Fig. 03.3</span> Velocity, acceleration and jerk magnitudes for each profile. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/03-motion-law-comparison.webp" srcset="../assets/img/fsae-valvetrain/03-motion-law-comparison-sm.webp 960w, ../assets/img/fsae-valvetrain/03-motion-law-comparison.webp 1077w" sizes="(min-width: 1100px) 35vw, 100vw" width="1077" height="363" alt="Plot comparing several motion laws and their effect on cam lift properties" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/03-motion-law-comparison.webp"></div><figcaption><span class="fig__no">Fig. 04.2</span> Motion laws compared in the MATLAB model. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
+          <figure class="fig fig--contain"><div class="sheet-img"><img src="../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp" srcset="../assets/img/fsae-valvetrain/04-motion-law-coefficients-sm.webp 960w, ../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp 1518w" sizes="(min-width: 1100px) 35vw, 100vw" width="1518" height="1144" alt="Plot comparing velocity, acceleration and jerk magnitudes for each cam profile" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/04-motion-law-coefficients.webp"></div><figcaption><span class="fig__no">Fig. 04.3</span> Velocity, acceleration and jerk magnitudes for each profile. <span class="ev ev--modeled">Modeled</span></figcaption></figure>
         </div>
 
         <div class="grid" style="margin-top:56px;align-items:center">
@@ -237,7 +372,7 @@
               <div class="fig__media frame-1x1" style="background:#fff"><img src="../assets/img/fsae-valvetrain/20-harmonic-6-5mm-cam-model.webp" width="558" height="658" alt="CAD model of a 6.5 millimetre lift cam lobe with harmonic motion law" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/20-harmonic-6-5mm-cam-model.webp"></div>
               <div class="fig__media frame-1x1" style="background:#fff"><img src="../assets/img/fsae-valvetrain/23-345-6-5mm-cam-model.webp" width="357" height="409" alt="CAD model of a 6.5 millimetre lift cam lobe with 3-4-5 polynomial motion law" loading="lazy" decoding="async" class="contain" data-zoom="../assets/img/fsae-valvetrain/23-345-6-5mm-cam-model.webp"></div>
             </div>
-            <figcaption><span class="fig__no">Fig. 03.4</span> Proposed lobes: harmonic (left) and 3-4-5 polynomial (right), both 6.5&nbsp;mm lift.</figcaption>
+            <figcaption><span class="fig__no">Fig. 04.4</span> Proposed lobes: harmonic (left) and 3-4-5 polynomial (right), both 6.5&nbsp;mm lift.</figcaption>
           </figure>
         </div>
 
@@ -277,10 +412,10 @@
         </div>
       </section>
 
-      <!-- 04 VALIDATION -->
+      <!-- 05 VALIDATION -->
       <section class="stage" id="validation" aria-labelledby="s4">
         <div class="stage__head">
-          <p class="label">04 — Computational validation</p>
+          <p class="label">05 — Computational validation</p>
           <h2 id="s4">Checked in FEA before any metal was cut</h2>
           <p>Each profile was meshed and loaded in FEA against the material’s 710&nbsp;MPa yield strength. The harmonic lobe raised the safety factor above stock. The 3-4-5 lobe’s breathing advantage came with a narrow shoulder, so I refined the mesh at that point of highest Hertz contact stress.</p>
         </div>
@@ -317,15 +452,15 @@
               <div class="sheet-img"><img src="../assets/img/fsae-valvetrain/08-stock-valvetrain-friction-hp.webp" width="733" height="509" alt="Stock valvetrain friction power loss versus engine speed" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/08-stock-valvetrain-friction-hp.webp"></div>
               <div class="sheet-img"><img src="../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp.webp" srcset="../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp-sm.webp 960w, ../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp.webp 1348w" sizes="(min-width: 1100px) 26vw, 50vw" width="1348" height="834" alt="Revised valvetrain friction power loss versus engine speed with smaller lift and softer springs" loading="lazy" decoding="async" data-zoom="../assets/img/fsae-valvetrain/26-revised-valvetrain-friction-hp.webp"></div>
             </div>
-            <figcaption><span class="fig__no">Fig. 04.1</span> Valvetrain friction loss: stock (left) vs. reduced lift with softer springs (right).</figcaption>
+            <figcaption><span class="fig__no">Fig. 05.1</span> Valvetrain friction loss: stock (left) vs. reduced lift with softer springs (right).</figcaption>
           </figure>
         </div>
       </section>
 
-      <!-- 05 MANUFACTURING -->
+      <!-- 06 MANUFACTURING -->
       <section class="stage" id="manufacturing" aria-labelledby="s5">
         <div class="stage__head">
-          <p class="label">05 — Manufacturing</p>
+          <p class="label">06 — Manufacturing</p>
           <h2 id="s5">From model to metal</h2>
         </div>
         <div class="grid">
@@ -343,18 +478,18 @@
         </div>
       </section>
 
-      <!-- 06 IMPLEMENTATION -->
+      <!-- 07 IMPLEMENTATION -->
       <section class="stage" id="implementation" aria-labelledby="s6">
         <div class="stage__head">
-          <p class="label">06 — Physical implementation</p>
+          <p class="label">07 — Physical implementation</p>
           <h2 id="s6">Assembly, testing and the rest of the powertrain</h2>
           <p>I took part in engine assembly and testing. A borescope inspection found a crack in the block, which prompted the full teardown. I examined uneven scoring on a piston for signs of the engine running hot at a previous competition. Beyond the valvetrain, I used CFD on combustion and exhaust flow, contributed to header and plenum decisions, and helped MIG weld, manufacture and assemble the header and gearbox systems.</p>
         </div>
         <div class="impl-grid">
-          <figure class="fig impl-a"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp" srcset="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission-sm.webp 720w, ../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp 1500w" sizes="(min-width: 1100px) 30vw, 100vw" width="1500" height="2000" alt="Engine block stripped to the crankshaft and transmission gears" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp"></div><figcaption><span class="fig__no">Fig. 06.1</span> Block stripped to crankshaft and transmission.</figcaption></figure>
-          <figure class="fig impl-b"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/37-borescope-block-crack.webp" srcset="../assets/img/fsae-valvetrain/37-borescope-block-crack-sm.webp 960w, ../assets/img/fsae-valvetrain/37-borescope-block-crack.webp 2000w" sizes="(min-width: 1100px) 22vw, 50vw" width="2000" height="1500" alt="Borescope image showing a crack inside the engine block" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/37-borescope-block-crack.webp"></div><figcaption><span class="fig__no">Fig. 06.2</span> Borescope view of the block crack.</figcaption></figure>
-          <figure class="fig impl-c"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp" srcset="../assets/img/fsae-valvetrain/38-block-crack-after-teardown-sm.webp 720w, ../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp 1500w" sizes="(min-width: 1100px) 22vw, 50vw" width="1500" height="2000" alt="Crack in the engine block visible after teardown" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp"></div><figcaption><span class="fig__no">Fig. 06.3</span> The same crack after teardown. <span class="ev ev--measured">Inspected</span></figcaption></figure>
-          <figure class="fig impl-d"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/34-scored-piston.webp" srcset="../assets/img/fsae-valvetrain/34-scored-piston-sm.webp 720w, ../assets/img/fsae-valvetrain/34-scored-piston.webp 1500w" sizes="(min-width: 1100px) 22vw, 50vw" width="1500" height="2000" alt="Piston skirt with uneven scoring marks" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/34-scored-piston.webp"></div><figcaption><span class="fig__no">Fig. 06.4</span> Uneven piston scoring.</figcaption></figure>
+          <figure class="fig impl-a"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp" srcset="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission-sm.webp 720w, ../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp 1500w" sizes="(min-width: 1100px) 30vw, 100vw" width="1500" height="2000" alt="Engine block stripped to the crankshaft and transmission gears" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/36-crankcase-crank-and-transmission.webp"></div><figcaption><span class="fig__no">Fig. 07.1</span> Block stripped to crankshaft and transmission.</figcaption></figure>
+          <figure class="fig impl-b"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/37-borescope-block-crack.webp" srcset="../assets/img/fsae-valvetrain/37-borescope-block-crack-sm.webp 960w, ../assets/img/fsae-valvetrain/37-borescope-block-crack.webp 2000w" sizes="(min-width: 1100px) 22vw, 50vw" width="2000" height="1500" alt="Borescope image showing a crack inside the engine block" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/37-borescope-block-crack.webp"></div><figcaption><span class="fig__no">Fig. 07.2</span> Borescope view of the block crack.</figcaption></figure>
+          <figure class="fig impl-c"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp" srcset="../assets/img/fsae-valvetrain/38-block-crack-after-teardown-sm.webp 720w, ../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp 1500w" sizes="(min-width: 1100px) 22vw, 50vw" width="1500" height="2000" alt="Crack in the engine block visible after teardown" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/38-block-crack-after-teardown.webp"></div><figcaption><span class="fig__no">Fig. 07.3</span> The same crack after teardown. <span class="ev ev--measured">Inspected</span></figcaption></figure>
+          <figure class="fig impl-d"><div class="fig__media"><img src="../assets/img/fsae-valvetrain/34-scored-piston.webp" srcset="../assets/img/fsae-valvetrain/34-scored-piston-sm.webp 720w, ../assets/img/fsae-valvetrain/34-scored-piston.webp 1500w" sizes="(min-width: 1100px) 22vw, 50vw" width="1500" height="2000" alt="Piston skirt with uneven scoring marks" loading="lazy" decoding="async" class="cover" data-zoom="../assets/img/fsae-valvetrain/34-scored-piston.webp"></div><figcaption><span class="fig__no">Fig. 07.4</span> Uneven piston scoring.</figcaption></figure>
         </div>
       </section>
     </div>
