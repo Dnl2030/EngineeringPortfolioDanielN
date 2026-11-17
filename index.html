@@ -47,14 +47,14 @@
     <div class="hero__grid">
       <div class="hero__text">
         <div class="hero__eyebrow">
-          <span class="label" style="color:var(--ink)">Sheet 00 — Portfolio index</span>
+          <span class="label" style="color:var(--ink)"></span>
           <span class="label">B.S. Chemical Engineering · University of California, Irvine</span>
         </div>
         <h1 id="hero-title" class="hero-statement">Engineering Portfolio: Daniel Nelson</h1>
-        <p class="lead hero__lead"><span class="hero__lead-first">I design mechanical systems, model the physics behind them, and machine the parts myself.</span> As a chemical engineering student at UC Irvine, my work so far includes a valvetrain redesign for a Formula SAE engine breathing through a 20&nbsp;mm restrictor, a two-axis motion platform with CNC-machined ball joints, and phase-matching models for nonlinear optics. Three years in a machine shop underpin all of it.</p>
+        <p class="lead hero__lead"><span class="hero__lead-first">I design mechanical systems, model the physics behind them, and machine the parts myself.</span> As a chemical engineering student at UC Irvine, my work is inherently interdisciplinary. I operate at the intersection of Mechanical, Materials, Electrical, Software, and Machinist Engineering while incorporating Chemistry where relevant. Some of my proudest projects so far includes a valvetrain redesign for a Formula SAE engine, a two-axis flight simulator, and Quantum Materials Research. Feel free to check these out as well as my other projects listed below! (Click on anything to see the full analysis)</p>
         <div class="hero__cta">
           <a class="arrow-link" href="#work">Top three projects</a>
-          <a class="arrow-link" href="#index">All projects</a>
+          <a class="arrow-link" href="#index">Full projects list.</a>
           <a class="arrow-link" href="resume.html">Resume</a>
         </div>
       </div>
@@ -79,19 +79,19 @@
     <div class="specs specs--exp">
       <div class="spec" data-reveal style="--i:0">
         <span class="spec__num num">5<small>yrs</small></span>
-        <p class="spec__text"><strong>Machining &amp; fabrication</strong>: CNC mill and lathe, manual machining, MIG welding, waterjet, laser and plasma cutting.</p>
+        <p class="spec__text"><strong>Machining &amp; fabrication</strong>CNC mill and lathe, manual machining, MIG welding, waterjet, laser and plasma cutting.</p>
       </div>
       <div class="spec" data-reveal style="--i:1">
         <span class="spec__num num">6<small>yrs</small></span>
-        <p class="spec__text"><strong>CAD &amp; design</strong>: SolidWorks, Fusion 360, GD&amp;T drawings, CAD/CAM toolpaths.</p>
+        <p class="spec__text"><strong>CAD &amp; design</strong>SolidWorks, Fusion 360, OnShape, GD&amp;T drawings, DFM, CAD/CAM toolpaths.</p>
       </div>
       <div class="spec" data-reveal style="--i:2">
         <span class="spec__num num">3<small>yrs</small></span>
-        <p class="spec__text"><strong>Chemical instrumentation &amp; analysis</strong>: UV/VIS, FTIR, ICP-MS, SEM, optical measurement, electrochemical cells.</p>
+        <p class="spec__text"><strong>Chemical instrumentation &amp; analysis</strong>UV/VIS, FTIR, ICP-MS, SEM, GC, Flourescence Spectroscopy, optical measurement, electrochemical cells.</p>
       </div>
       <div class="spec" data-reveal style="--i:3">
         <span class="spec__num num">12</span>
-        <p class="spec__text"><strong>Projects documented here</strong>, from powertrain and machining to materials research and combustion chemistry.</p>
+        <p class="spec__text"><strong>Projects documented here</strong>Spanning powertrain and machining to materials research and combustion chemistry.</p>
       </div>
     </div>
   </section>
@@ -99,7 +99,7 @@
   <!-- ============ SELECTED WORK ============ -->
   <div id="work">
     <header class="wrap top3-head" aria-labelledby="top3-title">
-      <p class="label">Top three projects</p>
+      <p class="label">My Proudest So Far</p>
       <h2 id="top3-title" class="h2">Three projects, in depth</h2>
       <p class="muted">The work I’d most like you to see first. Each one opens into a full write-up with the analysis, figures and hardware behind it.</p>
     </header>
@@ -113,9 +113,9 @@
       <div class="bleed__scrim bleed__scrim--l" aria-hidden="true"></div>
       <div class="wrap bleed__content feature-fsae-split__content">
         <div class="feature-fsae-split__text">
-          <p class="sheet-no" style="color:var(--blue)">01 / 03 · Powertrain · 2026 · Anteater Formula Racing</p>
+          <p class="sheet-no" style="color:var(--blue)">01 · Powertrain · 2026 · Anteater Formula Racing</p>
           <h2 id="w1" class="h1" style="margin-top:22px">Valvetrain redesign for a restricted Yamaha&nbsp;R6</h2>
-          <p class="lead" style="margin-top:22px;color:var(--graphite-lt)">Formula SAE forces all intake air through a single 20&nbsp;mm restrictor. Over ten weeks I measured the stock engine and modeled its valvetrain in MATLAB. Then I redesigned the cam and valve seat around that limit, designed a high-C<sub>d</sub> restrictor that fits the car, and checked the work with CFD and FEA before any metal was cut.</p>
+          <p class="lead" style="margin-top:22px;color:var(--graphite-lt)">Formula SAE forces all intake air through a single 20&nbsp;mm restrictor. Over ten weeks, I recreated the stock engine in a parametric MATLAB project. Then, I redesigned the camshaft, valves, and springs around that limit, designed a high-C<sub>d</sub> restrictor that fits the car, and checked the work with CFD and FEA before any metal was cut.</p>
           <div class="specs specs--compact" style="margin-top:36px">
             <div class="spec"><span class="spec__num num">1.2<small>%</small></span><p class="spec__text">Combustion-chamber model error vs. OEM geometry</p><span class="ev ev--modeled">Modeled</span></div>
             <div class="spec"><span class="spec__num num">1.55</span><p class="spec__text">FEA safety factor, redesigned 6.5&nbsp;mm lobe (stock 1.29)</p><span class="ev ev--modeled">Modeled · FEA</span></div>
@@ -125,7 +125,7 @@
             <figure><img src="assets/img/fsae-valvetrain/10-cam-lobe-measurement.webp" srcset="assets/img/fsae-valvetrain/10-cam-lobe-measurement-sm.webp 960w, assets/img/fsae-valvetrain/10-cam-lobe-measurement.webp 2000w" sizes="160px" width="2000" height="1500" alt="Close-up of a stock R6 cam lobe prepared for measurement" loading="lazy" decoding="async" class="cover"><figcaption class="label">Measure</figcaption></figure>
             <figure><img src="assets/img/fsae-valvetrain/15-cam-profile-designer-app.webp" srcset="assets/img/fsae-valvetrain/15-cam-profile-designer-app-sm.webp 960w, assets/img/fsae-valvetrain/15-cam-profile-designer-app.webp 1226w" sizes="160px" width="1226" height="867" alt="MATLAB cam profile designer application comparing lift profiles" loading="lazy" decoding="async" class="cover" style="--fx:30%"><figcaption class="label">Model</figcaption></figure>
           </div>
-          <p style="margin-top:32px"><a class="arrow-link" href="work/fsae-valvetrain.html">Read the engineering process</a></p>
+          <p style="margin-top:32px"><a class="arrow-link" href="work/fsae-valvetrain.html">Dive Deeper</a></p>
         </div>
       </div>
     </section>
@@ -146,9 +146,9 @@
           </div>
         </div>
         <div class="feature-sim__text">
-          <p class="sheet-no">02 / 03 · Systems · 2024 · Team of two</p>
+          <p class="sheet-no">02 · Systems · 2024-2025 · TJHSST Engineering Senior Research Lab</p>
           <h2 id="w2" class="h2" style="margin-top:22px">Two-axis hydraulic flight simulator</h2>
-          <p style="margin-top:20px">Two of us built a motion platform from scratch, from equations to a working prototype. The prototype demonstrated the concept to a laboratory director to secure funding for the hydraulic version.</p>
+          <p style="margin-top:20px">One partner and I built a motion platform from scratch, from equations to a working prototype. The prototype demonstrated the concept to a laboratory director to secure funding for the hydraulic version.</p>
           <ol class="chain">
             <li><span>Flight simulator</span><em>X-Plane</em></li>
             <li><span>UDP packets</span><em>Python</em></li>
@@ -161,7 +161,7 @@
             <span class="ev ev--built">Prototype built · tested</span>
             <span class="ev ev--documented">31-page research paper</span>
           </div>
-          <p style="margin-top:32px"><a class="arrow-link" href="work/hydraulic-flight-simulator.html">Explore the system</a></p>
+          <p style="margin-top:32px"><a class="arrow-link" href="work/hydraulic-flight-simulator.html">Dive Deeper</a></p>
         </div>
       </div>
     </section>
@@ -169,15 +169,15 @@
     <section class="section section--optics" aria-labelledby="w3">
       <div class="wrap feature-split">
         <div class="feature-opt__text">
-          <p class="sheet-no" style="color:var(--blue-ink)">03 / 03 · Research · 2025 · UCI Materials Research Institute</p>
-          <h2 id="w3" class="h2" style="margin-top:22px">Nonlinear optics in lithium niobate and 2D materials</h2>
-          <p style="margin-top:20px">Entangled photon pairs only appear when pump, signal and idler satisfy a narrow phase-matching condition. I built Python models that find those conditions in LiNbO<sub>3</sub>, including an interactive map that locks any one wavelength and solves for the rest. I also helped with measurements in the lab.</p>
+          <p class="sheet-no" style="color:var(--blue-ink)">03 · Research · 2025-2026 · UCI Materials Research Institute</p>
+          <h2 id="w3" class="h2" style="margin-top:22px">Quantum Optical Properties of 2D Van der Waals and noncentrosymmetric Materials</h2>
+          <p style="margin-top:20px">Entangled photon pairs only appear when pump, signal and idler satisfy a narrow phase-matching condition. I built Python models that find those conditions in LiNbO<sub>3</sub>, including an interactive graph to help calibrate the setup to optimally detect spontaneous parametric down conversion.</p>
           <ul class="facts" style="margin-top:28px">
             <li><span>Research papers reviewed</span><span class="num" style="font-size:28px">~75</span></li>
             <li><span>Processes studied</span><span class="mono">SPDC · SHG · SFWM</span></li>
-            <li><span>Simulation</span><span class="mono">Python · Lumerical · Mechanical</span></li>
+            <li><span>Simulation</span><span class="mono">Python · ANSYS Lumerical · ANSYS Mechanical</span></li>
           </ul>
-          <p style="margin-top:32px"><a class="arrow-link" href="work/quantum-optics-research.html">Read the research sheet</a></p>
+          <p style="margin-top:32px"><a class="arrow-link" href="work/quantum-optics-research.html">Dive Deeper</a></p>
         </div>
         <figure class="fig feature-opt__media optics-photo">
           <div class="fig__media"><img src="assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp" srcset="assets/img/quantum-optics-research/02-optics-lab-experimental-setup-sm.webp 960w, assets/img/quantum-optics-research/02-optics-lab-experimental-setup.webp 1280w" sizes="(min-width: 1000px) 58vw, 100vw" width="1280" height="1003" alt="Optical table crowded with mirrors, mounts, cabling and measurement electronics in the research lab" loading="lazy" decoding="async" class="cover" style="--fy:42%"></div>
@@ -192,7 +192,7 @@
   <section id="index" class="section wrap projects" aria-labelledby="index-title">
     <div class="sec-head">
       <p class="label">All projects</p>
-      <h2 id="index-title" class="h2">Grouped by discipline, newest first</h2>
+      <h2 id="index-title" class="h2">Chemistry + Engineering = Chemical Engineering</h2>
       <p class="muted">Most of this work crosses disciplines, so these groups are a guide rather than walls: physical design and systems on one side, chemistry, materials and energy on the other. Hover a project to preview it.</p>
     </div>
 
@@ -204,9 +204,9 @@
           <p class="disc__sub">Mechanical design · manufacturing · powertrain · controls · computation</p>
         </div>
         <ol class="plist">
-          <li><a class="pitem" href="work/gamesense.html" data-thumb="assets/img/gamesense/02-piezo-grid-intersection-map-sm.webp"><span class="pitem__yr">2026</span><span class="pitem__t">GameSense impact-sensing cleat</span><span class="pitem__d">Sensor grid mapped onto a cleat, an ESP32 prototype and a scoring app.</span><span class="ev ev--result">VTHacks 14 award</span></a></li>
+          <li><a class="pitem" href="work/gamesense.html" data-thumb="assets/img/gamesense/02-piezo-grid-intersection-map-sm.webp"><span class="pitem__yr">2026</span><span class="pitem__t">GameSense impact-sensing cleat</span><span class="pitem__d">Piezoelectric sensor grid mapped onto a cleat, an ESP32 prototype and a gamified scoring app.</span><span class="ev ev--result">VTHacks 14 award</span></a></li>
           <li><a class="pitem is-top" href="work/fsae-valvetrain.html" data-thumb="assets/img/fsae-valvetrain/09-r6-engine-camshafts-exposed-sm.webp"><span class="pitem__yr">2026</span><span class="pitem__t">Valvetrain redesign, Yamaha R6</span><span class="pitem__d">Measured baseline, MATLAB model, CFD and FEA for a 20&nbsp;mm-restricted engine, plus the restrictor itself.</span><span class="tag tag--top">Top 3</span></a></li>
-          <li><a class="pitem" href="work/fourier-visualizer.html" data-thumb="assets/img/fourier-visualizer/01-fourier-lab-square-wave-series-sm.webp"><span class="pitem__yr">2025</span><span class="pitem__t">Fourier / Laplace visualizer</span><span class="pitem__d">A web app that takes signals apart with the FFT and a complex-plane winding view.</span><span class="ev ev--dev">Laplace in dev.</span></a></li>
+          <li><a class="pitem" href="work/fourier-visualizer.html" data-thumb="assets/img/fourier-visualizer/01-fourier-lab-square-wave-series-sm.webp"><span class="pitem__yr">2025</span><span class="pitem__t">Fourier / Laplace visualizer</span><span class="pitem__d">A web app that breaks down the FFT for aspiring engineers.</span><span class="ev ev--dev">Laplace in dev.</span></a></li>
           <li><a class="pitem is-top" href="work/hydraulic-flight-simulator.html" data-thumb="assets/img/hydraulic-flight-simulator/07-ball-joint-mounted-on-piston-sm.webp"><span class="pitem__yr">2024</span><span class="pitem__t">Two-axis hydraulic flight simulator</span><span class="pitem__d">Hand-derived kinematics, UDP control and CNC ball joints at ¼ scale.</span><span class="tag tag--top">Top 3</span></a></li>
           <li><a class="pitem" href="work/go-kart.html" data-thumb="assets/img/go-kart/02-gas-and-electric-karts-sm.webp"><span class="pitem__yr">2023</span><span class="pitem__t">Gas go-kart</span><span class="pitem__d">Club president; fuel system, clutch, chain tensioning and welding.</span><span class="ev ev--built">Built</span></a></li>
           <li><a class="pitem" href="work/manufacturing.html" data-thumb="assets/img/guitar/02-body-drying-after-clear-coat-sm.webp"><span class="pitem__yr">2022</span><span class="pitem__t">Manufacturing &amp; fabrication</span><span class="pitem__d">Machinist program: CNC, CAM, welding, laser cutting; guitar and gearbox car.</span><span class="ev ev--built">Built</span></a></li>
@@ -281,7 +281,7 @@
         </div>
         <div class="grid">
           <h3 class="h3 c-1-5">A miniature dry-cell electrolyzer for oxyhydrogen</h3>
-          <p class="c-6-12" style="color:var(--graphite-lt)">The cell is designed to supply oxyhydrogen to a small motorcycle engine. Initial CAD and component selection are done and several parts are purchased; system integration is being worked out. Once it runs, the ignition model gives me a way to choose operating conditions and valve timing deliberately rather than by trial.</p>
+          <p class="c-6-12" style="color:var(--graphite-lt)">The cell is designed to supply oxyhydrogen to a small motorcycle engine. Initial CAD and component selection are done and several parts are purchased; system integration is being worked out. Once it runs, the ignition model gives me a way to choose operating conditions and valve timing deliberately rather than by trial. After this comes HEA catalyst incorporation.</p>
         </div>
       </div>
     </div>
@@ -296,7 +296,7 @@
       <div class="about-teaser__text">
         <p class="label">About</p>
         <h2 id="about-title" class="h2" style="margin-top:16px">Chemical engineer by training, builder by habit.</h2>
-        <p style="margin-top:18px">B.S. Chemical Engineering at UC Irvine (Energy &amp; Sustainability Specialization, Minor in Materials Science). I’m a powertrain engineer on Anteater Formula Racing, a researcher at the UCI Materials Research Institute and an energy systems engineering intern at Supercritical Energy. Before university I led an automotive engineering club as president and spent three years in an integrated machinist program.</p>
+        <p style="margin-top:18px">I've always been fascinated by sports, super, and racecars and this passion naturally transitioned into a curiosity of how they work. From there I dove deeply into manufacturing and design and the endless knowledge to be learned from automotive engineering. Moving forward I let this experience ground me as I strive to develop hydrogen engines for zero carbon motorsport so that this passion can continue to be enjoyed by generations to come.</p>
         <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:16px 32px"><a class="arrow-link" href="about.html">About me</a><a class="arrow-link" href="resume.html">Resume</a></p>
       </div>
     </div>
